@@ -1,48 +1,62 @@
-﻿using System;
+﻿using CoreLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DB = NoteSchool.Database;
 
 namespace NoteSchool
 {
     public class Group
     {
-
-        public string Hash;
-        private Database DB;
-
         private string _title;
-        private string _date;
+        private DateTime _date;
+        private string _hash; //md5 ID of the Group
+
+        public string Hash { get { return _hash; } }
+
+        public DateTime Date { get { return _date; } }
+
         public String Title
         {
-            set { if (Hash != null) { DB.SetGroupField(Hash, "Title", value); } _title = value; }
+            set 
+            { 
+                if (_hash != null) 
+                    DB.SetGroupField(_hash, "Title", value); 
+                _title = value; 
+            }
             get { return _title; }
         }
 
-        public String Date { set; get; }
-
-        public Group(String title, String date)
+        #region constructors
+        public Group(String title, DateTime date)
         {
-            DB = new Database();
-
-            Title = title;
-            Date = date;
+            _title = title;
+            _date = date;
+            
+            SetHash();
 
             DB.AddGroup(this);
         }
 
         public Group(String hash)
         {
-            DB = new Database();
-            Hash = hash;
+            Open(hash);
+        }
+        #endregion constructors
 
-            DB.GetGroupByHash(hash, this);
+        private void SetHash()
+        {          
+            _hash = Helper.GetMd5Hash(_title + _date.ToString());
         }
 
-        /* public static bool exists(String hash) {
-             return Database.isGroupExists(hash);
-         }*/
+        public bool Open(string hash)
+        {
+            _hash = hash;
+
+            return DB.GetGroupByHash(_hash, this);
+        }
     }
 }
