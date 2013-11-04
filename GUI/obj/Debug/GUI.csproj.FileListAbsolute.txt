@@ -1,0 +1,12 @@
+D:\GIT\NoteSchool\GUI\GUI\bin\Debug\GUI.exe.config
+D:\GIT\NoteSchool\GUI\GUI\bin\Debug\GUI.exe
+D:\GIT\NoteSchool\GUI\GUI\bin\Debug\GUI.pdb
+D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
+D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.Properties.Resources.resources
+D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.RegisterForm.resources
+D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
+D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.exe
+D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.pdb
+D:\GIT\NoteSchool\GUI\GUI\bin\Debug\CoreLibrary.dll
+D:\GIT\NoteSchool\GUI\GUI\bin\Debug\CoreLibrary.pdb
+D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.MainForm.resources

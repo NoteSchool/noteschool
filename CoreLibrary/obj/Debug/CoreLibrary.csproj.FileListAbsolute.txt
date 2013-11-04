@@ -1,0 +1,4 @@
+D:\GIT\NoteSchool\GUI\CoreLibrary\bin\Debug\CoreLibrary.dll
+D:\GIT\NoteSchool\GUI\CoreLibrary\bin\Debug\CoreLibrary.pdb
+D:\GIT\NoteSchool\GUI\CoreLibrary\obj\Debug\CoreLibrary.dll
+D:\GIT\NoteSchool\GUI\CoreLibrary\obj\Debug\CoreLibrary.pdb
