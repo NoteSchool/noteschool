@@ -10,3 +10,15 @@ D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.pdb
 D:\GIT\NoteSchool\GUI\GUI\bin\Debug\CoreLibrary.dll
 D:\GIT\NoteSchool\GUI\GUI\bin\Debug\CoreLibrary.pdb
 D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.MainForm.resources
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\GUI.exe.config
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.exe
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.pdb
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\GUI.exe
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\GUI.pdb
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\CoreLibrary.dll
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\CoreLibrary.pdb
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.MainForm.resources
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.Properties.Resources.resources
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.RegisterForm.resources
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
