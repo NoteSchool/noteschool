@@ -11,4 +11,3 @@ C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\bin
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.pdb
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.dll
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.pdb
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.csprojResolveAssemblyReference.cache

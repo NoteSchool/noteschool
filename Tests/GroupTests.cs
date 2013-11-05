@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NoteSchool;
-
+using NUnit.Framework;
 
 namespace Tests
 {
