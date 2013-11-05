@@ -9,6 +9,5 @@ C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\obj\D
 C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.pdb
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.dll
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.pdb
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.csprojResolveAssemblyReference.cache
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.dll
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.pdb
