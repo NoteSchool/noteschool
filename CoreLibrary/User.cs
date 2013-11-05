@@ -10,7 +10,7 @@ namespace CoreLibrary
     {
         private string _name;
         private string _firstName;
-        private long _id;
+        private string _id;
         private DateTime _registerDate;
 
         // pour aurel : refactoriser les setter
@@ -35,9 +35,10 @@ namespace CoreLibrary
             }
         }
 
-        public long Id
+        public string Id
         {
             get { return _id; }
+            set { _id = value; }
         }
 
         public DateTime RegisterDate
@@ -55,9 +56,7 @@ namespace CoreLibrary
             RegisterDate = DateTime.Now;
             Name = name;
             FirstName = firstName;
-
-            DateTime dtDateTime = new DateTime( 1970, 1, 1, 0, 0, 0, 0 );
-            _id = dtDateTime.Ticks;
+            _id = Guid.NewGuid().ToString("N");
 
             // database.insertUser(this);
         }
