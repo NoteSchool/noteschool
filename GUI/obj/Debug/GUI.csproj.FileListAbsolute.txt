@@ -22,3 +22,15 @@ C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI
 C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.Properties.Resources.resources
 C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.RegisterForm.resources
 C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\GUI.exe.config
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.exe
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.pdb
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\GUI.exe
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\GUI.pdb
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\CoreLibrary.dll
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\CoreLibrary.pdb
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.MainForm.resources
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.Properties.Resources.resources
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.RegisterForm.resources
+C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
