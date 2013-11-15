@@ -2,17 +2,15 @@ D:\GIT\NoteSchool\GUI\CoreLibrary\bin\Debug\CoreLibrary.dll
 D:\GIT\NoteSchool\GUI\CoreLibrary\bin\Debug\CoreLibrary.pdb
 D:\GIT\NoteSchool\GUI\CoreLibrary\obj\Debug\CoreLibrary.dll
 D:\GIT\NoteSchool\GUI\CoreLibrary\obj\Debug\CoreLibrary.pdb
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.dll
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.pdb
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.csprojResolveAssemblyReference.cache
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.dll
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.pdb
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.dll
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.pdb
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.dll
 C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.pdb
-D:\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.dll
-D:\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.pdb
-D:\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.dll
-D:\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.pdb
-D:\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.csprojResolveAssemblyReference.cache
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.dll
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.pdb
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.dll
+C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.pdb
+C:\Users\Horumena\Desktop\test\CoreLibrary\bin\Debug\CoreLibrary.dll
+C:\Users\Horumena\Desktop\test\CoreLibrary\bin\Debug\CoreLibrary.pdb
+C:\Users\Horumena\Desktop\test\CoreLibrary\obj\Debug\CoreLibrary.dll
+C:\Users\Horumena\Desktop\test\CoreLibrary\obj\Debug\CoreLibrary.pdb

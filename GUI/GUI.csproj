@@ -62,11 +62,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NotetakingMainPage.cs">
+    <Compile Include="NoteTaking.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NotetakingMainPage.Designer.cs">
-      <DependentUpon>NotetakingMainPage.cs</DependentUpon>
+    <Compile Include="NoteTaking.Designer.cs">
+      <DependentUpon>NoteTaking.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,8 +85,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NotetakingMainPage.resx">
-      <DependentUpon>NotetakingMainPage.cs</DependentUpon>
+    <EmbeddedResource Include="NoteTaking.resx">
+      <DependentUpon>NoteTaking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -117,6 +117,10 @@
     <ProjectReference Include="..\CoreLibrary\CoreLibrary.csproj">
       <Project>{a0e457ee-23eb-462c-925b-b4309cc1e884}</Project>
       <Name>CoreLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LocalStorage\LocalStorage.csproj">
+      <Project>{5d0b43ce-bbeb-48c7-9cfb-2b5ec6f3110e}</Project>
+      <Name>LocalStorage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

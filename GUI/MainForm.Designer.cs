@@ -34,39 +34,41 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(713, 535);
+            this.ClientSize = new System.Drawing.Size(828, 429);
+            this.Location = new System.Drawing.Point(500, 0);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.ResumeLayout(false);
 
         }
-        private void NoteTaking()
+        private void NoteTakingControl()
         {
             this.SuspendLayout();
             // 
             // NoteTaking main page
             //
-            this._notetakingMainPage.Location = new System.Drawing.Point(0, 0);
-            this._notetakingMainPage.Name = "notetakingMainPage1";
-            this._notetakingMainPage.Size = new System.Drawing.Size(705, 524);
-            this._notetakingMainPage.TabIndex = 0;
-            this.Controls.Add(this._notetakingMainPage);
-            this.ResumeLayout(false);
+            this._noteTakingForm.Location = new System.Drawing.Point( 0, 0 );
+            this._noteTakingForm.Name = "notetakingMainPage1";
+            this._noteTakingForm.Size = new System.Drawing.Size( 705, 524 );
+            this._noteTakingForm.TabIndex = 0;
+            this.Controls.Add( this._noteTakingForm );
+            this.ResumeLayout( false );
         }
-        private void CreateGroups()
+        private void CreateGroupsControl()
         {
             this.SuspendLayout();
             // 
             // CreateGroups
             //
-            this._createGroups.Location = new System.Drawing.Point(109, 60);
-            this._createGroups.Name = "createGroups1";
-            this._createGroups.Size = new System.Drawing.Size(510, 389);
-            this._createGroups.TabIndex = 0;
-            this.Controls.Add(this._createGroups);
-            this.ResumeLayout(false);
+            this._createGroupsForm.Location = new System.Drawing.Point( 109, 60 );
+            this._createGroupsForm.Name = "createGroups1";
+            this._createGroupsForm.Size = new System.Drawing.Size( 510, 389 );
+            this._createGroupsForm.TabIndex = 0;
+            this.Controls.Add( this._createGroupsForm );
+            this.ResumeLayout( false );
         }
-        private void Register()
+        private void RegisterControl()
         {
             this.SuspendLayout();
             // 
@@ -79,18 +81,18 @@
             this.Controls.Add( this._registerForm );
             this.ResumeLayout( false );
         }
-        private void groups()
+        private void DisplayGroupsControl()
         {
             this.SuspendLayout();
             // 
             // groups
             //
-            this._displayGroups.Location = new System.Drawing.Point(79, 38);
-            this._displayGroups.Name = "displayAndCreateGroups2";
-            this._displayGroups.Size = new System.Drawing.Size(573, 432);
-            this._displayGroups.TabIndex = 1;
-            this.Controls.Add(this._displayGroups);
-            this.ResumeLayout(false);
+            this._displayGroupsForm.Location = new System.Drawing.Point( 79, 38 );
+            this._displayGroupsForm.Name = "displayAndCreateGroups2";
+            this._displayGroupsForm.Size = new System.Drawing.Size( 573, 432 );
+            this._displayGroupsForm.TabIndex = 1;
+            this.Controls.Add( this._displayGroupsForm );
+            this.ResumeLayout( false );
         }
 
         #endregion

@@ -6,59 +6,34 @@ using System.Threading.Tasks;
 
 namespace CoreLibrary
 {
-    public class User
+    [Serializable]
+    public class User: NSObject
     {
-        private string _name;
+        private string _lastName;
         private string _firstName;
         private string _id;
-        private DateTime _registerDate;
-
-        // pour aurel : refactoriser les setter
-
-        public string Name
+        
+        public string LastName
         {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                // Database.SetUserField(_id, "name", _name );
-            }
+            get { return _lastName; }
         }
 
         public string FirstName
         {
             get { return _firstName; }
-            set
-            {
-                _firstName = value;
-               // Database.SetUserField(_id, "firstName", _firstName );
-            }
         }
 
         public string Id
         {
             get { return _id; }
-            set { _id = value; }
         }
 
-        public DateTime RegisterDate
+        internal User(NSContext c, string firstName, string lastName, string id)
+            :base (c)
         {
-            get { return _registerDate; }
-            set
-            {
-                _registerDate = value;
-                // Database.SetUserField(_id, "registerDate", _registerDate );
-            }
-        }
-
-        public User( string name, string firstName )
-        {
-            RegisterDate = DateTime.Now;
-            Name = name;
-            FirstName = firstName;
-            _id = Guid.NewGuid().ToString("N");
-
-            // database.insertUser(this);
+            _firstName = firstName;
+            _lastName = lastName;
+            _id = id;
         }
     }
 }

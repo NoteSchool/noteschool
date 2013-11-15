@@ -13,20 +13,34 @@ namespace GUI
 {
     public partial class Register : UserControl
     {
+        public event EventHandler ButtonRegister;
+
         public Register()
         {
             InitializeComponent();
-            btnRegister.Click += new EventHandler(btnRegister_Click);
+            btnRegister.Click += new EventHandler( btnRegister_Click );
         }
 
         private void btnRegister_Click( object sender, EventArgs e )
         {
-            string userLastName = tbLastName.Text.Trim();
-            string userFirstName = tbFirstName.Text.Trim();
+            if (tbFirstName.Text.Length == 0)
+                MessageBox.Show( "Le champ prénom ne doit pas être vide" );
+            else if (tbLastName.Text.Length == 0)
+                MessageBox.Show( "Le champ nom ne doit pas être vide" );
+            else
+            //bubble the event up to the parent
+            if (ButtonRegister != null)
+                ButtonRegister( this, e );
+        }
 
-            User user1 = new User(userLastName, userFirstName );
+        public string GetLastName
+        {
+            get { return tbLastName.Text; }
+        }
 
-            MessageBox.Show( user1.FirstName );
+        public string GetFirstName
+        {
+            get { return tbFirstName.Text; }
         }
     }
 }

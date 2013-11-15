@@ -1,2 +1,0 @@
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
-D:\GIT\NoteSchool\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache

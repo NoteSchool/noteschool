@@ -1,4 +1,5 @@
-﻿using NoteSchool;
+﻿using CoreLibrary;
+using LocalStorage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,94 +9,135 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace GUI
 {
     public partial class MainForm : Form
     {
         private Register _registerForm;
-        private DisplayGroups _displayGroups;
-        private CreateGroups _createGroups;
-        private NotetakingMainPage _notetakingMainPage;
+        private DisplayGroups _displayGroupsForm;
+        private CreateGroups _createGroupsForm;
+        private NoteTaking _noteTakingForm;
+
+        //path to determine
+        //NEED TO GRAND PERMISSIONS
+        /*
+        private static string _path = @"D:\";
+        private static IRepository _repo = new BinaryFileRepository(_path);
+        private NSContext c;
+        private NSContextServices cs = new NSContextServices( _repo );
+        */
+        NSContext cs2;
 
         public MainForm()
         {
             InitializeComponent();
-            
-            bool registered = true;
 
-            if (registered == false)
+            if (cs2 == null)
             {
                 _registerForm = new Register();
-                //Add register's form and user control
-                Register();
+
+                //Add register's user control
+                RegisterControl();
+
+                _registerForm.ButtonRegister += _registerForm_ButtonRegister;
             }
             else
             {
-                if (_displayGroups == null)
-                {
-                    _displayGroups = new DisplayGroups();
-                    //Add groups's form and user control
-                    groups();
-                }
+               // c = NSContext.Load( cs);
 
-                _displayGroups.ButtonCreateGroups += DisplayGroups_ButtonCreateGroups;
-            }      
-        }
-
-        //when clicked on the create group button in display groups' form
-        public void DisplayGroups_ButtonCreateGroups(object sender, EventArgs e)
-        {
-            _displayGroups.Hide();
-
-            if (_createGroups == null)
-            {
-                _createGroups = new CreateGroups();
-                //Add create groups's form and user control
-                CreateGroups();
-
-                //add group to list and create its folder
-               // Database.AddGroup();
+                DisplayGroups();
             }
-            else
-                _createGroups.Show();
-
-            _createGroups.ButtonGroupsCancel += CreateGroups_ButtonGroupsCancel;
-            _createGroups.ButtonConfirmCreateGroups += CreateGroups_ButtonConfirmCreateGroups;
-
         }
 
-        //when clicked on the confirm button to create a group in create groups' form
-        void CreateGroups_ButtonConfirmCreateGroups(object sender, EventArgs e)
+        private void DisplayGroups()
         {
-            _createGroups.Hide();
-            if (_notetakingMainPage == null)
-            {
-                _notetakingMainPage = new NotetakingMainPage();
-                //Add create groups's form and user control
-                NoteTaking();
-            }
-            else
-                _notetakingMainPage.Show();
+            _displayGroupsForm = new DisplayGroups();
 
-            _notetakingMainPage.ButtonLeaveGroups += NotetakingMainPage_ButtonLeaveGroups;
+            //Add groups's form and user control
+            DisplayGroupsControl();
+
+            _displayGroupsForm.ButtonCreateGroups += _displayGroupsForm_ButtonCreateGroups;
         }
 
-        //when clicked on the leave group button in notetaking main page's form
-        void NotetakingMainPage_ButtonLeaveGroups(object sender, EventArgs e)
+        /// <summary>
+        /// Executed when clicked on the register button in the register form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void _registerForm_ButtonRegister( object sender, EventArgs e )
         {
-            _notetakingMainPage.Dispose();
-            _displayGroups.Show();
+            string _path = @"D:\";
+            IRepository _repo = new BinaryFileRepository( _path );
+            NSContext c;
+            NSContextServices cs = new NSContextServices( _repo );
+
+            c = new NSContext();
+
+            c.Initialize( cs );
+
+            c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName );
+
+            //c.Save();
+
+            _registerForm.Dispose();
+
+            DisplayGroups();
         }
 
-        //when clicked on the cancel button in create groups' form
-        void CreateGroups_ButtonGroupsCancel(object sender, EventArgs e)
+        /// <summary>
+        /// Executed when clicked on the create group button in display groups' form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void _displayGroupsForm_ButtonCreateGroups( object sender, EventArgs e )
         {
-            _createGroups.Hide();
-            _displayGroups.Show();
+            _displayGroupsForm.Hide();
+            _createGroupsForm = new CreateGroups();
+
+            //Add create groups's form and user control
+            CreateGroupsControl();
+
+            _createGroupsForm.ButtonGroupsCancel += _createGroupsForm_ButtonGroupsCancel;
+            _createGroupsForm.ButtonConfirmCreateGroups += _createGroupsForm_ButtonConfirmCreateGroups;
         }
 
- 
+        /// <summary>
+        /// Executed when clicked on the confirm button to create a group in create groups' form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void _createGroupsForm_ButtonConfirmCreateGroups( object sender, EventArgs e )
+        {
+            _createGroupsForm.Hide();
+            _noteTakingForm = new NoteTaking();
+
+            //Add create groups's form and user control
+            NoteTakingControl();
+
+            _noteTakingForm.ButtonLeaveGroups += _noteTakingForm_ButtonLeaveGroups;
+        }
+
+        /// <summary>
+        /// Executed when clicked on the leave group button in notetaking's form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void _noteTakingForm_ButtonLeaveGroups( object sender, EventArgs e )
+        {
+            _noteTakingForm.Dispose();
+            _displayGroupsForm.Show();
+        }
+
+        /// <summary>
+        /// Executed when clicked on the cancel button in create groups' form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void _createGroupsForm_ButtonGroupsCancel( object sender, EventArgs e )
+        {
+            _createGroupsForm.Hide();
+            _displayGroupsForm.Show();
+        }
     }
 }

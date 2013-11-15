@@ -39,11 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILocalAreaNetwork.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Network.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="NSContext.cs" />
+    <Compile Include="NSContextServices.cs" />
+    <Compile Include="NSObject.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="Database.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

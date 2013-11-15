@@ -13,18 +13,18 @@ namespace GUI
     public partial class DisplayGroups : UserControl
     {
         public event EventHandler ButtonCreateGroups;
-           
+
         public DisplayGroups()
         {
             InitializeComponent();
-            btnCreateGroups.Click += new EventHandler(btnCreateGroups_Click);
+            btnCreateGroups.Click += new EventHandler( btnCreateGroups_Click );
         }
 
-        public void btnCreateGroups_Click(object sender, EventArgs e)
+        public void btnCreateGroups_Click( object sender, EventArgs e )
         {
             //bubble the event up to the parent
             if (ButtonCreateGroups != null)
-                ButtonCreateGroups(this, e);  
+                ButtonCreateGroups( this, e );
         }
     }
 }

@@ -1,62 +1,34 @@
 ﻿using CoreLibrary;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DB = NoteSchool.Database;
 
-namespace NoteSchool
+
+namespace CoreLibrary
 {
-    public class Group
+    [Serializable]
+    public class Group : NSObject
     {
-        private string _title;
-        private DateTime _date;
-        private string _hash; //md5 ID of the Group
+        string _name;
 
-        public string Hash { get { return _hash; } }
-
-        public DateTime Date { get { return _date; } }
-
-        public String Title
+        internal Group( NSContext c, string name )
+            : base( c )
         {
-            set 
-            { 
-                if (_hash != null) 
-                    DB.SetGroupField(_hash, "Title", value); 
-                _title = value; 
-            }
-            get { return _title; }
+            _name = name;
+            /*
+            Debug.Assert(Context == c);
+            Debug.Assert(!String.IsNullOrWhiteSpace(name));
+            Debug.Assert(c.FindGroupByName( name ) == null);
+             * */
         }
 
-        #region constructors
-        public Group(String title, DateTime date)
+        public string Name
         {
-            _title = title;
-            _date = date;
-            
-            SetHash();
-
-            DB.AddGroup(this);
-        }
-
-        public Group(String hash)
-        {
-            Open(hash);
-        }
-        #endregion constructors
-
-        private void SetHash()
-        {          
-            _hash = Helper.GetMd5Hash(_title + _date.ToString());
-        }
-
-        public bool Open(string hash)
-        {
-            _hash = hash;
-
-            return DB.GetGroupByHash(_hash, this);
+            get { return _name; }
         }
     }
 }
