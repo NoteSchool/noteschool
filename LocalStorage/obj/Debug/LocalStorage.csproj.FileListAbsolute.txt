@@ -5,3 +5,17 @@ C:\Users\Horumena\Desktop\test\LocalStorage\bin\Debug\CoreLibrary.pdb
 C:\Users\Horumena\Desktop\test\LocalStorage\obj\Debug\LocalStorage.csprojResolveAssemblyReference.cache
 C:\Users\Horumena\Desktop\test\LocalStorage\obj\Debug\LocalStorage.dll
 C:\Users\Horumena\Desktop\test\LocalStorage\obj\Debug\LocalStorage.pdb
+D:\GIT\NoteSchool\LocalStorage\bin\Debug\LocalStorage.dll
+D:\GIT\NoteSchool\LocalStorage\bin\Debug\LocalStorage.pdb
+D:\GIT\NoteSchool\LocalStorage\bin\Debug\CoreLibrary.dll
+D:\GIT\NoteSchool\LocalStorage\bin\Debug\CoreLibrary.pdb
+D:\GIT\NoteSchool\LocalStorage\obj\Debug\LocalStorage.csprojResolveAssemblyReference.cache
+D:\GIT\NoteSchool\LocalStorage\obj\Debug\LocalStorage.dll
+D:\GIT\NoteSchool\LocalStorage\obj\Debug\LocalStorage.pdb
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\bin\Debug\LocalStorage.dll
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\bin\Debug\LocalStorage.pdb
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\bin\Debug\CoreLibrary.dll
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\bin\Debug\CoreLibrary.pdb
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\obj\Debug\LocalStorage.dll
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\obj\Debug\LocalStorage.pdb
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\obj\Debug\LocalStorage.csprojResolveAssemblyReference.cache

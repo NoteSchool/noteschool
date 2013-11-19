@@ -26,7 +26,7 @@ namespace GUI
         {
             if (tbGroupName.Text.Length == 0)
                 MessageBox.Show( "Le nom du groupe ne doit pas être vide" );
-            else if (TbGroupTag.Text.Length == 0)
+            else if (tbGroupTag.Text.Length == 0)
                 MessageBox.Show( "Le champ tag ne doit pas être vide" );
             else
                 //bubble the event up to the parent
@@ -39,6 +39,14 @@ namespace GUI
             //bubble the event up to the parent
             if (ButtonGroupsCancel != null)
                 ButtonGroupsCancel( this, e );
+        }
+        public string GroupName
+        {
+            get { return tbGroupName.Text; }
+        }
+        public string GroupTag
+        {
+            get { return tbGroupTag.Text; }
         }
     }
 }

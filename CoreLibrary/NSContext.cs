@@ -37,14 +37,14 @@ namespace CoreLibrary
             _services = services;
         }
 
-        public Group FindOrCreateGroup(string name, out bool created)
+        public Group FindOrCreateGroup(string name, string tag, out bool created)
         {
             if (String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Must be a non empty string", "name");
             created = false;
             Group g;
             if (!_groups.TryGetValue(name, out g))
             {
-                g = new Group(this, name);
+                g = new Group(this, name, tag);
                 _groups.Add(name, g);
                 created = true;
             }
@@ -63,7 +63,7 @@ namespace CoreLibrary
 
             return u;
         }
-
+        /*
         public Group CreateGroup(string name, bool autoNumbering = true )
         {
             if (String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Must be a non empty string", "name");
@@ -77,7 +77,7 @@ namespace CoreLibrary
             _groups.Add(candidateName, g);
             return g;
         }
-
+        */
         public Group FindGroupByName(string name)
         {
             Group g;

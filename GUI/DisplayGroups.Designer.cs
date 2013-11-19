@@ -33,7 +33,7 @@
             // 
             // btnCreateGroups
             // 
-            this.btnCreateGroups.Location = new System.Drawing.Point(674, 25);
+            this.btnCreateGroups.Location = new System.Drawing.Point(290, 37);
             this.btnCreateGroups.Name = "btnCreateGroups";
             this.btnCreateGroups.Size = new System.Drawing.Size(119, 23);
             this.btnCreateGroups.TabIndex = 0;
@@ -46,7 +46,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnCreateGroups);
             this.Name = "DisplayGroups";
-            this.Size = new System.Drawing.Size(844, 467);
+            this.Size = new System.Drawing.Size(492, 376);
             this.ResumeLayout(false);
 
         }

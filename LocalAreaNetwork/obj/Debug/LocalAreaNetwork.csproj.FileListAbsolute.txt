@@ -1,1 +1,3 @@
 C:\Users\Horumena\Desktop\test\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.csprojResolveAssemblyReference.cache
+D:\GIT\NoteSchool\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.csprojResolveAssemblyReference.cache
+C:\Users\Horumena\Desktop\noteschool_new\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.csprojResolveAssemblyReference.cache

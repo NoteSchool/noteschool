@@ -37,43 +37,31 @@
             // 
             // tbFirstName
             // 
-            this.tbFirstName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFirstName.Location = new System.Drawing.Point(307, 85);
+            this.tbFirstName.Location = new System.Drawing.Point(22, 52);
             this.tbFirstName.Name = "tbFirstName";
             this.tbFirstName.Size = new System.Drawing.Size(100, 20);
             this.tbFirstName.TabIndex = 0;
             // 
             // tbLastName
             // 
-            this.tbLastName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbLastName.Location = new System.Drawing.Point(307, 166);
+            this.tbLastName.Location = new System.Drawing.Point(22, 133);
             this.tbLastName.Name = "tbLastName";
             this.tbLastName.Size = new System.Drawing.Size(100, 20);
             this.tbLastName.TabIndex = 1;
             // 
             // btnRegister
             // 
-            this.btnRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRegister.Location = new System.Drawing.Point(320, 225);
+            this.btnRegister.Location = new System.Drawing.Point(35, 192);
             this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(75, 23);
+            this.btnRegister.Size = new System.Drawing.Size(75, 25);
             this.btnRegister.TabIndex = 2;
             this.btnRegister.Text = "S\'enregistrer";
             this.btnRegister.UseVisualStyleBackColor = true;
             // 
             // labFirstname
             // 
-            this.labFirstname.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.labFirstname.AutoSize = true;
-            this.labFirstname.Location = new System.Drawing.Point(304, 53);
+            this.labFirstname.Location = new System.Drawing.Point(19, 20);
             this.labFirstname.Name = "labFirstname";
             this.labFirstname.Size = new System.Drawing.Size(106, 13);
             this.labFirstname.TabIndex = 3;
@@ -81,11 +69,8 @@
             // 
             // labLastname
             // 
-            this.labLastname.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.labLastname.AutoSize = true;
-            this.labLastname.Location = new System.Drawing.Point(304, 133);
+            this.labLastname.Location = new System.Drawing.Point(19, 100);
             this.labLastname.Name = "labLastname";
             this.labLastname.Size = new System.Drawing.Size(91, 13);
             this.labLastname.TabIndex = 4;
@@ -95,15 +80,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.Controls.Add(this.labLastname);
             this.Controls.Add(this.labFirstname);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.tbLastName);
             this.Controls.Add(this.tbFirstName);
-            this.Location = new System.Drawing.Point(200, 200);
+            this.Location = new System.Drawing.Point(300, 450);
             this.Name = "Register";
-            this.Size = new System.Drawing.Size(744, 317);
+            this.Size = new System.Drawing.Size(145, 232);
             this.ResumeLayout(false);
             this.PerformLayout();
 

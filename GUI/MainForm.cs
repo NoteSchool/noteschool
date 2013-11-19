@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,20 +21,16 @@ namespace GUI
         private NoteTaking _noteTakingForm;
 
         //path to determine
-        //NEED TO GRAND PERMISSIONS
-        /*
-        private static string _path = @"D:\";
+        private static string _path = @"D:\caca.noteschool";
         private static IRepository _repo = new BinaryFileRepository(_path);
         private NSContext c;
         private NSContextServices cs = new NSContextServices( _repo );
-        */
-        NSContext cs2;
 
         public MainForm()
         {
             InitializeComponent();
 
-            if (cs2 == null)
+            if (!File.Exists(_path))
             {
                 _registerForm = new Register();
 
@@ -44,7 +41,7 @@ namespace GUI
             }
             else
             {
-               // c = NSContext.Load( cs);
+                c = NSContext.Load( cs);
 
                 DisplayGroups();
             }
@@ -67,18 +64,13 @@ namespace GUI
         /// <param name="e"></param>
         void _registerForm_ButtonRegister( object sender, EventArgs e )
         {
-            string _path = @"D:\";
-            IRepository _repo = new BinaryFileRepository( _path );
-            NSContext c;
-            NSContextServices cs = new NSContextServices( _repo );
-
             c = new NSContext();
 
             c.Initialize( cs );
 
             c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName );
 
-            //c.Save();
+            c.Save();
 
             _registerForm.Dispose();
 
@@ -101,7 +93,7 @@ namespace GUI
             _createGroupsForm.ButtonGroupsCancel += _createGroupsForm_ButtonGroupsCancel;
             _createGroupsForm.ButtonConfirmCreateGroups += _createGroupsForm_ButtonConfirmCreateGroups;
         }
-
+        
         /// <summary>
         /// Executed when clicked on the confirm button to create a group in create groups' form
         /// </summary>
@@ -109,13 +101,23 @@ namespace GUI
         /// <param name="e"></param>
         void _createGroupsForm_ButtonConfirmCreateGroups( object sender, EventArgs e )
         {
-            _createGroupsForm.Hide();
-            _noteTakingForm = new NoteTaking();
+            bool created;
 
-            //Add create groups's form and user control
-            NoteTakingControl();
+            c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, out created );
 
-            _noteTakingForm.ButtonLeaveGroups += _noteTakingForm_ButtonLeaveGroups;
+            if (!created)
+                MessageBox.Show( "Le nom du groupe existe déjà" );
+            else
+            {
+                c.Save();
+                _createGroupsForm.Hide();
+                _noteTakingForm = new NoteTaking();
+
+                //Add create groups's form and user control
+                NoteTakingControl();
+
+                _noteTakingForm.ButtonLeaveGroups += _noteTakingForm_ButtonLeaveGroups;
+            }
         }
 
         /// <summary>
@@ -139,5 +141,6 @@ namespace GUI
             _createGroupsForm.Hide();
             _displayGroupsForm.Show();
         }
+        
     }
 }

@@ -35,7 +35,7 @@
             // 
             // rtbNoteTaking
             // 
-            this.rtbNoteTaking.Location = new System.Drawing.Point(106, 13);
+            this.rtbNoteTaking.Location = new System.Drawing.Point(19, 14);
             this.rtbNoteTaking.Name = "rtbNoteTaking";
             this.rtbNoteTaking.Size = new System.Drawing.Size(305, 404);
             this.rtbNoteTaking.TabIndex = 0;
@@ -43,7 +43,7 @@
             // 
             // btnLeaveGroup
             // 
-            this.btnLeaveGroup.Location = new System.Drawing.Point(366, 428);
+            this.btnLeaveGroup.Location = new System.Drawing.Point(279, 429);
             this.btnLeaveGroup.Name = "btnLeaveGroup";
             this.btnLeaveGroup.Size = new System.Drawing.Size(127, 23);
             this.btnLeaveGroup.TabIndex = 1;
@@ -52,7 +52,7 @@
             // 
             // rtbReadOnly
             // 
-            this.rtbReadOnly.Location = new System.Drawing.Point(434, 13);
+            this.rtbReadOnly.Location = new System.Drawing.Point(347, 14);
             this.rtbReadOnly.Name = "rtbReadOnly";
             this.rtbReadOnly.ReadOnly = true;
             this.rtbReadOnly.Size = new System.Drawing.Size(319, 404);
@@ -67,7 +67,7 @@
             this.Controls.Add(this.btnLeaveGroup);
             this.Controls.Add(this.rtbNoteTaking);
             this.Name = "NoteTaking";
-            this.Size = new System.Drawing.Size(844, 467);
+            this.Size = new System.Drawing.Size(686, 467);
             this.ResumeLayout(false);
 
         }

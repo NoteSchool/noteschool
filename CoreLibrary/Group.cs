@@ -14,11 +14,13 @@ namespace CoreLibrary
     public class Group : NSObject
     {
         string _name;
+        string _tag;
 
-        internal Group( NSContext c, string name )
+        internal Group( NSContext c, string name, string tag)
             : base( c )
         {
             _name = name;
+            _tag = tag;
             /*
             Debug.Assert(Context == c);
             Debug.Assert(!String.IsNullOrWhiteSpace(name));
@@ -29,6 +31,10 @@ namespace CoreLibrary
         public string Name
         {
             get { return _name; }
+        }
+        public string Tag
+        {
+            get { return _tag; }
         }
     }
 }

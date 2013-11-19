@@ -28,5 +28,10 @@ namespace GUI
             if (ButtonLeaveGroups != null)
                 ButtonLeaveGroups( this, e );
         }
+
+        public string NoteTakingtext
+        {
+            get { return rtbNoteTaking.Text; }
+        }
     }
 }
