@@ -1,65 +1,11 @@
-D:\GIT\NoteSchool\GUI\GUI\bin\Debug\GUI.exe.config
-D:\GIT\NoteSchool\GUI\GUI\bin\Debug\GUI.exe
-D:\GIT\NoteSchool\GUI\GUI\bin\Debug\GUI.pdb
-D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
-D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.Properties.Resources.resources
-D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.RegisterForm.resources
-D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
-D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.exe
-D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.pdb
-D:\GIT\NoteSchool\GUI\GUI\bin\Debug\CoreLibrary.dll
-D:\GIT\NoteSchool\GUI\GUI\bin\Debug\CoreLibrary.pdb
-D:\GIT\NoteSchool\GUI\GUI\obj\Debug\GUI.MainForm.resources
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\GUI.exe.config
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.exe
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.pdb
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\GUI.exe
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\GUI.pdb
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\CoreLibrary.dll
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\bin\Debug\CoreLibrary.pdb
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.MainForm.resources
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.Properties.Resources.resources
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.RegisterForm.resources
-C:\Users\lighta\Documents\Visual Studio 2012\Projects\NoteSchool\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\GUI.exe.config
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\GUI.exe
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\GUI.pdb
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\CoreLibrary.dll
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\bin\Debug\CoreLibrary.pdb
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.MainForm.resources
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.Properties.Resources.resources
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.RegisterForm.resources
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.exe
-C:\Users\David\Documents\Visual Studio 2012\Dev\GIT\NoteSchool\GUI\obj\Debug\GUI.pdb
-C:\Users\Horumena\Desktop\NoteSchool\GUI\bin\Debug\GUI.exe.config
-C:\Users\Horumena\Desktop\NoteSchool\GUI\obj\Debug\GUI.exe
-C:\Users\Horumena\Desktop\NoteSchool\GUI\obj\Debug\GUI.pdb
-C:\Users\Horumena\Desktop\test\GUI\bin\Debug\GUI.exe.config
-C:\Users\Horumena\Desktop\test\GUI\bin\Debug\GUI.exe
-C:\Users\Horumena\Desktop\test\GUI\bin\Debug\GUI.pdb
-C:\Users\Horumena\Desktop\test\GUI\bin\Debug\CoreLibrary.dll
-C:\Users\Horumena\Desktop\test\GUI\bin\Debug\LocalStorage.dll
-C:\Users\Horumena\Desktop\test\GUI\bin\Debug\CoreLibrary.pdb
-C:\Users\Horumena\Desktop\test\GUI\bin\Debug\LocalStorage.pdb
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.MainForm.resources
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.Properties.Resources.resources
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.Register.resources
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.exe
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.pdb
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.CreateGroups.resources
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.DisplayGroups.resources
-C:\Users\Horumena\Desktop\test\GUI\obj\Debug\GUI.NoteTaking.resources
 D:\GIT\NoteSchool\GUI\bin\Debug\GUI.exe.config
 D:\GIT\NoteSchool\GUI\bin\Debug\GUI.exe
 D:\GIT\NoteSchool\GUI\bin\Debug\GUI.pdb
 D:\GIT\NoteSchool\GUI\bin\Debug\CoreLibrary.dll
+D:\GIT\NoteSchool\GUI\bin\Debug\LocalAreaNetwork.dll
 D:\GIT\NoteSchool\GUI\bin\Debug\LocalStorage.dll
 D:\GIT\NoteSchool\GUI\bin\Debug\CoreLibrary.pdb
+D:\GIT\NoteSchool\GUI\bin\Debug\LocalAreaNetwork.pdb
 D:\GIT\NoteSchool\GUI\bin\Debug\LocalStorage.pdb
 D:\GIT\NoteSchool\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
 D:\GIT\NoteSchool\GUI\obj\Debug\GUI.CreateGroups.resources
@@ -71,34 +17,3 @@ D:\GIT\NoteSchool\GUI\obj\Debug\GUI.Register.resources
 D:\GIT\NoteSchool\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
 D:\GIT\NoteSchool\GUI\obj\Debug\GUI.exe
 D:\GIT\NoteSchool\GUI\obj\Debug\GUI.pdb
-<<<<<<< HEAD
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\GUI.exe.config
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.exe
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.pdb
-=======
->>>>>>> stephane
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.CreateGroups.resources
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.DisplayGroups.resources
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.MainForm.resources
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.NoteTaking.resources
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.Properties.Resources.resources
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.Register.resources
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
-<<<<<<< HEAD
-=======
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\GUI.exe.config
->>>>>>> stephane
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\GUI.exe
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\GUI.pdb
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\CoreLibrary.dll
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\LocalStorage.dll
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\CoreLibrary.pdb
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\LocalStorage.pdb
-<<<<<<< HEAD
-=======
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.exe
-C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.pdb
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\LocalAreaNetwork.dll
-C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\LocalAreaNetwork.pdb
->>>>>>> stephane

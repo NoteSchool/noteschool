@@ -34,11 +34,7 @@
             // 
             // btnCreateGroups
             // 
-<<<<<<< HEAD
-            this.btnCreateGroups.Location = new System.Drawing.Point(290, 37);
-=======
             this.btnCreateGroups.Location = new System.Drawing.Point(617, 16);
->>>>>>> stephane
             this.btnCreateGroups.Name = "btnCreateGroups";
             this.btnCreateGroups.Size = new System.Drawing.Size(119, 23);
             this.btnCreateGroups.TabIndex = 0;
@@ -63,11 +59,7 @@
             this.Controls.Add(this.btnCreateGroups);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "DisplayGroups";
-<<<<<<< HEAD
-            this.Size = new System.Drawing.Size(492, 376);
-=======
             this.Size = new System.Drawing.Size(762, 568);
->>>>>>> stephane
             this.ResumeLayout(false);
 
         }

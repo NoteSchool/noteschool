@@ -42,11 +42,7 @@ namespace CoreLibrary
             get { return _groups; }
         }
 
-<<<<<<< HEAD
-        public Group FindOrCreateGroup(string name, string tag, out bool created)
-=======
         public Group FindOrCreateGroup( string name, string tag, out bool created )
->>>>>>> stephane
         {
             if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );
             created = false;
@@ -77,11 +73,6 @@ namespace CoreLibrary
             Group g;
             if (!_groups.TryGetValue( name, out g ))
             {
-<<<<<<< HEAD
-                g = new Group(this, name, tag);
-                _groups.Add(name, g);
-                created = true;
-=======
                 while (!created)
                 {
                     if (!_groupslist.ContainsValue( multicastAddress ))
@@ -94,7 +85,6 @@ namespace CoreLibrary
                     else
                         multicastAddress = SetMulticastAddress();
                 }
->>>>>>> stephane
             }
             return g;
         }
@@ -126,11 +116,7 @@ namespace CoreLibrary
             return g;
         }
         */
-<<<<<<< HEAD
-        public Group FindGroupByName(string name)
-=======
         public Group FindGroup( string name)
->>>>>>> stephane
         {
             Group g;
             _groups.TryGetValue( name, out g );

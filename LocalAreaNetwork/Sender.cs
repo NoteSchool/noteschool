@@ -12,21 +12,13 @@ namespace LocalAreaNetwork
 {
     public partial class LAN : ILocalAreaNetwork
     {
-<<<<<<< HEAD
-=======
         /*
->>>>>>> stephane
         UdpClient _sendingClient;
         System.Timers.Timer _syncTimer;
         IPAddress _multicastadress;
         static IPAddress dada = IPAddress.Parse("224.0.1.0");
         IPEndPoint waitingGroupEndPoint = new IPEndPoint(dada, _port);
         string _multicastAddress;
-<<<<<<< HEAD
-        string _note;
-=======
-        string _notes;
->>>>>>> stephane
 
         private void Timer()
         {
@@ -46,21 +38,11 @@ namespace LocalAreaNetwork
                 // get note from the form
                 Invoke(new Action(GetNote));
 
-<<<<<<< HEAD
-                _note = 
-=======
-               // _note = 
->>>>>>> stephane
-
                 //convert string to bytes (needed to be able to send)
                 byte[] data = Encoding.ASCII.GetBytes(_note);
 
                 //send the data to the multicastgroup
                 _sendingClient.Send(data, data.Length, Sender());
-<<<<<<< HEAD
-=======
-                 
->>>>>>> stephane
 
                 //TODO:
                 byte[] _mcaData = Encoding.ASCII.GetBytes("Name" + "tag" + _mca);
@@ -94,7 +76,6 @@ namespace LocalAreaNetwork
             IPEndPoint localEndPoint = new IPEndPoint(_multicastadress, _port);
 
             return localEndPoint;
-<<<<<<< HEAD
         }
         //create new multicast adress from 224.0.1.1 to 239.255.255.255
         // multicast address for waiting group: 224.0.1.0
@@ -110,8 +91,6 @@ namespace LocalAreaNetwork
 
             return _multicastAddress;
         }
-=======
-        }*/
->>>>>>> stephane
+        */
     }
 }

@@ -13,23 +13,9 @@ namespace LocalAreaNetwork
     public partial class LAN : ILocalAreaNetwork
     {
         UdpClient _receivingClient;
-<<<<<<< HEAD
-        Thread _receivingThread;
-        bool _receiverStatus;
-        string _mca;
-        public static int _port = 2222;
 
-        private void InitializeReceiver()
-        {
-            _receivingClient = new UdpClient();
-
-            //ON TEST PURPOSE ONLY
-            IPAddress multicastaddress = IPAddress.Parse(_mca);
-            _receivingClient.JoinMulticastGroup(multicastaddress);
-
-=======
-      //  bool _receiverStatus;
-        public static int _port = 2222;
+        //bool _receiverStatus;
+        static int _port = 2222;
         string _data;
 
         public string InitializeReceiver()
@@ -42,7 +28,7 @@ namespace LocalAreaNetwork
             IPAddress _multicastaddress = IPAddress.Parse(_mca);
             _receivingClient.JoinMulticastGroup(_multicastaddress);
             */
->>>>>>> stephane
+
             //set option to get multiple receiver on a single machine
             _receivingClient.ExclusiveAddressUse = false;
             _receivingClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
@@ -54,10 +40,7 @@ namespace LocalAreaNetwork
             _receivingThread.IsBackground = true;
             _receivingThread.Start();
 
-<<<<<<< HEAD
-=======
             return _data;
->>>>>>> stephane
         }
 
         private void Receiver()
@@ -68,12 +51,8 @@ namespace LocalAreaNetwork
             //bind the endPoint (needed to receive data)
             _receivingClient.Client.Bind(endPoint);
 
-<<<<<<< HEAD
-            while (_receiverStatus)
-=======
             //while (_receiverStatus)
             while (true)
->>>>>>> stephane
             {
                 try
                 {
@@ -81,29 +60,13 @@ namespace LocalAreaNetwork
                     byte[] data = _receivingClient.Receive(ref endPoint);
 
                     //convert bytes to string
-<<<<<<< HEAD
-                    string message = Encoding.ASCII.GetString(data);
-
-                    // get the ip
-
-                    //need for showing received data in the form
-                    Invoke(new Action<string>(MessageReceived), message);
-=======
                     _data = Encoding.ASCII.GetString( data );
->>>>>>> stephane
                 }
                 catch
                 {
                 }
             }
         }
-<<<<<<< HEAD
-        //show the received data
-        private void MessageReceived(string message)
-        {
-            rtbReadOnly.Text = _multicastadress + "-" + message;
-        }
-=======
         //receive data
      //   public string Data { get { return _data; } }
 
@@ -126,6 +89,5 @@ namespace LocalAreaNetwork
             return _multicastAddress;
         }
          * */
->>>>>>> stephane
     }
 }

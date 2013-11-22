@@ -15,14 +15,9 @@ namespace CoreLibrary
     {
         string _name;
         string _tag;
-<<<<<<< HEAD
-
-        internal Group( NSContext c, string name, string tag)
-=======
         string _multicastAddress;
 
         internal Group( NSContext c, string name, string tag, string multicastAddress)
->>>>>>> stephane
             : base( c )
         {
             Debug.Assert( Context == c );
@@ -31,15 +26,7 @@ namespace CoreLibrary
 
             _name = name;
             _tag = tag;
-<<<<<<< HEAD
-            /*
-            Debug.Assert(Context == c);
-            Debug.Assert(!String.IsNullOrWhiteSpace(name));
-            Debug.Assert(c.FindGroupByName( name ) == null);
-             * */
-=======
             _multicastAddress = multicastAddress;
->>>>>>> stephane
         }
         /*
         /// <summary>
@@ -69,6 +56,5 @@ namespace CoreLibrary
         public string Name { get { return _name; } }
         public string Tag { get { return _tag; } }
         public string MulticastAddress { get { return _multicastAddress; } }
->>>>>>> stephane
     }
 }

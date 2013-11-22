@@ -48,10 +48,6 @@
       <Project>{a0e457ee-23eb-462c-925b-b4309cc1e884}</Project>
       <Name>CoreLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GUI\GUI.csproj">
-      <Project>{489ff16a-987c-4ecf-a5ca-0ba0eb71f016}</Project>
-      <Name>GUI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

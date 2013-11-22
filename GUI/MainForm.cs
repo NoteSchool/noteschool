@@ -23,19 +23,11 @@ namespace GUI
         private NoteTaking _noteTakingForm;
 
         //path to determine
-<<<<<<< HEAD
-        private static string _path = @"D:\caca.noteschool";
-=======
         private static string _path = @"data.ns";
->>>>>>> stephane
         private static IRepository _repo = new BinaryFileRepository(_path);
         private static ILocalAreaNetwork _lan = new LAN();
         private NSContext c;
-<<<<<<< HEAD
-        private NSContextServices cs = new NSContextServices( _repo );
-=======
         private NSContextServices cs = new NSContextServices( _repo, _lan );
->>>>>>> stephane
 
         public MainForm()
         {
@@ -52,11 +44,7 @@ namespace GUI
             }
             else
             {
-<<<<<<< HEAD
-                c = NSContext.Load( cs);
-=======
                 c = NSContext.Load(cs);
->>>>>>> stephane
 
                 DisplayGroups();
                 
@@ -145,15 +133,10 @@ namespace GUI
 
         private void NoteTaking()
         {
-<<<<<<< HEAD
             bool created;
-=======
-            _noteTakingForm = new NoteTaking();
->>>>>>> stephane
 
             c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, out created );
 
-<<<<<<< HEAD
             if (!created)
                 MessageBox.Show( "Le nom du groupe existe déjà" );
             else
@@ -165,11 +148,8 @@ namespace GUI
                 //Add create groups's form and user control
                 NoteTakingControl();
 
-                _noteTakingForm.ButtonLeaveGroups += _noteTakingForm_ButtonLeaveGroups;
+                _noteTakingForm.ButtonLeaveGroups += NoteTakingForm_ButtonLeaveGroups;
             }
-=======
-            _noteTakingForm.ButtonLeaveGroups += NoteTakingForm_ButtonLeaveGroups;
->>>>>>> stephane
         }
 
         /// <summary>
@@ -193,9 +173,6 @@ namespace GUI
             _createGroupsForm.Hide();
             _displayGroupsForm.Show();
         }
-<<<<<<< HEAD
-        
-=======
 
         /// <summary>
         /// This method creates a Button control at runtime
@@ -267,6 +244,5 @@ namespace GUI
                 e.Cancel = true;
             }              
         }
->>>>>>> stephane
     }
 }

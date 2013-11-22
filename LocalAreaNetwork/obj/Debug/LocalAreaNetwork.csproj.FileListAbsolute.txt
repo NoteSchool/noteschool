@@ -1,12 +1,7 @@
-C:\Users\Horumena\Desktop\test\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.csprojResolveAssemblyReference.cache
+D:\GIT\NoteSchool\LocalAreaNetwork\bin\Debug\LocalAreaNetwork.dll
+D:\GIT\NoteSchool\LocalAreaNetwork\bin\Debug\LocalAreaNetwork.pdb
+D:\GIT\NoteSchool\LocalAreaNetwork\bin\Debug\CoreLibrary.dll
+D:\GIT\NoteSchool\LocalAreaNetwork\bin\Debug\CoreLibrary.pdb
 D:\GIT\NoteSchool\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.csprojResolveAssemblyReference.cache
-C:\Users\Horumena\Desktop\noteschool_new\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.csprojResolveAssemblyReference.cache
-<<<<<<< HEAD
-=======
-C:\Users\Horumena\Desktop\noteschool_new\LocalAreaNetwork\bin\Debug\LocalAreaNetwork.dll
-C:\Users\Horumena\Desktop\noteschool_new\LocalAreaNetwork\bin\Debug\LocalAreaNetwork.pdb
-C:\Users\Horumena\Desktop\noteschool_new\LocalAreaNetwork\bin\Debug\CoreLibrary.dll
-C:\Users\Horumena\Desktop\noteschool_new\LocalAreaNetwork\bin\Debug\CoreLibrary.pdb
-C:\Users\Horumena\Desktop\noteschool_new\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.dll
-C:\Users\Horumena\Desktop\noteschool_new\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.pdb
->>>>>>> stephane
+D:\GIT\NoteSchool\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.dll
+D:\GIT\NoteSchool\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.pdb
