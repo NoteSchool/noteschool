@@ -1,6 +1,8 @@
 ﻿using CoreLibrary;
+using LocalAreaNetwork;
 using LocalStorage;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,10 +23,19 @@ namespace GUI
         private NoteTaking _noteTakingForm;
 
         //path to determine
+<<<<<<< HEAD
         private static string _path = @"D:\caca.noteschool";
+=======
+        private static string _path = @"data.ns";
+>>>>>>> stephane
         private static IRepository _repo = new BinaryFileRepository(_path);
+        private static ILocalAreaNetwork _lan = new LAN();
         private NSContext c;
+<<<<<<< HEAD
         private NSContextServices cs = new NSContextServices( _repo );
+=======
+        private NSContextServices cs = new NSContextServices( _repo, _lan );
+>>>>>>> stephane
 
         public MainForm()
         {
@@ -37,24 +48,41 @@ namespace GUI
                 //Add register's user control
                 RegisterControl();
 
-                _registerForm.ButtonRegister += _registerForm_ButtonRegister;
+                _registerForm.ButtonRegister += RegisterForm_ButtonRegister;
             }
             else
             {
+<<<<<<< HEAD
                 c = NSContext.Load( cs);
+=======
+                c = NSContext.Load(cs);
+>>>>>>> stephane
 
                 DisplayGroups();
+                
+                //create groups button
+                CreateGroupsButton();
             }
+
+            FormClosing += new System.Windows.Forms.FormClosingEventHandler(MainFormClosing );
         }
 
         private void DisplayGroups()
         {
+            string data = c.Receiver();
+
+            if (data != null)
+            {
+                string[] groupdata = data.Split( '-' );
+                c.FindOrCreateGroup( groupdata[0], groupdata[1], groupdata[2] );
+            }
+
             _displayGroupsForm = new DisplayGroups();
 
             //Add groups's form and user control
             DisplayGroupsControl();
 
-            _displayGroupsForm.ButtonCreateGroups += _displayGroupsForm_ButtonCreateGroups;
+            _displayGroupsForm.ButtonCreateGroups += DisplayGroupsForm_ButtonCreateGroups;
         }
 
         /// <summary>
@@ -62,13 +90,13 @@ namespace GUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void _registerForm_ButtonRegister( object sender, EventArgs e )
+        void RegisterForm_ButtonRegister( object sender, EventArgs e )
         {
             c = new NSContext();
 
             c.Initialize( cs );
 
-            c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName );
+            c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName);
 
             c.Save();
 
@@ -82,7 +110,7 @@ namespace GUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void _displayGroupsForm_ButtonCreateGroups( object sender, EventArgs e )
+        public void DisplayGroupsForm_ButtonCreateGroups( object sender, EventArgs e )
         {
             _displayGroupsForm.Hide();
             _createGroupsForm = new CreateGroups();
@@ -90,8 +118,8 @@ namespace GUI
             //Add create groups's form and user control
             CreateGroupsControl();
 
-            _createGroupsForm.ButtonGroupsCancel += _createGroupsForm_ButtonGroupsCancel;
-            _createGroupsForm.ButtonConfirmCreateGroups += _createGroupsForm_ButtonConfirmCreateGroups;
+            _createGroupsForm.ButtonGroupsCancel += CreateGroupsForm_ButtonGroupsCancel;
+            _createGroupsForm.ButtonConfirmCreateGroups += CreateGroupsForm_ButtonConfirmCreateGroups;
         }
         
         /// <summary>
@@ -99,12 +127,33 @@ namespace GUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void _createGroupsForm_ButtonConfirmCreateGroups( object sender, EventArgs e )
+        void CreateGroupsForm_ButtonConfirmCreateGroups( object sender, EventArgs e )
         {
             bool created;
 
             c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, out created );
+            
+            if (!created)
+                MessageBox.Show( "Le nom du groupe existe déjà" );
+            else
+            {
+                CreateGroupsButton();
+                _createGroupsForm.Hide();
+                NoteTaking();
+            }
+        }
 
+        private void NoteTaking()
+        {
+<<<<<<< HEAD
+            bool created;
+=======
+            _noteTakingForm = new NoteTaking();
+>>>>>>> stephane
+
+            c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, out created );
+
+<<<<<<< HEAD
             if (!created)
                 MessageBox.Show( "Le nom du groupe existe déjà" );
             else
@@ -118,6 +167,9 @@ namespace GUI
 
                 _noteTakingForm.ButtonLeaveGroups += _noteTakingForm_ButtonLeaveGroups;
             }
+=======
+            _noteTakingForm.ButtonLeaveGroups += NoteTakingForm_ButtonLeaveGroups;
+>>>>>>> stephane
         }
 
         /// <summary>
@@ -125,7 +177,7 @@ namespace GUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void _noteTakingForm_ButtonLeaveGroups( object sender, EventArgs e )
+        void NoteTakingForm_ButtonLeaveGroups( object sender, EventArgs e )
         {
             _noteTakingForm.Dispose();
             _displayGroupsForm.Show();
@@ -136,11 +188,85 @@ namespace GUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void _createGroupsForm_ButtonGroupsCancel( object sender, EventArgs e )
+        void CreateGroupsForm_ButtonGroupsCancel( object sender, EventArgs e )
         {
             _createGroupsForm.Hide();
             _displayGroupsForm.Show();
         }
+<<<<<<< HEAD
         
+=======
+
+        /// <summary>
+        /// This method creates a Button control at runtime
+        /// </summary>
+        private void CreateGroupsButton()
+        {    
+            // X & Y Location of each created button in the panel
+            int x = 27;
+            int y = 13;
+            int button = 0;
+
+            foreach (var groups in c.GetGroups)
+	        {
+                // Create a Button object
+                Button btn = new Button();
+
+                // Set Button properties
+                btn.Name = groups.Key;
+                btn.Tag = groups;
+                btn.Size = new Size(111, 48 );
+                btn.Text = "Name :" + groups.Key + "\r\nTag :" + groups.Value.Tag + "\r\n" + groups.Value.MulticastAddress;
+                btn.Location = new Point( x, y );
+                button++;
+                x += 117;
+
+                if (button >= 6)
+                {
+                    x = 27;
+                    y += 54;
+                    button = 0;
+                }
+
+                // Add a Button Click Event handler
+                btn.Click += new EventHandler( GroupsButton );
+
+                // Add Button to the Form. 
+                _displayGroupsForm.panel.Controls.Add( btn );
+            }
+        }
+
+        private void GroupsButton( object sender, EventArgs e )
+        {
+            // Use "Sender" to know which button was clicked ?
+            Button btn = sender as Button;
+
+            _displayGroupsForm.Hide();
+            NoteTaking();
+            
+
+
+            
+            /*
+            Button dynamicButton = sender as Button;
+            MessageBox.Show( dynamicButton.Name );
+             * */
+        }
+        private void MainFormClosing( object sender, FormClosingEventArgs e )
+        {
+            if (MessageBox.Show("Voulez-vous vraiment quitter l'application ?\r\nToutes les modifications effectuées seront enregistrées", "Fermeture", MessageBoxButtons.YesNo ) == DialogResult.Yes)
+            {
+                if (File.Exists( _path ))
+                {
+                    c.Save();
+                }
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }              
+        }
+>>>>>>> stephane
     }
 }

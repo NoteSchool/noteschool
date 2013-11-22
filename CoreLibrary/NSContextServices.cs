@@ -9,25 +9,17 @@ namespace CoreLibrary
     public class NSContextServices
     {
         readonly IRepository _repo;
-       // readonly ILocalAreaNetwork _lan;
+        readonly ILocalAreaNetwork _lan;
 
-        public NSContextServices( IRepository repo) //ILocalAreaNetwork lan)
+        public NSContextServices( IRepository repo, ILocalAreaNetwork lan)
         {    
-            if (repo == null)
+            if (repo == null || lan == null)
                 throw new ArgumentNullException("repo");
             _repo = repo;
-           // _lan = lan;
+            _lan = lan;
         }
         
-        public IRepository Repository
-        {
-            get { return _repo; }
-        }
-       /*
-        public ILocalAreaNetwork Lan
-        {
-            get { return _lan; }
-        }
-        * */
+        public IRepository Repository { get { return _repo; } }     
+        public ILocalAreaNetwork Lan { get { return _lan; } }
     }
 }

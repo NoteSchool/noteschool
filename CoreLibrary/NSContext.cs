@@ -7,59 +7,107 @@ using System.Threading.Tasks;
 namespace CoreLibrary
 {
     [Serializable]
-    public class NSContext 
+    public class NSContext
     {
         [NonSerialized]
         NSContextServices _services;
 
-        readonly Dictionary<string,Group> _groups;
-
-        readonly Dictionary<string,User> _users;
+        readonly Dictionary<string, Group> _groups;
+        readonly Dictionary<string, string> _groupslist;
+        readonly Dictionary<string, User> _users;
 
         public NSContext()
         {
-            _groups = new Dictionary<string,Group>();
+            _groups = new Dictionary<string, Group>();
             _users = new Dictionary<string, User>();
-        }
-        
-        public NSContextServices Services
-        {
-            get 
-            {
-                if (_services == null) throw new InvalidOperationException( "NSContext must be initialized!" );
-                return _services; 
-            }
-        }
-        
-        public void Initialize( NSContextServices services )
-        {
-            if (services == null) throw new ArgumentNullException("services");
-            _services = services;
+            _groupslist = new Dictionary<string,string>();
         }
 
-        public Group FindOrCreateGroup(string name, string tag, out bool created)
+        public NSContextServices Services
         {
-            if (String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Must be a non empty string", "name");
+            get
+            {
+                if (_services == null) throw new InvalidOperationException( "NSContext must be initialized!" );
+                return _services;
+            }
+        }
+
+        public void Initialize( NSContextServices services )
+        {
+            if (services == null) throw new ArgumentNullException( "services" );
+            _services = services;
+        }
+        public Dictionary<string, Group> GetGroups
+        {
+            get { return _groups; }
+        }
+
+<<<<<<< HEAD
+        public Group FindOrCreateGroup(string name, string tag, out bool created)
+=======
+        public Group FindOrCreateGroup( string name, string tag, out bool created )
+>>>>>>> stephane
+        {
+            if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );
             created = false;
             Group g;
-            if (!_groups.TryGetValue(name, out g))
+            if (!_groups.TryGetValue( name, out g ))
             {
-                g = new Group(this, name, tag);
-                _groups.Add(name, g);
-                created = true;
+                while (!created)
+                {
+                    string _multicastAddress = SetMulticastAddress();
+
+                    if (!_groupslist.ContainsValue( _multicastAddress ))
+                    {
+                        g = new Group( this, name, tag, _multicastAddress );
+                        _groups.Add( name, g );
+                        _groupslist.Add( name, _multicastAddress );
+                        created = true;
+                    }
+                }
             }
             return g;
         }
-        public User CreateUser(string firstName, string lastName)
+        public Group FindOrCreateGroup( string name, string tag, string multicastAddress)
         {
-            if (String.IsNullOrWhiteSpace(firstName)) throw new ArgumentException( "Must be a non empty string", "firstName" );
-            if (String.IsNullOrWhiteSpace(lastName)) throw new ArgumentException( "Must be a non empty string", "lastName" );
+            if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );
+            if (String.IsNullOrWhiteSpace( tag )) throw new ArgumentException( "Must be a non empty string", "tag" );
+            if (String.IsNullOrWhiteSpace( multicastAddress )) throw new ArgumentException( "Must be a non empty string", "multicastAddress" );
+            bool created = false;
+            Group g;
+            if (!_groups.TryGetValue( name, out g ))
+            {
+<<<<<<< HEAD
+                g = new Group(this, name, tag);
+                _groups.Add(name, g);
+                created = true;
+=======
+                while (!created)
+                {
+                    if (!_groupslist.ContainsValue( multicastAddress ))
+                    {
+                        g = new Group( this, name, tag, multicastAddress );
+                        _groups.Add( name, g );
+                        _groupslist.Add( name, multicastAddress );
+                        created = true;
+                    }
+                    else
+                        multicastAddress = SetMulticastAddress();
+                }
+>>>>>>> stephane
+            }
+            return g;
+        }
+        public User CreateUser( string firstName, string lastName )
+        {
+            if (String.IsNullOrWhiteSpace( firstName )) throw new ArgumentException( "Must be a non empty string", "firstName" );
+            if (String.IsNullOrWhiteSpace( lastName )) throw new ArgumentException( "Must be a non empty string", "lastName" );
 
             string id = Guid.NewGuid().ToString( "N" );
 
-            User u = new User( this, firstName, lastName, id);
+            User u = new User( this, firstName, lastName, id );
 
-            _users.Add(id, u);
+            _users.Add( id, u );
 
             return u;
         }
@@ -78,29 +126,49 @@ namespace CoreLibrary
             return g;
         }
         */
+<<<<<<< HEAD
         public Group FindGroupByName(string name)
+=======
+        public Group FindGroup( string name)
+>>>>>>> stephane
         {
             Group g;
-            _groups.TryGetValue(name, out g);
+            _groups.TryGetValue( name, out g );
             return g;
         }
 
         public void Save()
         {
-            Services.Repository.Save(this);
+            Services.Repository.Save( this );
         }
 
         public static NSContext Load( NSContextServices services )
         {
             NSContext c = services.Repository.LoadUnitializedContext();
-            c.Initialize(services); 
+            c.Initialize( services );
             return c;
         }
-        public void Receive()
+        public string Receiver()
         {
-       //     Services.Lan.InitializeReceiver();
+            return Services.Lan.InitializeReceiver();
         }
 
+        /// <summary>
+        /// Create new multicast address from 224.0.1.1 to 239.255.255.255
+        /// Multicast address for waiting group: 224.0.1.0
+        /// </summary>
+        /// <returns></returns>
+        public string SetMulticastAddress()
+        {
+            Random rnd = new Random();
+            int _1stByte = rnd.Next( 224, 240 );
+            int _2ndByte = rnd.Next( 0, 256 );
+            int _3rdByte = rnd.Next( 1, 256 );
+            int _4thByte = rnd.Next( 1, 256 );
 
+            string _multicastAddress = _1stByte + "." + _2ndByte + "." + _3rdByte + "." + _4thByte;
+
+            return _multicastAddress;
+        }
     }
 }

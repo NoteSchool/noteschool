@@ -16,6 +16,12 @@ C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\bin\Debug\LocalStorage.dll
 C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\bin\Debug\LocalStorage.pdb
 C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\bin\Debug\CoreLibrary.dll
 C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\bin\Debug\CoreLibrary.pdb
+<<<<<<< HEAD
 C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\obj\Debug\LocalStorage.dll
 C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\obj\Debug\LocalStorage.pdb
 C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\obj\Debug\LocalStorage.csprojResolveAssemblyReference.cache
+=======
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\obj\Debug\LocalStorage.csprojResolveAssemblyReference.cache
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\obj\Debug\LocalStorage.dll
+C:\Users\Horumena\Desktop\noteschool_new\LocalStorage\obj\Debug\LocalStorage.pdb
+>>>>>>> stephane

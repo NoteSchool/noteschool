@@ -18,7 +18,13 @@ D:\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.dll
 D:\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.pdb
 D:\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.dll
 D:\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.pdb
+<<<<<<< HEAD
 C:\Users\Horumena\Desktop\noteschool_new\CoreLibrary\obj\Debug\CoreLibrary.dll
 C:\Users\Horumena\Desktop\noteschool_new\CoreLibrary\bin\Debug\CoreLibrary.dll
 C:\Users\Horumena\Desktop\noteschool_new\CoreLibrary\bin\Debug\CoreLibrary.pdb
+=======
+C:\Users\Horumena\Desktop\noteschool_new\CoreLibrary\bin\Debug\CoreLibrary.dll
+C:\Users\Horumena\Desktop\noteschool_new\CoreLibrary\bin\Debug\CoreLibrary.pdb
+C:\Users\Horumena\Desktop\noteschool_new\CoreLibrary\obj\Debug\CoreLibrary.dll
+>>>>>>> stephane
 C:\Users\Horumena\Desktop\noteschool_new\CoreLibrary\obj\Debug\CoreLibrary.pdb

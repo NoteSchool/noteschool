@@ -29,24 +29,45 @@
         private void InitializeComponent()
         {
             this.btnCreateGroups = new System.Windows.Forms.Button();
+            this.groupPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // btnCreateGroups
             // 
+<<<<<<< HEAD
             this.btnCreateGroups.Location = new System.Drawing.Point(290, 37);
+=======
+            this.btnCreateGroups.Location = new System.Drawing.Point(617, 16);
+>>>>>>> stephane
             this.btnCreateGroups.Name = "btnCreateGroups";
             this.btnCreateGroups.Size = new System.Drawing.Size(119, 23);
             this.btnCreateGroups.TabIndex = 0;
             this.btnCreateGroups.Text = "Créer un groupe";
             this.btnCreateGroups.UseVisualStyleBackColor = true;
             // 
+            // groupPanel
+            // 
+            this.groupPanel.AutoScroll = true;
+            this.groupPanel.Location = new System.Drawing.Point(0, 60);
+            this.groupPanel.Name = "groupPanel";
+            this.groupPanel.Size = new System.Drawing.Size(759, 505);
+            this.groupPanel.TabIndex = 1;
+            // 
             // DisplayGroups
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.groupPanel);
             this.Controls.Add(this.btnCreateGroups);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "DisplayGroups";
+<<<<<<< HEAD
             this.Size = new System.Drawing.Size(492, 376);
+=======
+            this.Size = new System.Drawing.Size(762, 568);
+>>>>>>> stephane
             this.ResumeLayout(false);
 
         }
@@ -54,5 +75,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnCreateGroups;
+        private System.Windows.Forms.Panel groupPanel;
     }
 }

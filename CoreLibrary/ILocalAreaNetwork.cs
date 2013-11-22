@@ -8,6 +8,8 @@ namespace CoreLibrary
 {
     public interface ILocalAreaNetwork
     {
-        void InitializeReceiver();
+        string InitializeReceiver();
+     //   void InitializeSender();
+     //   void SyncTimer();
     }
 }

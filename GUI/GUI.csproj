@@ -118,6 +118,10 @@
       <Project>{a0e457ee-23eb-462c-925b-b4309cc1e884}</Project>
       <Name>CoreLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LocalAreaNetwork\LocalAreaNetwork.csproj">
+      <Project>{941e69ab-2264-4957-b063-249ef147ef41}</Project>
+      <Name>LocalAreaNetwork</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LocalStorage\LocalStorage.csproj">
       <Project>{5d0b43ce-bbeb-48c7-9cfb-2b5ec6f3110e}</Project>
       <Name>LocalStorage</Name>

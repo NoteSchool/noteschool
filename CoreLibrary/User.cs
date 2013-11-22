@@ -13,20 +13,7 @@ namespace CoreLibrary
         private string _firstName;
         private string _id;
         
-        public string LastName
-        {
-            get { return _lastName; }
-        }
 
-        public string FirstName
-        {
-            get { return _firstName; }
-        }
-
-        public string Id
-        {
-            get { return _id; }
-        }
 
         internal User(NSContext c, string firstName, string lastName, string id)
             :base (c)
@@ -35,5 +22,9 @@ namespace CoreLibrary
             _lastName = lastName;
             _id = id;
         }
+
+        public string LastName { get { return _lastName; } }
+        public string FirstName { get { return _firstName; } }
+        public string Id { get { return _id; } }
     }
 }

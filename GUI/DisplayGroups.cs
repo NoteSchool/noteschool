@@ -26,5 +26,10 @@ namespace GUI
             if (ButtonCreateGroups != null)
                 ButtonCreateGroups( this, e );
         }
+        public Panel panel
+        {
+            get { return groupPanel; }
+        }
+
     }
 }

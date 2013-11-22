@@ -71,9 +71,12 @@ D:\GIT\NoteSchool\GUI\obj\Debug\GUI.Register.resources
 D:\GIT\NoteSchool\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
 D:\GIT\NoteSchool\GUI\obj\Debug\GUI.exe
 D:\GIT\NoteSchool\GUI\obj\Debug\GUI.pdb
+<<<<<<< HEAD
 C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\GUI.exe.config
 C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.exe
 C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.pdb
+=======
+>>>>>>> stephane
 C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.csprojResolveAssemblyReference.cache
 C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.CreateGroups.resources
 C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.DisplayGroups.resources
@@ -82,9 +85,20 @@ C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.NoteTaking.resources
 C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.Properties.Resources.resources
 C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.Register.resources
 C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
+<<<<<<< HEAD
+=======
+C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\GUI.exe.config
+>>>>>>> stephane
 C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\GUI.exe
 C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\GUI.pdb
 C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\CoreLibrary.dll
 C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\LocalStorage.dll
 C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\CoreLibrary.pdb
 C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\LocalStorage.pdb
+<<<<<<< HEAD
+=======
+C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.exe
+C:\Users\Horumena\Desktop\noteschool_new\GUI\obj\Debug\GUI.pdb
+C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\LocalAreaNetwork.dll
+C:\Users\Horumena\Desktop\noteschool_new\GUI\bin\Debug\LocalAreaNetwork.pdb
+>>>>>>> stephane
