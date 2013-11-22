@@ -2,3 +2,6 @@ D:\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.dll
 D:\GIT\NoteSchool\CoreLibrary\bin\Debug\CoreLibrary.pdb
 D:\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.dll
 D:\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.pdb
+D:\GIT\NoteSchool\CoreLibrary\bin\Debug\nunit.framework.dll
+D:\GIT\NoteSchool\CoreLibrary\bin\Debug\nunit.framework.xml
+D:\GIT\NoteSchool\CoreLibrary\obj\Debug\CoreLibrary.csprojResolveAssemblyReference.cache
