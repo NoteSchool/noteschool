@@ -120,36 +120,25 @@ namespace GUI
             bool created;
 
             c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, out created );
-            
-            if (!created)
-                MessageBox.Show( "Le nom du groupe existe déjà" );
-            else
-            {
-                CreateGroupsButton();
-                _createGroupsForm.Hide();
-                NoteTaking();
-            }
-        }
-
-        private void NoteTaking()
-        {
-            bool created;
-
-            c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, out created );
 
             if (!created)
                 MessageBox.Show( "Le nom du groupe existe déjà" );
             else
             {
                 c.Save();
+                CreateGroupsButton();
                 _createGroupsForm.Hide();
-                _noteTakingForm = new NoteTaking();
-
-                //Add create groups's form and user control
-                NoteTakingControl();
-
-                _noteTakingForm.ButtonLeaveGroups += NoteTakingForm_ButtonLeaveGroups;
+                NoteTaking();
             }
+        }
+        private void NoteTaking()
+        {
+            _noteTakingForm = new NoteTaking();
+
+            //Add create groups's form and user control
+            NoteTakingControl();
+
+            _noteTakingForm.ButtonLeaveGroups += NoteTakingForm_ButtonLeaveGroups;
         }
 
         /// <summary>
@@ -220,10 +209,7 @@ namespace GUI
 
             _displayGroupsForm.Hide();
             NoteTaking();
-            
-
-
-            
+             
             /*
             Button dynamicButton = sender as Button;
             MessageBox.Show( dynamicButton.Name );

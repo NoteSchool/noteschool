@@ -10,6 +10,7 @@ Thumbs.db
 *_p.c
 *.ncb
 *.suo
+*.v11.suo
 *.bak
 *.cache
 *.ilk
