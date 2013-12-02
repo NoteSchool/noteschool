@@ -31,6 +31,7 @@
             this.rtbNoteTaking = new System.Windows.Forms.RichTextBox();
             this.btnLeaveGroup = new System.Windows.Forms.Button();
             this.rtbReadOnly = new System.Windows.Forms.RichTextBox();
+            this.btnexport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rtbNoteTaking
@@ -59,10 +60,21 @@
             this.rtbReadOnly.TabIndex = 2;
             this.rtbReadOnly.Text = "";
             // 
+            // btnexport
+            // 
+            this.btnexport.Location = new System.Drawing.Point(155, 425);
+            this.btnexport.Name = "btnexport";
+            this.btnexport.Size = new System.Drawing.Size(75, 23);
+            this.btnexport.TabIndex = 3;
+            this.btnexport.Text = "Exporter";
+            this.btnexport.UseVisualStyleBackColor = true;
+            this.btnexport.Click += new System.EventHandler(this.exportbtn_Click);
+            // 
             // NoteTaking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnexport);
             this.Controls.Add(this.rtbReadOnly);
             this.Controls.Add(this.btnLeaveGroup);
             this.Controls.Add(this.rtbNoteTaking);
@@ -77,5 +89,6 @@
         private System.Windows.Forms.RichTextBox rtbNoteTaking;
         private System.Windows.Forms.Button btnLeaveGroup;
         private System.Windows.Forms.RichTextBox rtbReadOnly;
+        private System.Windows.Forms.Button btnexport;
     }
 }
