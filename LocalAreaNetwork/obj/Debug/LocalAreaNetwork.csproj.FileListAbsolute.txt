@@ -1,7 +1,0 @@
-D:\GIT\NoteSchool\LocalAreaNetwork\bin\Debug\LocalAreaNetwork.dll
-D:\GIT\NoteSchool\LocalAreaNetwork\bin\Debug\LocalAreaNetwork.pdb
-D:\GIT\NoteSchool\LocalAreaNetwork\bin\Debug\CoreLibrary.dll
-D:\GIT\NoteSchool\LocalAreaNetwork\bin\Debug\CoreLibrary.pdb
-D:\GIT\NoteSchool\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.csprojResolveAssemblyReference.cache
-D:\GIT\NoteSchool\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.dll
-D:\GIT\NoteSchool\LocalAreaNetwork\obj\Debug\LocalAreaNetwork.pdb
