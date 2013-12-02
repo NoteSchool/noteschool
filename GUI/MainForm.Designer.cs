@@ -28,38 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            _registerForm = new Register();
-            _displayGroupsForm = new DisplayGroups();
-            _createGroupsForm = new CreateGroups();
-            _noteTakingForm = new NoteTaking();
+            this._registerForm = new GUI.Register();
+            this._displayGroupsForm = new GUI.DisplayGroups();
+            this._createGroupsForm = new GUI.CreateGroups();
+            this._noteTakingForm = new GUI.NoteTaking();
             this.SuspendLayout();
-            //
-            // Register
-            //
-            this._registerForm.Location = new System.Drawing.Point( 1, 1 );
-            this._registerForm.Name = "registerForm1";
-            this._registerForm.Size = new System.Drawing.Size( 272, 250 );
+            // 
+            // _registerForm
+            // 
+            this._registerForm.Location = new System.Drawing.Point(1, 1);
+            this._registerForm.Name = "_registerForm";
+            this._registerForm.Size = new System.Drawing.Size(272, 250);
             this._registerForm.TabIndex = 0;
             // 
-            // DisplayGroups
-            //
-            this._displayGroupsForm.Location = new System.Drawing.Point( 79, 38 );
-            this._displayGroupsForm.Name = "displayAndCreateGroups2";
-            this._displayGroupsForm.Size = new System.Drawing.Size( 573, 432 );
+            // _displayGroupsForm
+            // 
+            this._displayGroupsForm.AutoSize = true;
+            this._displayGroupsForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this._displayGroupsForm.Location = new System.Drawing.Point(79, 38);
+            this._displayGroupsForm.Margin = new System.Windows.Forms.Padding(0);
+            this._displayGroupsForm.Name = "_displayGroupsForm";
+            this._displayGroupsForm.Size = new System.Drawing.Size(573, 432);
             this._displayGroupsForm.TabIndex = 1;
             // 
-            // CreateGroups
-            //
-            this._createGroupsForm.Location = new System.Drawing.Point( 109, 60 );
-            this._createGroupsForm.Name = "createGroups1";
-            this._createGroupsForm.Size = new System.Drawing.Size( 510, 389 );
+            // _createGroupsForm
+            // 
+            this._createGroupsForm.Location = new System.Drawing.Point(109, 60);
+            this._createGroupsForm.Name = "_createGroupsForm";
+            this._createGroupsForm.Size = new System.Drawing.Size(510, 389);
             this._createGroupsForm.TabIndex = 0;
             // 
-            // NoteTaking 
-            //
-            this._noteTakingForm.Location = new System.Drawing.Point( 0, 0 );
-            this._noteTakingForm.Name = "notetakingMainPage1";
-            this._noteTakingForm.Size = new System.Drawing.Size( 705, 524 );
+            // _noteTakingForm
+            // 
+            this._noteTakingForm.Location = new System.Drawing.Point(0, 0);
+            this._noteTakingForm.Name = "_noteTakingForm";
+            this._noteTakingForm.Size = new System.Drawing.Size(705, 524);
             this._noteTakingForm.TabIndex = 0;
             // 
             // MainForm
@@ -67,7 +70,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(826, 449);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
