@@ -148,6 +148,8 @@ namespace GUI
             /*
             c.Timer( _noteTakingForm.NoteTakingtext );
             */
+            //Note note = new Note();
+
             if (Controls.Contains(_noteTakingForm))
                 _noteTakingForm.Show();
             else

@@ -32,6 +32,7 @@
             this.btnLeaveGroup = new System.Windows.Forms.Button();
             this.rtbReadOnly = new System.Windows.Forms.RichTextBox();
             this.btnexport = new System.Windows.Forms.Button();
+            this.rating1 = new GUI.Rating();
             this.SuspendLayout();
             // 
             // rtbNoteTaking
@@ -70,10 +71,19 @@
             this.btnexport.UseVisualStyleBackColor = true;
             this.btnexport.Click += new System.EventHandler(this.exportbtn_Click);
             // 
+            // rating1
+            // 
+            this.rating1.BackColor = System.Drawing.Color.Transparent;
+            this.rating1.Location = new System.Drawing.Point(467, 429);
+            this.rating1.Name = "rating1";
+            this.rating1.Size = new System.Drawing.Size(121, 34);
+            this.rating1.TabIndex = 4;
+            // 
             // NoteTaking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.rating1);
             this.Controls.Add(this.btnexport);
             this.Controls.Add(this.rtbReadOnly);
             this.Controls.Add(this.btnLeaveGroup);
@@ -90,5 +100,6 @@
         private System.Windows.Forms.Button btnLeaveGroup;
         private System.Windows.Forms.RichTextBox rtbReadOnly;
         private System.Windows.Forms.Button btnexport;
+        private Rating rating1;
     }
 }
