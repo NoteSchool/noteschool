@@ -19,6 +19,7 @@ namespace LocalAreaNetwork
         //bool _receiverStatus;
         static int _port = 2222;
         string _data;
+        const string _mca = "224.0.1.0";
 
         public string InitializeReceiver()
         {
@@ -67,22 +68,28 @@ namespace LocalAreaNetwork
                 }
             }
         }
-        public void JoinGroup( string mca = "224.0.1.0")
+        public void JoinGroup( string mca = _mca)
         {
             _multicastAddress = IPAddress.Parse(mca);
             _receivingClient.JoinMulticastGroup( _multicastAddress );
-            _sendingClient.JoinMulticastGroup( _multicastAddress );
+
+            if(mca != _mca)
+                _sendingClient.JoinMulticastGroup( _multicastAddress );
         }
-        public void LeaveGroup( string mca = "224.0.1.0" )
+        public void LeaveGroup( string mca = _mca)
         {
             _multicastAddress = IPAddress.Parse( mca );
             _receivingClient.DropMulticastGroup( _multicastAddress );
-            _sendingClient.DropMulticastGroup( _multicastAddress );
-          //  _receivingThread.Join();
-           // _receivingClient.Close();
-          //  _receivingThread.Join();
-           // _sendingClient.Close();
-          //  _receivingThread.Join();
+
+            if (mca != _mca)
+            {
+                _sendingClient.DropMulticastGroup( _multicastAddress );
+                _sendingClient.Close();
+            }
+
+          //  _receivingThread.Abort();
+            //_receivingClient.Close();
+
         }
 
         //receive data

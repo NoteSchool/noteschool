@@ -45,10 +45,12 @@ namespace LocalAreaNetwork
             try
             {
                 //convert string to bytes (needed to be able to send)
-                byte[] data = Encoding.ASCII.GetBytes(sendingData);
+                byte[] _groupData = Encoding.ASCII.GetBytes(sendingData);
+             //   byte[] _noteData = Encoding.ASCII.GetBytes(sendingData);
 
                 //send the data to the multicastgroup
-                _sendingClient.Send( data, data.Length, Sender() );
+                _sendingClient.Send( _groupData, _groupData.Length, GroupSender() );
+         //       _sendingClient.Send( _noteData, _noteData.Length, NoteSender() );
 
             }
             catch
@@ -86,7 +88,14 @@ namespace LocalAreaNetwork
             }
         }
                  * */
-        private IPEndPoint Sender()
+        private IPEndPoint NoteSender()
+        {
+            //create an IPEndPoint which contains IP address and port
+            IPEndPoint localEndPoint = new IPEndPoint( _multicastAddress, _port );
+
+            return localEndPoint;
+        }
+        private IPEndPoint GroupSender()
         {
             //create an IPEndPoint which contains IP address and port
             IPEndPoint localEndPoint = new IPEndPoint( _multicastAddress, _port );

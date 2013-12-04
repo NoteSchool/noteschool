@@ -26,10 +26,8 @@ namespace GUI
         private NSContext c;
         private NSContextServices cs = new NSContextServices( _repo, _lan );
 
-        /*
         string _data;
         string _multicastAddress;
-        */
 
         public MainForm()
         {
@@ -62,8 +60,10 @@ namespace GUI
         
         private void DisplayGroups()
         {
-            /*
             c.JoinGroup();
+            c.Receiver();
+
+            /*
             _data = c.Receiver();
             
             if (_data != null)
@@ -72,6 +72,7 @@ namespace GUI
                 
             }
             */
+
             if (!Controls.Contains(_displayGroupsForm))
                 Controls.Add( _displayGroupsForm );
 
@@ -145,13 +146,14 @@ namespace GUI
         
         private void NoteTaking()
         {
-            /*
-            c.Timer( _noteTakingForm.NoteTakingtext );
-            */
+            
+           // c.Timer(g);
+            
             if (Controls.Contains(_noteTakingForm))
                 _noteTakingForm.Show();
             else
                 Controls.Add( _noteTakingForm );
+
         }
 
         /// <summary>
@@ -161,11 +163,7 @@ namespace GUI
         /// <param name="e"></param>
         void NoteTakingForm_ButtonLeaveGroups( object sender, EventArgs e )
         {
-            /*
             c.LeaveGroup(_multicastAddress);
-            c.JoinGroup();
-            c.Receiver();
-            */
 
             Controls.Remove( _noteTakingForm );
           //  _noteTakingForm.Dispose();
@@ -229,7 +227,6 @@ namespace GUI
             // Use "Sender" to know which button was clicked ?
             Button btn = sender as Button;
 
-            /*
             c.LeaveGroup();
 
             foreach (var groups in c.GetGroups)
@@ -240,7 +237,6 @@ namespace GUI
                     c.JoinGroup( groups.Value.MulticastAddress );
                 }
             }
-            */
 
             Controls.Remove( _displayGroupsForm );
           //  _displayGroupsForm.Dispose();

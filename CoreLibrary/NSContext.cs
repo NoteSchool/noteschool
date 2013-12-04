@@ -16,13 +16,16 @@ namespace CoreLibrary
 
         readonly Dictionary<string, Group> _groups;
         readonly Dictionary<string, User> _users;
+        readonly Dictionary<Group, Note> _notes;
         readonly Dictionary<string, List<string>> _userListPerGroup;
+
         string _sendingData;
 
         public NSContext()
         {
             _groups = new Dictionary<string, Group>();
             _users = new Dictionary<string, User>();
+            _notes = new Dictionary<Group, Note>();
             _userListPerGroup = new Dictionary<string,List<string>>();
         }
 
@@ -152,6 +155,7 @@ namespace CoreLibrary
 
             return _multicastAddress;
         }
+        //works
         public void Timer(string sendingData)
         {
             System.Timers.Timer _syncTimer;
@@ -161,7 +165,7 @@ namespace CoreLibrary
             _syncTimer.Elapsed += SyncTimer;
 
             //Interval in milliseconds
-            _syncTimer.Interval = 100;
+            _syncTimer.Interval = 1000;
             _syncTimer.Enabled = true;
 
             _sendingData = sendingData;
