@@ -87,11 +87,9 @@ namespace CoreLibrary
             if (String.IsNullOrWhiteSpace( firstName )) throw new ArgumentException( "Must be a non empty string", "firstName" );
             if (String.IsNullOrWhiteSpace( lastName )) throw new ArgumentException( "Must be a non empty string", "lastName" );
 
-            string id = Guid.NewGuid().ToString( "N" );
+            User u = new User( this, firstName, lastName);
 
-            User u = new User( this, firstName, lastName, id );
-
-            _users.Add( id, u );
+            _users.Add( u.Id, u );
 
             return u;
         }

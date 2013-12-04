@@ -13,12 +13,12 @@ namespace CoreLibrary
         private string _firstName;
         private string _id;
         
-        internal User(NSContext c, string firstName, string lastName, string id)
+        internal User(NSContext c, string firstName, string lastName)
             :base (c)
         {
             _firstName = firstName;
             _lastName = lastName;
-            _id = id;
+            _id = Guid.NewGuid().ToString("N"); ;
         }
 
         public string LastName { get { return _lastName; } }
