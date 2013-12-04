@@ -160,6 +160,8 @@ namespace GUI
                 _noteTakingForm.Show();
             else
                 Controls.Add( _noteTakingForm );
+
+            _noteTakingForm.groupNameTitle.Text = "Groupe: "+c.CurrentGroup.Name;
         }
 
         /// <summary>
@@ -214,11 +216,11 @@ namespace GUI
             bool match;
             
 
-            foreach (var groups in c.Groups)
+            foreach (var group in c.Groups)
 	        {
                 if (keyword != null)
                 {
-                    match = Regex.IsMatch(groups.Key, keyword, RegexOptions.IgnoreCase);
+                    match = Regex.IsMatch(group.Key, keyword, RegexOptions.IgnoreCase);
                 }
                 else {
                      match = true;
@@ -230,10 +232,9 @@ namespace GUI
                     Button btn = new Button();
 
                     // Set Button properties
-                    btn.Name = groups.Key;
-                    btn.Tag = groups.Value;
+                    btn.Name = group.Key;
                     btn.Size = new Size(111, 48);
-                    btn.Text = "Name :" + groups.Key + "\r\nTag :" + groups.Value.Tag + "\r\n" + groups.Value.MulticastAddress;
+                    btn.Text = "Name :" + group.Key + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
                     btn.Location = new Point(x, y);
                     button++;
                     x += 117;
@@ -259,6 +260,7 @@ namespace GUI
             // Use "Sender" to know which button was clicked ?
             Button btn = sender as Button;
 
+            c.CurrentGroup = c.FindGroup(btn.Name);
             /*
             c.LeaveGroup();
 
@@ -276,16 +278,6 @@ namespace GUI
           //  _displayGroupsForm.Dispose();
 
             NoteTaking();
-
-            /*
-            PropertyInfo[] infos = btn.Tag.GetType().GetProperties();
-            foreach (PropertyInfo info in infos)
-            {
-                Array j = info.GetAccessors();
-
-                MessageBox.Show(j[0]);
-            }
-            */
         }
         private void MainFormClosing( object sender, FormClosingEventArgs e )
         {

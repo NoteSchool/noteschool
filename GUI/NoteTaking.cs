@@ -69,5 +69,10 @@ namespace GUI
             DialogResult i = colorDialog1.ShowDialog(this);
             rtbNoteTaking.SelectionColor = colorDialog1.Color;
         }
+
+        private void rtbNoteTaking_KeyUp(object sender, KeyEventArgs e)
+        {
+           
+        }
     }
 }

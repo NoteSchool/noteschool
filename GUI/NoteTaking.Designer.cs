@@ -37,6 +37,7 @@
             this.FontButton = new System.Windows.Forms.Button();
             this.ColorButton = new System.Windows.Forms.Button();
             this.rating1 = new GUI.Rating();
+            this.groupNameTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // rtbNoteTaking
@@ -46,6 +47,7 @@
             this.rtbNoteTaking.Size = new System.Drawing.Size(305, 356);
             this.rtbNoteTaking.TabIndex = 0;
             this.rtbNoteTaking.Text = "";
+            this.rtbNoteTaking.KeyUp += new System.Windows.Forms.KeyEventHandler(this.rtbNoteTaking_KeyUp);
             // 
             // btnLeaveGroup
             // 
@@ -107,11 +109,22 @@
             this.rating1.Size = new System.Drawing.Size(121, 34);
             this.rating1.TabIndex = 4;
             // 
+            // groupNameTitle
+            // 
+            this.groupNameTitle.AutoSize = true;
+            this.groupNameTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.groupNameTitle.Location = new System.Drawing.Point(506, 14);
+            this.groupNameTitle.Name = "groupNameTitle";
+            this.groupNameTitle.Size = new System.Drawing.Size(150, 31);
+            this.groupNameTitle.TabIndex = 7;
+            this.groupNameTitle.Text = "Groupe xxx";
+            // 
             // NoteTaking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.Controls.Add(this.groupNameTitle);
             this.Controls.Add(this.ColorButton);
             this.Controls.Add(this.FontButton);
             this.Controls.Add(this.rating1);
@@ -122,6 +135,7 @@
             this.Name = "NoteTaking";
             this.Size = new System.Drawing.Size(686, 492);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -136,5 +150,6 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button FontButton;
         private System.Windows.Forms.Button ColorButton;
+        public System.Windows.Forms.Label groupNameTitle;
     }
 }

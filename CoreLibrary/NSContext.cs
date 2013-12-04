@@ -19,6 +19,7 @@ namespace CoreLibrary
         readonly Dictionary<string, Note> _notes;
 
         private User _currentUser;
+        private Group _currentGroup;
 
         readonly Dictionary<string, List<string>> _userListPerGroup;
         string _sendingData;
@@ -40,6 +41,7 @@ namespace CoreLibrary
             }
         }
 
+        public Group CurrentGroup { get { return _currentGroup; } set { _currentGroup = value; } }
         public User CurrentUser { get { return _currentUser; } set { _currentUser = value; } }
         public Dictionary<string, Group> Groups { get { return _groups; } }
         public Dictionary<string, User> Users { get { return _users; } }
@@ -71,7 +73,7 @@ namespace CoreLibrary
                     if (!existed)
                     {
                         g = new Group( this, name, tag, multicastAddress );
-                        _groups.Add( name, g );
+                        _groups.Add(multicastAddress, g);
                         created = true;
                     }
                     else
@@ -110,10 +112,10 @@ namespace CoreLibrary
             return g;
         }
         */
-        public Group FindGroup( string name)
+        public Group FindGroup( string id)
         {
             Group g;
-            _groups.TryGetValue( name, out g );
+            _groups.TryGetValue( id, out g );
             return g;
         }
 
