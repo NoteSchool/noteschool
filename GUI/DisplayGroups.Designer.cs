@@ -30,6 +30,7 @@
         {
             this.btnCreateGroups = new System.Windows.Forms.Button();
             this.groupPanel = new System.Windows.Forms.Panel();
+            this.tbSearchGroup = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnCreateGroups
@@ -50,18 +51,28 @@
             this.groupPanel.Size = new System.Drawing.Size(759, 505);
             this.groupPanel.TabIndex = 1;
             // 
+            // tbSearchGroup
+            // 
+            this.tbSearchGroup.Location = new System.Drawing.Point(140, 18);
+            this.tbSearchGroup.Name = "tbSearchGroup";
+            this.tbSearchGroup.Size = new System.Drawing.Size(100, 20);
+            this.tbSearchGroup.TabIndex = 2;
+            this.tbSearchGroup.TextChanged += new System.EventHandler(this.tbSearchGroup_TextChanged);
+            // 
             // DisplayGroups
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.tbSearchGroup);
             this.Controls.Add(this.groupPanel);
             this.Controls.Add(this.btnCreateGroups);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "DisplayGroups";
             this.Size = new System.Drawing.Size(739, 568);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -69,5 +80,6 @@
 
         private System.Windows.Forms.Button btnCreateGroups;
         private System.Windows.Forms.Panel groupPanel;
+        private System.Windows.Forms.TextBox tbSearchGroup;
     }
 }
