@@ -57,5 +57,17 @@ namespace GUI
                 }
             }
         }
+
+        private void FontButton_Click_1(object sender, EventArgs e)
+        {
+            DialogResult r = fontDialog1.ShowDialog(this);
+            rtbNoteTaking.SelectionFont = fontDialog1.Font;
+        }
+
+        private void ColorButton_Click_1(object sender, EventArgs e)
+        {
+            DialogResult i = colorDialog1.ShowDialog(this);
+            rtbNoteTaking.SelectionColor = colorDialog1.Color;
+        }
     }
 }
