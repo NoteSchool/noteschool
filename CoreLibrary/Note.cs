@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CoreLibrary
 {
     [Serializable]
-    class Note : NSObject
+    public class Note : NSObject
     {
         readonly DateTime _date;
         readonly Group _group;
