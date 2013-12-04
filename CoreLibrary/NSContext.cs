@@ -76,6 +76,12 @@ namespace CoreLibrary
             }
             return g;
         }
+
+        public Note CreateNote(Group group)
+        {
+            return new Note(this, group);
+        }
+
         public User CreateUser( string firstName, string lastName )
         {
             if (String.IsNullOrWhiteSpace( firstName )) throw new ArgumentException( "Must be a non empty string", "firstName" );
