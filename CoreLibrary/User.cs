@@ -18,7 +18,7 @@ namespace CoreLibrary
         {
             _firstName = firstName;
             _lastName = lastName;
-            _id = Guid.NewGuid().ToString("N"); ;
+            _id = Guid.NewGuid().ToString("N");
         }
 
         public string LastName { get { return _lastName; } }

@@ -16,6 +16,8 @@ namespace CoreLibrary
 
         readonly Dictionary<string, Group> _groups;
         readonly Dictionary<string, User> _users;
+        readonly Dictionary<string, Note> _notes;
+
         readonly Dictionary<string, List<string>> _userListPerGroup;
         string _sendingData;
 
@@ -23,6 +25,7 @@ namespace CoreLibrary
         {
             _groups = new Dictionary<string, Group>();
             _users = new Dictionary<string, User>();
+            _notes = new Dictionary<string, Note>();
             _userListPerGroup = new Dictionary<string,List<string>>();
         }
 
@@ -79,7 +82,10 @@ namespace CoreLibrary
 
         public Note CreateNote(Group group)
         {
-            return new Note(this, group);
+            Note n = new Note(this, group);
+
+            _notes.Add(n.Id, n);
+            return n;
         }
 
         public User CreateUser( string firstName, string lastName )

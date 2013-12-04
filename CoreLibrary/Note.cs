@@ -12,6 +12,7 @@ namespace CoreLibrary
         readonly DateTime _date;
         readonly Group _group;
         string _text;
+        string _id;
 
         int _rate;
         List<String> _ratersId;
@@ -22,12 +23,19 @@ namespace CoreLibrary
             set { _text = value; }
         }
 
+        public string Id
+        {
+            get { return _id; }
+        }
+
         internal Note(NSContext c, Group group)
             :base(c)
         {
             _date = DateTime.Now;
             _group = group;
             _rate = 0;
+            _ratersId = new List<string>();
+            _id = Guid.NewGuid().ToString("N");
         }
 
         /// <summary>
