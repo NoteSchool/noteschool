@@ -31,6 +31,7 @@
             this.btnCreateGroups = new System.Windows.Forms.Button();
             this.groupPanel = new System.Windows.Forms.Panel();
             this.tbSearchGroup = new System.Windows.Forms.TextBox();
+            this.welcomeBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // btnCreateGroups
@@ -53,11 +54,19 @@
             // 
             // tbSearchGroup
             // 
-            this.tbSearchGroup.Location = new System.Drawing.Point(140, 18);
+            this.tbSearchGroup.Location = new System.Drawing.Point(268, 19);
             this.tbSearchGroup.Name = "tbSearchGroup";
             this.tbSearchGroup.Size = new System.Drawing.Size(100, 20);
             this.tbSearchGroup.TabIndex = 2;
             this.tbSearchGroup.TextChanged += new System.EventHandler(this.tbSearchGroup_TextChanged);
+            // 
+            // welcomeBox
+            // 
+            this.welcomeBox.Location = new System.Drawing.Point(12, 16);
+            this.welcomeBox.Name = "welcomeBox";
+            this.welcomeBox.Size = new System.Drawing.Size(220, 36);
+            this.welcomeBox.TabIndex = 3;
+            this.welcomeBox.Text = "";
             // 
             // DisplayGroups
             // 
@@ -65,6 +74,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.welcomeBox);
             this.Controls.Add(this.tbSearchGroup);
             this.Controls.Add(this.groupPanel);
             this.Controls.Add(this.btnCreateGroups);
@@ -81,5 +91,6 @@
         private System.Windows.Forms.Button btnCreateGroups;
         private System.Windows.Forms.Panel groupPanel;
         private System.Windows.Forms.TextBox tbSearchGroup;
+        public System.Windows.Forms.RichTextBox welcomeBox;
     }
 }

@@ -76,7 +76,10 @@ namespace GUI
             }
             */
             if (!Controls.Contains(_displayGroupsForm))
-                Controls.Add( _displayGroupsForm );
+            {
+                _displayGroupsForm.welcomeBox.Text = "Bienvenue " + c.CurrentUser.FirstName;
+                Controls.Add(_displayGroupsForm);
+            }
 
             _displayGroupsForm.Show();
 
