@@ -18,6 +18,8 @@ namespace CoreLibrary
         readonly Dictionary<string, User> _users;
         readonly Dictionary<string, Note> _notes;
 
+        private User _currentUser;
+
         readonly Dictionary<string, List<string>> _userListPerGroup;
         string _sendingData;
 
@@ -38,6 +40,7 @@ namespace CoreLibrary
             }
         }
 
+        public User CurrentUser { get { return _currentUser; } set { _currentUser = value; } }
         public Dictionary<string, Group> Groups { get { return _groups; } }
         public Dictionary<string, User> Users { get { return _users; } }
         public Dictionary<string, Note> Notes { get { return _notes; } }
@@ -79,14 +82,6 @@ namespace CoreLibrary
                 }
             }
             return g;
-        }
-
-        public Note CreateNote(Group group)
-        {
-            Note n = new Note(this, group);
-
-            _notes.Add(n.Id, n);
-            return n;
         }
 
         public User CreateUser( string firstName, string lastName )

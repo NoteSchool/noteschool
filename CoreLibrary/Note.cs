@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 namespace CoreLibrary
 {
     [Serializable]
-    public class Note : NSObject
+    public class Note
     {
-        private DateTime _date;
-        private Group _group;
         private string _text;
-        private string _id;
+        private DateTime _editedAt;
 
         private int _rate;
         private List<String> _ratersId;
@@ -23,20 +21,15 @@ namespace CoreLibrary
             set { _text = value; }
         }
 
-        public DateTime Date { get { return _date; } }
-        public Group Group { get { return _group; } }
+        public DateTime EditedAt { get { return _editedAt; } }
         public int Rate { get { return _rate; }}
         public List<String> RatersId { get { return _ratersId; }}
-        public string Id { get { return _id; } }
 
-        internal Note(NSContext c, Group group)
-            :base(c)
+        internal Note()
         {
-            _date = DateTime.Now;
-            _group = group;
+            _editedAt = DateTime.Now;
             _rate = 0;
             _ratersId = new List<string>();
-            _id = Guid.NewGuid().ToString("N");
         }
 
         /// <summary>

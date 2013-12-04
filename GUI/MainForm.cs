@@ -93,7 +93,7 @@ namespace GUI
 
             c.Initialize( cs );
 
-            c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName);
+            c.CurrentUser = c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName);
 
             c.Save();
 
