@@ -35,55 +35,69 @@
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontButton = new System.Windows.Forms.Button();
-            this.rating1 = new GUI.Rating();
             this.ColorButton = new System.Windows.Forms.Button();
+            this.rating1 = new GUI.Rating();
             this.SuspendLayout();
             // 
             // rtbNoteTaking
             // 
-            this.rtbNoteTaking.Location = new System.Drawing.Point(0, 43);
+            this.rtbNoteTaking.Location = new System.Drawing.Point(15, 62);
             this.rtbNoteTaking.Name = "rtbNoteTaking";
-            this.rtbNoteTaking.Size = new System.Drawing.Size(305, 375);
+            this.rtbNoteTaking.Size = new System.Drawing.Size(305, 356);
             this.rtbNoteTaking.TabIndex = 0;
             this.rtbNoteTaking.Text = "";
             // 
             // btnLeaveGroup
             // 
-            this.btnLeaveGroup.Location = new System.Drawing.Point(279, 429);
+            this.btnLeaveGroup.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.btnLeaveGroup.Location = new System.Drawing.Point(193, 429);
             this.btnLeaveGroup.Name = "btnLeaveGroup";
-            this.btnLeaveGroup.Size = new System.Drawing.Size(127, 23);
+            this.btnLeaveGroup.Size = new System.Drawing.Size(127, 45);
             this.btnLeaveGroup.TabIndex = 1;
             this.btnLeaveGroup.Text = "Quitter le groupe";
-            this.btnLeaveGroup.UseVisualStyleBackColor = true;
+            this.btnLeaveGroup.UseVisualStyleBackColor = false;
             // 
             // rtbReadOnly
             // 
-            this.rtbReadOnly.Location = new System.Drawing.Point(349, 43);
+            this.rtbReadOnly.Location = new System.Drawing.Point(349, 62);
             this.rtbReadOnly.Name = "rtbReadOnly";
             this.rtbReadOnly.ReadOnly = true;
-            this.rtbReadOnly.Size = new System.Drawing.Size(319, 375);
+            this.rtbReadOnly.Size = new System.Drawing.Size(319, 356);
             this.rtbReadOnly.TabIndex = 2;
             this.rtbReadOnly.Text = "";
             // 
             // btnexport
             // 
-            this.btnexport.Location = new System.Drawing.Point(165, 429);
+            this.btnexport.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.btnexport.Location = new System.Drawing.Point(15, 429);
             this.btnexport.Name = "btnexport";
-            this.btnexport.Size = new System.Drawing.Size(75, 23);
+            this.btnexport.Size = new System.Drawing.Size(75, 45);
             this.btnexport.TabIndex = 3;
             this.btnexport.Text = "Exporter";
-            this.btnexport.UseVisualStyleBackColor = true;
+            this.btnexport.UseVisualStyleBackColor = false;
             this.btnexport.Click += new System.EventHandler(this.exportbtn_Click);
             // 
             // FontButton
             // 
-            this.FontButton.Location = new System.Drawing.Point(3, 14);
+            this.FontButton.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.FontButton.Location = new System.Drawing.Point(15, 14);
             this.FontButton.Name = "FontButton";
-            this.FontButton.Size = new System.Drawing.Size(115, 23);
+            this.FontButton.Size = new System.Drawing.Size(143, 42);
             this.FontButton.TabIndex = 5;
             this.FontButton.Text = "Modifier la police...";
-            this.FontButton.UseVisualStyleBackColor = true;
+            this.FontButton.UseVisualStyleBackColor = false;
             this.FontButton.Click += new System.EventHandler(this.FontButton_Click_1);
+            // 
+            // ColorButton
+            // 
+            this.ColorButton.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.ColorButton.Location = new System.Drawing.Point(176, 14);
+            this.ColorButton.Name = "ColorButton";
+            this.ColorButton.Size = new System.Drawing.Size(144, 42);
+            this.ColorButton.TabIndex = 6;
+            this.ColorButton.Text = "Modifier la couleur...";
+            this.ColorButton.UseVisualStyleBackColor = false;
+            this.ColorButton.Click += new System.EventHandler(this.ColorButton_Click_1);
             // 
             // rating1
             // 
@@ -93,20 +107,11 @@
             this.rating1.Size = new System.Drawing.Size(121, 34);
             this.rating1.TabIndex = 4;
             // 
-            // ColorButton
-            // 
-            this.ColorButton.Location = new System.Drawing.Point(124, 14);
-            this.ColorButton.Name = "ColorButton";
-            this.ColorButton.Size = new System.Drawing.Size(116, 23);
-            this.ColorButton.TabIndex = 6;
-            this.ColorButton.Text = "Modifier la couleur...";
-            this.ColorButton.UseVisualStyleBackColor = true;
-            this.ColorButton.Click += new System.EventHandler(this.ColorButton_Click_1);
-            // 
             // NoteTaking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.Controls.Add(this.ColorButton);
             this.Controls.Add(this.FontButton);
             this.Controls.Add(this.rating1);
@@ -115,7 +120,7 @@
             this.Controls.Add(this.btnLeaveGroup);
             this.Controls.Add(this.rtbNoteTaking);
             this.Name = "NoteTaking";
-            this.Size = new System.Drawing.Size(686, 467);
+            this.Size = new System.Drawing.Size(686, 492);
             this.ResumeLayout(false);
 
         }
