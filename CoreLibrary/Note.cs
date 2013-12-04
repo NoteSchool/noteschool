@@ -9,13 +9,13 @@ namespace CoreLibrary
     [Serializable]
     public class Note : NSObject
     {
-        readonly DateTime _date;
-        readonly Group _group;
-        string _text;
-        string _id;
+        private DateTime _date;
+        private Group _group;
+        private string _text;
+        private string _id;
 
-        int _rate;
-        List<String> _ratersId;
+        private int _rate;
+        private List<String> _ratersId;
 
         public string Text
         {
@@ -23,10 +23,11 @@ namespace CoreLibrary
             set { _text = value; }
         }
 
-        public string Id
-        {
-            get { return _id; }
-        }
+        public DateTime Date { get { return _date; } }
+        public Group Group { get { return _group; } }
+        public int Rate { get { return _rate; }}
+        public List<String> RatersId { get { return _ratersId; }}
+        public string Id { get { return _id; } }
 
         internal Note(NSContext c, Group group)
             :base(c)
