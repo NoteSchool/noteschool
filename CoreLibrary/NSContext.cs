@@ -38,15 +38,16 @@ namespace CoreLibrary
             }
         }
 
+        public Dictionary<string, Group> Groups { get { return _groups; } }
+        public Dictionary<string, User> Users { get { return _users; } }
+        public Dictionary<string, Note> Notes { get { return _notes; } }
+
         public void Initialize( NSContextServices services )
         {
             if (services == null) throw new ArgumentNullException( "services" );
             _services = services;
         }
-        public Dictionary<string, Group> GetGroups
-        {
-            get { return _groups; }
-        }
+
         public Group FindOrCreateGroup( string name, string tag, string multicastAddress, out bool created )
         {
             if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );

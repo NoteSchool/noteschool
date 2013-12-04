@@ -211,7 +211,7 @@ namespace GUI
             bool match;
             
 
-            foreach (var groups in c.GetGroups)
+            foreach (var groups in c.Groups)
 	        {
                 if (keyword != null)
                 {
