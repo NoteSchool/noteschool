@@ -130,7 +130,7 @@ namespace GUI
         {
             bool created;
 
-            c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, c.SetMulticastAddress(), out created );
+            c.CurrentGroup = c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, c.SetMulticastAddress(), out created );
 
             if (!created)
                 MessageBox.Show( "Le nom du groupe existe déjà" );
@@ -234,7 +234,7 @@ namespace GUI
                     // Set Button properties
                     btn.Name = group.Key;
                     btn.Size = new Size(111, 48);
-                    btn.Text = "Name :" + group.Key + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
+                    btn.Text = "Name :" + group.Value.Name + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
                     btn.Location = new Point(x, y);
                     button++;
                     x += 117;
