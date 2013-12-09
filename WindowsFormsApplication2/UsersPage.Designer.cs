@@ -1,6 +1,6 @@
 ﻿namespace GUI2
 {
-    partial class Content
+    partial class UsersPage
     {
         /// <summary> 
         /// Variable nécessaire au concepteur.
@@ -28,36 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Title = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // Title
-            // 
-            this.Title.AutoSize = true;
-            this.Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
-            this.Title.Location = new System.Drawing.Point(16, 14);
-            this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(53, 20);
-            this.Title.TabIndex = 0;
-            this.Title.Text = "label1";
-            // 
-            // Content
+            // UsersPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
-            this.Controls.Add(this.Title);
-            this.Name = "Content";
-            this.Size = new System.Drawing.Size(518, 375);
+            this.BackColor = System.Drawing.Color.White;
+            this.Name = "UsersPage";
+            this.Size = new System.Drawing.Size(389, 400);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label Title;
     }
 }

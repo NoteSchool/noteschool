@@ -15,14 +15,15 @@ namespace GUI2
         internal int ItemCount = 1;
         internal MenuItem SelectedItem;
         internal const int menuItemHeight = 83;
-        
+        public EventHandler ItemClick;
+
         public RightMenu()
         {
             InitializeComponent();
 
         }
 
-        public MenuItem createItem(string label, string icon = "register", bool disable = true)
+        public MenuItem createItem(string label, string icon = "register", bool disable = false)
         {
             MenuItem menuItem = new GUI2.MenuItem();
 
@@ -68,11 +69,13 @@ namespace GUI2
         {
             MenuItem item = sender as MenuItem;
 
-            if (!item.IsDisabled)
-            {
-                SelectedItem.Active(false);
-                item.Active(true);
-                SelectedItem = item;
+            if (!item.IsActive && !item.IsDisabled)
+             {
+                   SelectedItem.Active(false);
+                    item.Active(true);
+                    SelectedItem = item;
+
+                    ItemClick(SelectedItem, e);   
             }
         }
 

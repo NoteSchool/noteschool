@@ -14,9 +14,11 @@ namespace GUI2
     {
         public bool IsDisabled = false;
         public bool IsActive = false;
-        
+        public string ID;
+
         public string LabelText 
-        { 
+        {
+            get { return this.ItemText.Text; }
             set 
             { 
                 this.ItemText.Text = value;

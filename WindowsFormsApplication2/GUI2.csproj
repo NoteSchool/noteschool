@@ -61,11 +61,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AboutPage.Designer.cs">
+      <DependentUpon>AboutPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Content.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Content.Designer.cs">
       <DependentUpon>Content.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateGroupPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreateGroupPage.Designer.cs">
+      <DependentUpon>CreateGroupPage.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupsPage.cs">
       <SubType>UserControl</SubType>
@@ -111,8 +123,20 @@
     <Compile Include="MenuItem.Designer.cs">
       <DependentUpon>MenuItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="UsersPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UsersPage.Designer.cs">
+      <DependentUpon>UsersPage.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutPage.resx">
+      <DependentUpon>AboutPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Content.resx">
       <DependentUpon>Content.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateGroupPage.resx">
+      <DependentUpon>CreateGroupPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GroupsPage.resx">
       <DependentUpon>GroupsPage.cs</DependentUpon>
@@ -144,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RightMenu.resx">
       <DependentUpon>RightMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsersPage.resx">
+      <DependentUpon>UsersPage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

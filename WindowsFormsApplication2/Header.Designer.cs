@@ -36,38 +36,38 @@
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // Username
             // 
             this.Username.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Username.AutoSize = true;
             this.Username.CausesValidation = false;
             this.Username.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Username.Location = new System.Drawing.Point(628, 18);
-            this.Username.Name = "label1";
-            this.Username.Size = new System.Drawing.Size(72, 16);
+            this.Username.Location = new System.Drawing.Point(678, 15);
+            this.Username.Name = "Username";
+            this.Username.Size = new System.Drawing.Size(28, 16);
             this.Username.TabIndex = 1;
             this.Username.Text = "text";
             this.Username.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox1
+            // SearchInput
             // 
             this.SearchInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.SearchInput.BackColor = System.Drawing.Color.White;
             this.SearchInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchInput.ForeColor = System.Drawing.Color.Gray;
             this.SearchInput.Location = new System.Drawing.Point(309, 15);
-            this.SearchInput.Name = "textBox1";
+            this.SearchInput.Name = "SearchInput";
             this.SearchInput.Size = new System.Drawing.Size(165, 22);
             this.SearchInput.TabIndex = 2;
             this.SearchInput.Text = "Recherche";
             // 
-            // pictureBox1
+            // Logo
             // 
             this.Logo.Dock = System.Windows.Forms.DockStyle.Left;
             this.Logo.Image = global::GUI2.Properties.Resources.logo;
             this.Logo.Location = new System.Drawing.Point(0, 0);
-            this.Logo.Name = "pictureBox1";
+            this.Logo.Name = "Logo";
             this.Logo.Size = new System.Drawing.Size(163, 52);
             this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Logo.TabIndex = 0;
@@ -84,7 +84,7 @@
             this.shapeContainer1.TabIndex = 3;
             this.shapeContainer1.TabStop = false;
             // 
-            // lineShape1
+            // LogoSeparator
             // 
             this.LogoSeparator.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(233)))), ((int)(((byte)(237)))));
             this.LogoSeparator.BorderWidth = 5;
@@ -94,7 +94,7 @@
             this.LogoSeparator.Y1 = 1;
             this.LogoSeparator.Y2 = 52;
             // 
-            // header
+            // Header
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -103,7 +103,7 @@
             this.Controls.Add(this.Username);
             this.Controls.Add(this.Logo);
             this.Controls.Add(this.shapeContainer1);
-            this.Name = "header";
+            this.Name = "Header";
             this.Size = new System.Drawing.Size(725, 52);
             this.Load += new System.EventHandler(this.header_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();

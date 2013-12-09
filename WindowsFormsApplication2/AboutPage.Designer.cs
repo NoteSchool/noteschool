@@ -1,6 +1,6 @@
 ﻿namespace GUI2
 {
-    partial class Content
+    partial class AboutPage
     {
         /// <summary> 
         /// Variable nécessaire au concepteur.
@@ -28,29 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Title = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // Title
+            // label1
             // 
-            this.Title.AutoSize = true;
-            this.Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
-            this.Title.Location = new System.Drawing.Point(16, 14);
-            this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(53, 20);
-            this.Title.TabIndex = 0;
-            this.Title.Text = "label1";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
+            this.label1.Location = new System.Drawing.Point(14, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 16);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "text";
             // 
-            // Content
+            // AboutPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
-            this.Controls.Add(this.Title);
-            this.Name = "Content";
-            this.Size = new System.Drawing.Size(518, 375);
+            this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(700, 0);
+            this.Name = "AboutPage";
+            this.Size = new System.Drawing.Size(700, 27);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -58,6 +59,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label Title;
+        private System.Windows.Forms.Label label1;
     }
 }

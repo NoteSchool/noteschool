@@ -24,6 +24,10 @@ namespace GUI2
 
         private GroupsPage GroupsPageControl;
         private RegisterPage RegisterPageControl;
+        private CreateGroupPage CreateGroupPageControl;
+        private AboutPage AboutPageControl;
+        private UsersPage UsersPageControl;
+        private NoteEditor NoteEditorControl;
 
         private bool LoggedIn = false;
 
@@ -32,6 +36,7 @@ namespace GUI2
             if (File.Exists(_path))
             {
                 LoggedIn = true;
+                c = NSContext.Load(cs);
             }
 
             InitializeComponent();
@@ -41,16 +46,12 @@ namespace GUI2
         {
             Content content = sender as Content;
 
-            content.TitleText = "Identifiez-vous pour accéder au savoir !";
-
             if (!LoggedIn)
             {
                 RegisterPage();
             }
             else
-            {
-                c = NSContext.Load(cs);
-
+            {          
                 GroupsPage();
             }
         }
@@ -82,48 +83,150 @@ namespace GUI2
 
             menu.SuspendLayout();
 
-            //Set first item
-            menu.menuItem1.LabelText = "Identification";
-            //menu.menuItem1.LabelIcon = "login";
 
-            //add another item
-            MenuItem groups = menu.createItem(label: "Groupes", disable: !LoggedIn, icon: "register");
             MenuItem users = menu.createItem("Utilisateurs");
             MenuItem about = menu.createItem("A Propos");
 
             if (!LoggedIn)
             {
+                //Set first item
+                menu.menuItem1.LabelText = "Identification";
+                //menu.menuItem1.LabelIcon = "login";
+
+                //add another item
+                MenuItem groups = menu.createItem(label: "Groupes", disable: !LoggedIn, icon: "register");
+
                 groups.IsDisabled = true;
                 users.IsDisabled = true;
                 about.IsDisabled = true;
+
+                menu.Controls.Add(groups);
+            }
+            else
+            {
+                //Set first item
+                menu.menuItem1.LabelText = "Groupes";
+                menu.menuItem1.IsActive = true;
             }
 
-            menu.Controls.Add(groups);
+            menu.ItemClick += (s, ev) =>
+                {
+                    var item = s as MenuItem;
+            
+                    switch (item.LabelText)
+                    {
+                        case "A Propos":                        
+                            RemovePage();
+                            AboutPage();
+                            break;
+                        case "Groupes":
+                            RemovePage();
+                            GroupsPage();
+                            break;
+                        case "Utilisateurs":
+                            RemovePage();
+                            UsersPage();
+                            break;
+                    }
+                };
+
             menu.Controls.Add(users);
             menu.Controls.Add(about);
-
             menu.ResumeLayout();
         }
 
-        private void GroupsPage(bool show = true)
+        private void GroupsPage()
         {
-            this.SuspendLayout();
-
             if (GroupsPageControl == null)
             {
                 GroupsPageControl = new GUI2.GroupsPage();
                 GroupsPageControl.BackColor = System.Drawing.Color.White;
-                GroupsPageControl.Location = new System.Drawing.Point(183, 92);
+                GroupsPageControl.Location = new System.Drawing.Point(20, 40);
                 GroupsPageControl.Name = "groupsPage1";
-                GroupsPageControl.Size = new System.Drawing.Size(544, 359);
+                GroupsPageControl.Size = new System.Drawing.Size(500, 259);
+                GroupsPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
                 GroupsPageControl.TabIndex = 5;
+                GroupsPageControl.AutoSize = true;
+                GroupsPageControl.GroupButtonClick += (s, e) =>
+                    {
+                        Button btn = s as Button;
+
+                        c.CurrentGroup = c.FindGroup(btn.Name);
+
+                        Controls.Remove(GroupsPageControl);
+                        GroupsPageControl.Dispose();
+
+                        //open taking note
+                    };
+
+                GroupsPageControl.CreateGroupButtonClick += (s, e) =>
+                    {
+                        Button btn = s as Button;
+
+                        Controls.Remove(GroupsPageControl);
+                        GroupsPageControl.Dispose();
+
+                        //open create group form
+                        GroupCreatePage();
+                    };
             }
 
-            content1.TitleText = "Choisissez votre classe de travail";
-            this.Controls.Add(GroupsPageControl);
+            GroupsPageControl.CreateGroupButtons(c);
 
-            this.ResumeLayout(false);
+            content1.TitleText = "Choisissez votre classe de travail";
+            content1.Controls.Add(GroupsPageControl);
+
         }
+
+        private void GroupCreatePage()
+        {
+            if (CreateGroupPageControl == null)
+            {
+                CreateGroupPageControl = new GUI2.CreateGroupPage();
+                CreateGroupPageControl.BackColor = System.Drawing.Color.White;
+                CreateGroupPageControl.Location = new System.Drawing.Point(20, 40);
+                CreateGroupPageControl.Name = "groupsPage1";
+                CreateGroupPageControl.Size = new System.Drawing.Size(300, 259);
+                CreateGroupPageControl.TabIndex = 5;
+                CreateGroupPageControl.CancelButtonClick += (s, e) =>
+                {
+                    Button btn = s as Button;
+
+                    Controls.Remove(CreateGroupPageControl);
+                    CreateGroupPageControl.Dispose();
+
+                    //open page
+                    GroupsPage();
+                };
+
+                CreateGroupPageControl.SaveButtonClick += (s, e) =>
+                {
+                    //Button btn = s as Button;
+
+                    bool created;
+
+                    c.CurrentGroup = c.FindOrCreateGroup(CreateGroupPageControl.GroupTitle, CreateGroupPageControl.GroupTag, 
+                        c.SetMulticastAddress(), out created);
+
+                    if (!created)
+                        MessageBox.Show("Le nom du groupe existe déjà");
+                    else
+                    {
+                        c.Save();
+                        Controls.Remove(CreateGroupPageControl);
+                        CreateGroupPageControl.Dispose();
+
+                        GroupsPage();
+                    }
+                };
+
+            }
+
+            content1.TitleText = "Ajouter un nouveau groupe";
+            content1.Controls.Add(CreateGroupPageControl);
+        }
+
+
         private void RegisterPage()
         {
             //this.SuspendLayout();
@@ -136,22 +239,91 @@ namespace GUI2
                 RegisterPageControl.Name = "groupsPage1";
                 RegisterPageControl.Size = new System.Drawing.Size(344, 259);
                 RegisterPageControl.TabIndex = 5;
-                
-                /*RegisterPageControl.ButtonClick += (s, e) =>
-                {
-                    MessageBox.Show("test");
-                };*/
 
                 RegisterPageControl.SaveButtonClick += (s, e) =>
-                {
-                    MessageBox.Show("test");
-                };
+                    {
+                        c = new NSContext();
+
+                        c.Initialize(cs);
+
+                        c.CurrentUser = c.CreateUser(RegisterPageControl.FirstName, RegisterPageControl.LastName);
+
+                        c.Save();
+
+                        this.content1.Controls.Remove(RegisterPageControl);
+                        RegisterPageControl.Dispose();
+
+                        GroupsPage();
+                    };
             }
 
             content1.TitleText = "Identifiez-vous pour accéder au savoir !";
             content1.Controls.Add(RegisterPageControl);
 
             //this.ResumeLayout();
+        }
+
+        private void NoteEditorPage()
+        {
+            if (NoteEditorControl == null)
+            {
+                NoteEditorControl = new NoteEditor();
+
+            }
+
+            content1.TitleText = c.CurrentGroup.Name + ": Note";
+            content1.Controls.Add(NoteEditorControl);
+        }
+
+        private void AboutPage()
+        {
+            if (AboutPageControl == null)
+            {
+                AboutPageControl = new GUI2.AboutPage();
+                AboutPageControl.BackColor = System.Drawing.Color.White;
+                AboutPageControl.Location = new System.Drawing.Point(20, 40);
+                AboutPageControl.Name = "groupsPage1";
+                AboutPageControl.Size = new System.Drawing.Size(344, 259);
+                AboutPageControl.TabIndex = 5;
+                AboutPageControl.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "+Environment.NewLine
+                +"Mauris consequat quam vel ullamcorper varius. Phasellus vulputate quam in fermentum ultricies. "+Environment.NewLine
+                +"Sed consectetur elementum quam at posuere. Nulla sem felis, lobortis vestibulum eros sit amet, dictum "+Environment.NewLine
+                +"dictum ante. Nullam facilisis euismod ligula a egestas. Donec nec diam nulla. Pellentesque pulvinar ut arcu "+Environment.NewLine
+                + "quis malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas." + Environment.NewLine 
+                +"Sed venenatis euismod tortor. Pellentesque vel est ut sem tincidunt dictum vel auctor odio.";
+            }
+
+            content1.TitleText = "Qui somme nous ?";
+
+            content1.Controls.Add(AboutPageControl);
+        }
+
+        private void UsersPage()
+        {
+            if (UsersPageControl == null)
+            {
+                UsersPageControl = new GUI2.UsersPage();
+                UsersPageControl.BackColor = System.Drawing.Color.White;
+                UsersPageControl.Location = new System.Drawing.Point(20, 40);
+                UsersPageControl.Name = "groupsPage1";
+                UsersPageControl.Size = new System.Drawing.Size(344, 259);
+                UsersPageControl.TabIndex = 5;
+            }
+
+            content1.TitleText = "Retrouver vos amis";
+
+            content1.Controls.Add(UsersPageControl);
+        }
+
+        private void ChangePage()
+        {
+
+        }
+
+        private void RemovePage()
+        {
+
+            content1.Controls.RemoveAt(1);
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
