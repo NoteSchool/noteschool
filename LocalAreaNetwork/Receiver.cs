@@ -28,6 +28,10 @@ namespace LocalAreaNetwork
             IPAddress _multicastaddress = IPAddress.Parse(_mca);
             _receivingClient.JoinMulticastGroup(_multicastaddress);
             */
+            if (_receivingClient == null)
+            {
+                _receivingClient = new UdpClient();
+            }
 
             //set option to get multiple receiver on a single machine
             _receivingClient.ExclusiveAddressUse = false;
@@ -86,9 +90,8 @@ namespace LocalAreaNetwork
                 _sendingClient.DropMulticastGroup( _multicastAddress );
                 _sendingClient.Close();
             }
-
           //  _receivingThread.Abort();
-            //_receivingClient.Close();
+            _receivingClient.Close();
 
         }
 
