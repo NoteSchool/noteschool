@@ -27,10 +27,10 @@ namespace GUI
         private NSContext c;
         private NSContextServices cs = new NSContextServices( _repo, _lan );
 
-        /*
+        
         string _data;
         string _multicastAddress;
-        */
+        
 
         public MainForm()
         {
