@@ -31,8 +31,6 @@ namespace GUI2
 
         private Control _currentPage;
 
-        private Size _lastPageSize;
-
         private bool LoggedIn = false;
 
         public Main()
@@ -49,20 +47,13 @@ namespace GUI2
             //when a control added
             this.content1.ControlAddedEvent += (s, e) =>
                 {
-                    var cont = content1.Controls[1];
+                    /**var cont = content1.panel1.Controls[0];
                     //MessageBox.Show(cont.Name);
                     if ((string)cont.Tag == "page")
                     {
-                        //MessageBox.Show("test");
                         _currentPage = cont;
                         System.Diagnostics.Debug.WriteLine(cont.Name + " page lunched");
-
-                       /* if (_lastPageSize != null)
-                        {
-                            cont.Size = _lastPageSize;
-                            System.Diagnostics.Debug.WriteLine(_lastPageSize.Width);
-                        }*/
-                    }
+                    }*/
                 };
         }
 
@@ -76,8 +67,8 @@ namespace GUI2
             }
             else
             {          
-                //GroupsPage();
-                NoteEditor();
+               GroupsPage();
+                //NoteEditor();
             }
         }
 
@@ -175,12 +166,7 @@ namespace GUI2
                 GroupsPageControl.Location = new System.Drawing.Point(0, 50);
                 GroupsPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 GroupsPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
-                GroupsPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right))); 
-                GroupsPageControl.TabIndex = 5;
-                
-               // GroupsPageControl.AutoSize = true;
+                GroupsPageControl.Dock = DockStyle.Fill;
                 
                 GroupsPageControl.GroupButtonClick += (s, e) =>
                     {
@@ -214,7 +200,7 @@ namespace GUI2
             GroupsPageControl.CreateGroupButtons(c);
 
             content1.TitleText = "Choisissez votre classe de travail";
-            content1.Controls.Add(GroupsPageControl);
+            this.content1.panel1.Controls.Add(GroupsPageControl);
 
         }
 
@@ -227,15 +213,12 @@ namespace GUI2
                 CreateGroupPageControl.Location = new System.Drawing.Point(0, 50);
                 CreateGroupPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 CreateGroupPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
-                CreateGroupPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right))); 
+                CreateGroupPageControl.Dock = DockStyle.Fill;
                 CreateGroupPageControl.TabIndex = 5;
                 CreateGroupPageControl.CancelButtonClick += (s, e) =>
                 {
                     Button btn = s as Button;
                     RemovePage();
-
                     //open page
                     GroupsPage();
                 };
@@ -255,7 +238,6 @@ namespace GUI2
                     {
                         c.Save();
                         RemovePage();
-
                         GroupsPage();
                     }
                 };
@@ -263,14 +245,12 @@ namespace GUI2
             }
 
             content1.TitleText = "Ajouter un nouveau groupe";
-            content1.Controls.Add(CreateGroupPageControl);
+            content1.panel1.Controls.Add(CreateGroupPageControl);
         }
 
 
         private void RegisterPage()
         {
-            //this.SuspendLayout();
-
             if (RegisterPageControl == null)
             {
                 RegisterPageControl = new GUI2.RegisterPage();
@@ -278,30 +258,22 @@ namespace GUI2
                 RegisterPageControl.Location = new System.Drawing.Point(0, 50);
                 RegisterPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 RegisterPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
-                RegisterPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right))); 
+                RegisterPageControl.Dock = DockStyle.Fill;
                 RegisterPageControl.TabIndex = 5;
 
                 RegisterPageControl.SaveButtonClick += (s, e) =>
                     {
                         c = new NSContext();
-
                         c.Initialize(cs);
-
-                        c.CurrentUser = c.CreateUser(RegisterPageControl.FirstName, RegisterPageControl.LastName);
-                      
+                        c.CurrentUser = c.CreateUser(RegisterPageControl.FirstName, RegisterPageControl.LastName);                     
                         c.Save();
                         RemovePage();
-
                         GroupsPage();
                     };
             }
 
             content1.TitleText = "Identifiez-vous pour accéder au savoir !";
-            content1.Controls.Add(RegisterPageControl);
-
-            //this.ResumeLayout();
+            content1.panel1.Controls.Add(RegisterPageControl);
         }
 
         private void NoteEditor()
@@ -334,10 +306,7 @@ namespace GUI2
                 AboutPageControl.Location = new System.Drawing.Point(0, 50);
                 AboutPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 AboutPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
-                AboutPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right))); 
-                AboutPageControl.TabIndex = 5;
+                AboutPageControl.Dock = DockStyle.Fill;
   
                 AboutPageControl.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "+Environment.NewLine
                 +"Mauris consequat quam vel ullamcorper varius. Phasellus vulputate quam in fermentum ultricies. "+Environment.NewLine
@@ -349,7 +318,7 @@ namespace GUI2
 
             content1.TitleText = "Qui somme nous ?";
 
-            content1.Controls.Add(AboutPageControl);
+            content1.panel1.Controls.Add(AboutPageControl);
         }
 
         private void UsersPage()
@@ -361,15 +330,12 @@ namespace GUI2
                 UsersPageControl.Location = new System.Drawing.Point(0, 50);
                 UsersPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 UsersPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
-                UsersPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right))); 
-                UsersPageControl.TabIndex = 5;
+                UsersPageControl.Dock = DockStyle.Fill;
             }
 
             content1.TitleText = "Retrouver vos amis";
 
-            content1.Controls.Add(UsersPageControl);
+            content1.panel1.Controls.Add(UsersPageControl);
         }
 
         private void ChangePage()
@@ -386,15 +352,7 @@ namespace GUI2
             }
             else
             {
-                
-                if (_currentPage != null)
-                {
-                    System.Diagnostics.Debug.WriteLine(_currentPage.Name + " removed");
-                    _lastPageSize = _currentPage.Size;
-                    //page.Dispose();
-
-                    content1.Controls.Remove(_currentPage);
-                }
+                content1.panel1.Controls.Clear();
             }
         }
 

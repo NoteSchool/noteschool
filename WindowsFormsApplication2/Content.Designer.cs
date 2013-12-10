@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.Title = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // Title
@@ -42,15 +43,27 @@
             this.Title.TabIndex = 0;
             this.Title.Text = "label1";
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Location = new System.Drawing.Point(0, 50);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(518, 323);
+            this.panel1.TabIndex = 1;
+            // 
             // Content
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.Title);
             this.Name = "Content";
-            this.Size = new System.Drawing.Size(518, 375);
+            this.Size = new System.Drawing.Size(518, 376);
             this.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.Content_ControlAdded);
             this.Resize += new System.EventHandler(this.Content_Resize);
             this.ResumeLayout(false);
@@ -61,5 +74,6 @@
         #endregion
 
         private System.Windows.Forms.Label Title;
+        public System.Windows.Forms.Panel panel1;
     }
 }
