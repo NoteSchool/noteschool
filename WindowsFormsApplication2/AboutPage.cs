@@ -17,6 +17,8 @@ namespace GUI2
         public AboutPage()
         {
             InitializeComponent();
+
+            Tag = "page";
         }
     }
 }

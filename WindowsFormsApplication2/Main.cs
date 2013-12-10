@@ -29,6 +29,8 @@ namespace GUI2
         private UsersPage UsersPageControl;
         private NoteEditor NoteEditorControl;
 
+        private Control _currentPage;
+
         private Size _lastPageSize;
 
         private bool LoggedIn = false;
@@ -47,12 +49,19 @@ namespace GUI2
             //when a control added
             this.content1.ControlAddedEvent += (s, e) =>
                 {
-                    Control ctrl = s as Control;
-          
-                    if ((string)ctrl.Tag == "page" && _lastPageSize != null)
+                    var cont = content1.Controls[1];
+                    //MessageBox.Show(cont.Name);
+                    if ((string)cont.Tag == "page")
                     {
-                        ctrl.Size = _lastPageSize;
-                        System.Diagnostics.Debug.WriteLine(_lastPageSize.Width);
+                        //MessageBox.Show("test");
+                        _currentPage = cont;
+                        System.Diagnostics.Debug.WriteLine(cont.Name + " page lunched");
+
+                       /* if (_lastPageSize != null)
+                        {
+                            cont.Size = _lastPageSize;
+                            System.Diagnostics.Debug.WriteLine(_lastPageSize.Width);
+                        }*/
                     }
                 };
         }
@@ -127,11 +136,13 @@ namespace GUI2
             menu.ItemClick += (s, ev) =>
                 {
                     var item = s as MenuItem;
-            
+
+                    System.Diagnostics.Debug.WriteLine(item.LabelText + " menu clicked");
+
                     switch (item.LabelText)
                     {
                         case "Note Editor":
-                            
+                            RemovePage();
                             NoteEditor();
                             break;
                         case "A Propos":                        
@@ -177,8 +188,6 @@ namespace GUI2
 
                         c.CurrentGroup = c.FindGroup(btn.Name);
 
-                        /*Controls.Remove(GroupsPageControl);
-                        GroupsPageControl.Dispose();*/
                         RemovePage();
 
                         //open taking note
@@ -188,8 +197,6 @@ namespace GUI2
                     {
                         Button btn = s as Button;
 
-                        /*Controls.Remove(GroupsPageControl);
-                        GroupsPageControl.Dispose();*/
                         RemovePage();
 
                         //open create group form
@@ -218,7 +225,7 @@ namespace GUI2
                 CreateGroupPageControl = new GUI2.CreateGroupPage();
                 CreateGroupPageControl.BackColor = System.Drawing.Color.White;
                 CreateGroupPageControl.Location = new System.Drawing.Point(0, 50);
-                CreateGroupPageControl.Name = "groupsPage1";
+                CreateGroupPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 CreateGroupPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
                 CreateGroupPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
@@ -227,10 +234,6 @@ namespace GUI2
                 CreateGroupPageControl.CancelButtonClick += (s, e) =>
                 {
                     Button btn = s as Button;
-
-                    /*Controls.Remove(CreateGroupPageControl);
-                    CreateGroupPageControl.Dispose();
-                    */
                     RemovePage();
 
                     //open page
@@ -251,8 +254,6 @@ namespace GUI2
                     else
                     {
                         c.Save();
-                        /*Controls.Remove(CreateGroupPageControl);
-                        CreateGroupPageControl.Dispose();*/
                         RemovePage();
 
                         GroupsPage();
@@ -275,7 +276,7 @@ namespace GUI2
                 RegisterPageControl = new GUI2.RegisterPage();
                 RegisterPageControl.BackColor = System.Drawing.Color.White;
                 RegisterPageControl.Location = new System.Drawing.Point(0, 50);
-                RegisterPageControl.Name = "groupsPage1";
+                RegisterPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 RegisterPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
                 RegisterPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
@@ -291,9 +292,6 @@ namespace GUI2
                         c.CurrentUser = c.CreateUser(RegisterPageControl.FirstName, RegisterPageControl.LastName);
                       
                         c.Save();
-
-                        /*this.content1.Controls.Remove(RegisterPageControl);
-                        RegisterPageControl.Dispose();*/
                         RemovePage();
 
                         GroupsPage();
@@ -319,7 +317,7 @@ namespace GUI2
                 NoteEditorControl.AutoSize = false;
                 NoteEditorControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
                 NoteEditorControl.Location = new System.Drawing.Point(164, 52);
-                NoteEditorControl.Name = "content1";
+                NoteEditorControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 NoteEditorControl.Size = new System.Drawing.Size(631, 427);
                 NoteEditorControl.TabIndex = 4;
             }
@@ -334,7 +332,7 @@ namespace GUI2
                 AboutPageControl = new GUI2.AboutPage();
                 AboutPageControl.BackColor = System.Drawing.Color.White;
                 AboutPageControl.Location = new System.Drawing.Point(0, 50);
-                AboutPageControl.Name = "groupsPage1";
+                AboutPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 AboutPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
                 AboutPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
@@ -361,7 +359,7 @@ namespace GUI2
                 UsersPageControl = new GUI2.UsersPage();
                 UsersPageControl.BackColor = System.Drawing.Color.White;
                 UsersPageControl.Location = new System.Drawing.Point(0, 50);
-                UsersPageControl.Name = "groupsPage1";
+                UsersPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 UsersPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
                 UsersPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
@@ -389,12 +387,14 @@ namespace GUI2
             else
             {
                 
+                if (_currentPage != null)
+                {
+                    System.Diagnostics.Debug.WriteLine(_currentPage.Name + " removed");
+                    _lastPageSize = _currentPage.Size;
+                    //page.Dispose();
 
-                var page = content1.Controls[1];
-                _lastPageSize = page.Size;
-                //page.Dispose();
-
-                content1.Controls.RemoveAt(1);
+                    content1.Controls.Remove(_currentPage);
+                }
             }
         }
 

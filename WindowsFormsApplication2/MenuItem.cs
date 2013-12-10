@@ -58,7 +58,7 @@ namespace GUI2
 
         public void rectangleShape1_MouseEnter(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("enter");
+            //System.Diagnostics.Debug.WriteLine("enter");
             /*
             if (!IsDisabled)
             {
@@ -70,7 +70,7 @@ namespace GUI2
 
         public void rectangleShape1_MouseLeave(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("leave");
+            //System.Diagnostics.Debug.WriteLine("leave");
             /*
             if (!IsActive)
             {

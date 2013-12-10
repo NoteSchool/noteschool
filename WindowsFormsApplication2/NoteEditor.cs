@@ -15,6 +15,8 @@ namespace GUI2
         public NoteEditor()
         {
             InitializeComponent();
+
+            Tag = "page";
         }
     }
 }
