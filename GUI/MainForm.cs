@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
@@ -26,8 +27,10 @@ namespace GUI
         private NSContext c;
         private NSContextServices cs = new NSContextServices( _repo, _lan );
 
+        /*
         string _data;
         string _multicastAddress;
+        */
 
         public MainForm()
         {
@@ -41,8 +44,8 @@ namespace GUI
             {
                 c = NSContext.Load(cs);
 
-                DisplayGroups();
-
+             DisplayGroups();
+   
                 CreateGroupsButton();
             }
 
@@ -56,6 +59,8 @@ namespace GUI
             _noteTakingForm.ButtonLeaveGroups += NoteTakingForm_ButtonLeaveGroups;
 
             _registerForm.ButtonRegister += RegisterForm_ButtonRegister;
+
+            _displayGroupsForm.TbSearchGroup += DisplayGroupsForm_TbSearchGroup;
         }
         
         private void DisplayGroups()
@@ -74,7 +79,10 @@ namespace GUI
             */
 
             if (!Controls.Contains(_displayGroupsForm))
-                Controls.Add( _displayGroupsForm );
+            {
+                _displayGroupsForm.welcomeBox.Text = "Bienvenue " + c.CurrentUser.FirstName;
+                Controls.Add(_displayGroupsForm);
+            }
 
             _displayGroupsForm.Show();
 
@@ -91,7 +99,7 @@ namespace GUI
 
             c.Initialize( cs );
 
-            c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName);
+            c.CurrentUser = c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName);
 
             c.Save();
 
@@ -125,7 +133,7 @@ namespace GUI
         {
             bool created;
 
-            c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, c.SetMulticastAddress(), out created );
+            c.CurrentGroup = c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, c.SetMulticastAddress(), out created );
 
             if (!created)
                 MessageBox.Show( "Le nom du groupe existe déjà" );
@@ -149,11 +157,14 @@ namespace GUI
             
            // c.Timer(g);
             
+            //Note note = new Note();
+
             if (Controls.Contains(_noteTakingForm))
                 _noteTakingForm.Show();
             else
                 Controls.Add( _noteTakingForm );
 
+            _noteTakingForm.groupNameTitle.Text = "Groupe: "+c.CurrentGroup.Name;
         }
 
         /// <summary>
@@ -183,42 +194,63 @@ namespace GUI
             _displayGroupsForm.Show();
         }
 
+        private void DisplayGroupsForm_TbSearchGroup(object sender, EventArgs e)
+        {
+            string keyword = _displayGroupsForm.getSearchText;
+            CreateGroupsButton(keyword);
+
+        }
         /// <summary>
         /// This method creates a Button control at runtime
         /// </summary>
-        private void CreateGroupsButton()
-        {    
+        private void CreateGroupsButton(string keyword = null)
+        {
+
+            _displayGroupsForm.panel.Controls.Clear();
+
             // X & Y Location of each created button in the panel
             int x = 27;
             int y = 13;
             int button = 0;
+            bool match;
+            
 
-            foreach (var groups in c.GetGroups)
+            foreach (var group in c.Groups)
 	        {
-                // Create a Button object
-                Button btn = new Button();
-
-                // Set Button properties
-                btn.Name = groups.Key;
-                btn.Tag = groups.Value;
-                btn.Size = new Size(111, 48 );
-                btn.Text = "Name :" + groups.Key + "\r\nTag :" + groups.Value.Tag + "\r\n" + groups.Value.MulticastAddress;
-                btn.Location = new Point( x, y );
-                button++;
-                x += 117;
-
-                if (button >= 6)
+                if (keyword != null)
                 {
-                    x = 27;
-                    y += 54;
-                    button = 0;
+                    match = Regex.IsMatch(group.Key, keyword, RegexOptions.IgnoreCase);
                 }
+                else {
+                     match = true;
+                }
+                
+                if (match || string.IsNullOrEmpty(keyword))
+                {
+                    // Create a Button object
+                    Button btn = new Button();
 
-                // Add a Button Click Event handler
-                btn.Click += new EventHandler( GroupsButton );
+                    // Set Button properties
+                    btn.Name = group.Key;
+                    btn.Size = new Size(111, 48);
+                    btn.Text = "Name :" + group.Value.Name + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
+                    btn.Location = new Point(x, y);
+                    button++;
+                    x += 117;
 
-                // Add Button to the Form. 
-                _displayGroupsForm.panel.Controls.Add( btn );
+                    if (button >= 6)
+                    {
+                        x = 27;
+                        y += 54;
+                        button = 0;
+                    }
+
+                    // Add a Button Click Event handler
+                    btn.Click += new EventHandler(GroupsButton);
+
+                    // Add Button to the Form. 
+                    _displayGroupsForm.panel.Controls.Add(btn);
+                }
             }
         }
 
@@ -227,6 +259,8 @@ namespace GUI
             // Use "Sender" to know which button was clicked ?
             Button btn = sender as Button;
 
+            c.CurrentGroup = c.FindGroup(btn.Name);
+            /*
             c.LeaveGroup();
 
             foreach (var groups in c.GetGroups)
@@ -237,21 +271,12 @@ namespace GUI
                     c.JoinGroup( groups.Value.MulticastAddress );
                 }
             }
+            */
 
             Controls.Remove( _displayGroupsForm );
           //  _displayGroupsForm.Dispose();
 
             NoteTaking();
-
-            /*
-            PropertyInfo[] infos = btn.Tag.GetType().GetProperties();
-            foreach (PropertyInfo info in infos)
-            {
-                Array j = info.GetAccessors();
-
-                MessageBox.Show(j[0]);
-            }
-            */
         }
         private void MainFormClosing( object sender, FormClosingEventArgs e )
         {
