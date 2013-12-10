@@ -56,50 +56,28 @@ namespace GUI2
             }            
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        public void rectangleShape1_MouseEnter(object sender, EventArgs e)
         {
-
-        }
-
-        private void menuItem_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void menuItem_MouseHover(object sender, EventArgs e)
-        {
-            //pictureBox1.Image = global::WindowsFormsApplication1.Properties.Resources.registerHover;
-            //label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(229)))), ((int)(((byte)(233)))));
-        }
-
-        private void menuItem_MouseLeave(object sender, EventArgs e)
-        {
-            if (!IsActive)
-            {
-                 ItemIcon.Image = global::GUI2.Properties.Resources.register;
-                 ItemText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(158)))), ((int)(((byte)(174)))));               
-            }
-        }
-
-        private void pictureBox1_MouseHover(object sender, EventArgs e)
-        {
-            //pictureBox1.Image = global::WindowsFormsApplication1.Properties.Resources.registerHover;
-            //label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(229)))), ((int)(((byte)(233)))));
-        }
-
-        private void label1_MouseHover(object sender, EventArgs e)
-        {
-            //pictureBox1.Image = global::WindowsFormsApplication1.Properties.Resources.registerHover;
-            //label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(229)))), ((int)(((byte)(233)))));
-        }
-
-        private void menuItem_MouseEnter(object sender, EventArgs e)
-        {
+            System.Diagnostics.Debug.WriteLine("enter");
+            /*
             if (!IsDisabled)
             {
                 ItemIcon.Image = global::GUI2.Properties.Resources.registerHover;
                 ItemText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(229)))), ((int)(((byte)(233)))));
             }
+             * */
+        }
+
+        public void rectangleShape1_MouseLeave(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("leave");
+            /*
+            if (!IsActive)
+            {
+                ItemIcon.Image = global::GUI2.Properties.Resources.register;
+                ItemText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(158)))), ((int)(((byte)(174)))));
+            }
+             * */
         }
     }
 }

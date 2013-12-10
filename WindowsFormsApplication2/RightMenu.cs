@@ -85,5 +85,17 @@ namespace GUI2
             SelectedItem = this.menuItem1;
             SelectedItem.Active(true);
         }
+
+        private void menuItem1_MouseEnter(object sender, EventArgs e)
+        {
+            var item = sender as MenuItem;
+            item.rectangleShape1_MouseEnter(item, e);
+        }
+
+        private void menuItem1_MouseLeave(object sender, EventArgs e)
+        {
+            var item = sender as MenuItem;
+            item.rectangleShape1_MouseLeave(item, e);
+        }
     }
 }

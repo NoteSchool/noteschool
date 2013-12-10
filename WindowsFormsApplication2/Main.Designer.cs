@@ -38,7 +38,7 @@
             this.rightMenu1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.rightMenu1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(52)))), ((int)(((byte)(69)))));
-            this.rightMenu1.Location = new System.Drawing.Point(0, 52);
+            this.rightMenu1.Location = new System.Drawing.Point(0, 51);
             this.rightMenu1.Name = "rightMenu1";
             this.rightMenu1.Size = new System.Drawing.Size(164, 427);
             this.rightMenu1.TabIndex = 1;
@@ -50,19 +50,20 @@
             this.header1.Dock = System.Windows.Forms.DockStyle.Top;
             this.header1.Location = new System.Drawing.Point(0, 0);
             this.header1.Name = "header1";
-            this.header1.Size = new System.Drawing.Size(752, 52);
+            this.header1.Size = new System.Drawing.Size(795, 52);
             this.header1.TabIndex = 0;
-            this.header1.Load += new System.EventHandler(this.header1_Load);
+            this.header1.Load += new System.EventHandler(this.header_Load);
             // 
             // content1
             // 
             this.content1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.content1.AutoSize = false;
             this.content1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
             this.content1.Location = new System.Drawing.Point(164, 52);
             this.content1.Name = "content1";
-            this.content1.Size = new System.Drawing.Size(588, 427);
+            this.content1.Size = new System.Drawing.Size(631, 427);
             this.content1.TabIndex = 4;
             this.content1.Load += new System.EventHandler(this.content1_Load);
             // 
@@ -70,7 +71,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 480);
+            this.ClientSize = new System.Drawing.Size(795, 480);
             this.Controls.Add(this.rightMenu1);
             this.Controls.Add(this.header1);
             this.Controls.Add(this.content1);
@@ -81,6 +82,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

@@ -16,10 +16,13 @@ namespace GUI2
     {
         public EventHandler GroupButtonClick;
         public EventHandler CreateGroupButtonClick;
+        public EventHandler SearchTextChange;
 
         public GroupsPage()
         {
             InitializeComponent();
+
+            Tag = "page";
         }
 
         public void CreateGroupButtons(NSContext c, string keyword = null)
@@ -36,7 +39,8 @@ namespace GUI2
             {
                 if (keyword != null)
                 {
-                    match = Regex.IsMatch(group.Key, keyword, RegexOptions.IgnoreCase);
+                    match = Regex.IsMatch(group.Value.Name, keyword, RegexOptions.IgnoreCase)
+                        || Regex.IsMatch(group.Value.Tag, keyword, RegexOptions.IgnoreCase);
                 }
                 else
                 {
@@ -74,12 +78,17 @@ namespace GUI2
 
         private void GroupClick(object sender, EventArgs e)
         {
-            GroupButtonClick(this, e);
+            GroupButtonClick(sender, e);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             CreateGroupButtonClick(this, e);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            SearchTextChange(sender, e);
         }
     }
 }

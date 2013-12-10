@@ -33,6 +33,7 @@
             this.Logo = new System.Windows.Forms.PictureBox();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.LogoSeparator = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,6 +62,7 @@
             this.SearchInput.Size = new System.Drawing.Size(165, 22);
             this.SearchInput.TabIndex = 2;
             this.SearchInput.Text = "Recherche";
+            this.SearchInput.Visible = false;
             // 
             // Logo
             // 
@@ -79,6 +81,7 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.lineShape1,
             this.LogoSeparator});
             this.shapeContainer1.Size = new System.Drawing.Size(725, 52);
             this.shapeContainer1.TabIndex = 3;
@@ -93,6 +96,17 @@
             this.LogoSeparator.X2 = 161;
             this.LogoSeparator.Y1 = 1;
             this.LogoSeparator.Y2 = 52;
+            // 
+            // lineShape1
+            // 
+            this.lineShape1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lineShape1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(232)))), ((int)(((byte)(237)))));
+            this.lineShape1.Name = "lineShape1";
+            this.lineShape1.X1 = 0;
+            this.lineShape1.X2 = 752;
+            this.lineShape1.Y1 = 51;
+            this.lineShape1.Y2 = 51;
             // 
             // Header
             // 
@@ -119,5 +133,6 @@
         public System.Windows.Forms.TextBox SearchInput;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private Microsoft.VisualBasic.PowerPacks.LineShape LogoSeparator;
+        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
     }
 }

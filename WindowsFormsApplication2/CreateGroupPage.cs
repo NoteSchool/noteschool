@@ -21,6 +21,8 @@ namespace GUI2
         public CreateGroupPage()
         {
             InitializeComponent();
+
+            Tag = "page";
         }
 
         private void button1_Click(object sender, EventArgs e)
