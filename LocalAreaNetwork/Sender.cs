@@ -40,16 +40,20 @@ namespace LocalAreaNetwork
         }
         */
 
-        public void InitializeSender(string sendingData)
+        public void InitializeSender(Object obj)
         {
             try
             {
+
                 //convert string to bytes (needed to be able to send)
-                byte[] _groupData = Encoding.ASCII.GetBytes(sendingData);
+                byte[] _data = ObjectToByteArray( obj );
+
+                _sendingClient.Send( _data, _data.Length, GroupSender());
+
              //   byte[] _noteData = Encoding.ASCII.GetBytes(sendingData);
 
                 //send the data to the multicastgroup
-                _sendingClient.Send( _groupData, _groupData.Length, GroupSender() );
+              //  _sendingClient.Send( _groupData, _groupData.Length, GroupSender() );
          //       _sendingClient.Send( _noteData, _noteData.Length, NoteSender() );
 
             }
@@ -101,6 +105,16 @@ namespace LocalAreaNetwork
             IPEndPoint localEndPoint = new IPEndPoint( _multicastAddress, _port );
 
             return localEndPoint;
+        }
+        // Convert an object to a byte array
+        private byte[] ObjectToByteArray( Object obj )
+        {
+            if (obj == null)
+                return null;
+            BinaryFormatter formatter = new BinaryFormatter();
+            MemoryStream stream = new MemoryStream();
+            formatter.Serialize( stream, obj );
+            return stream.ToArray();
         }
     }
 }

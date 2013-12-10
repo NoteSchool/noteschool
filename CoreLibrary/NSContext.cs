@@ -125,7 +125,7 @@ namespace CoreLibrary
             c.Initialize( services );
             return c;
         }
-        public string Receiver()
+        public Object Receiver()
         {
             return Services.Lan.InitializeReceiver();
         }
