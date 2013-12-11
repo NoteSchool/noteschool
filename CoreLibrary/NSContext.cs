@@ -21,16 +21,17 @@ namespace CoreLibrary
         private User _currentUser;
         private Group _currentGroup;
 
-        readonly Dictionary<string, List<string>> _userListPerGroup;
+        //TODO group list to add
+        private Group _listgroup;
 
-        string _sendingData;
+        readonly Dictionary<string, List<string>> _userListPerGroup;
 
         public NSContext()
         {
             _groups = new Dictionary<string, Group>();
             _users = new Dictionary<string, User>();
             _notes = new Dictionary<string, Note>();
-            _userListPerGroup = new Dictionary<string,List<string>>();
+            _userListPerGroup = new Dictionary<string, List<string>>();
         }
 
         public NSContextServices Services
@@ -44,6 +45,8 @@ namespace CoreLibrary
 
         public Group CurrentGroup { get { return _currentGroup; } set { _currentGroup = value; } }
         public User CurrentUser { get { return _currentUser; } set { _currentUser = value; } }
+        public Group ListGroup { get { return _listgroup; } }
+
         public Dictionary<string, Group> Groups { get { return _groups; } }
         public Dictionary<string, User> Users { get { return _users; } }
         public Dictionary<string, Note> Notes { get { return _notes; } }
@@ -66,7 +69,7 @@ namespace CoreLibrary
                 {
                     foreach (var group in _groups)
                     {
-                        if (multicastAddress == group.Value.MulticastAddress)
+                        if (multicastAddress == group.Key)
                         {
                             existed = true;
                         }
@@ -74,7 +77,7 @@ namespace CoreLibrary
                     if (!existed)
                     {
                         g = new Group( this, name, tag, multicastAddress );
-                        _groups.Add(multicastAddress, g);
+                        _groups.Add( multicastAddress, g );
                         created = true;
                     }
                     else
@@ -92,7 +95,7 @@ namespace CoreLibrary
             if (String.IsNullOrWhiteSpace( firstName )) throw new ArgumentException( "Must be a non empty string", "firstName" );
             if (String.IsNullOrWhiteSpace( lastName )) throw new ArgumentException( "Must be a non empty string", "lastName" );
 
-            User u = new User( this, firstName, lastName);
+            User u = new User( this, firstName, lastName );
 
             _users.Add( u.Id, u );
 
@@ -113,7 +116,7 @@ namespace CoreLibrary
             return g;
         }
         */
-        public Group FindGroup( string id)
+        public Group FindGroup( string id )
         {
             Group g;
             _groups.TryGetValue( id, out g );
@@ -131,17 +134,27 @@ namespace CoreLibrary
             c.Initialize( services );
             return c;
         }
-        public Object Receiver()
+
+        public void Receiver()
         {
-            return Services.Lan.InitializeReceiver();
+            Services.Lan.InitializeReceiver();
         }
-        public void JoinGroup(string mca = "224.0.1.0")
+        public void Sender()
         {
-            Services.Lan.JoinGroup(mca);
+            if (CurrentGroup.MulticastAddress != "224.0.1.0")
+                Services.Lan.InitializeSender( CurrentGroup );
         }
-        public void LeaveGroup( string mca = "224.0.1.0" )
+        public void JoinGroup( string mca )
+        {
+            Services.Lan.JoinGroup( mca );
+        }
+        public void LeaveGroup( string mca )
         {
             Services.Lan.LeaveGroup( mca );
+        }
+        public Group DefaultGroupData()
+        {
+            return (Group)Services.Lan.DefaultGroupData();
         }
 
         /// <summary>
@@ -160,26 +173,6 @@ namespace CoreLibrary
             string _multicastAddress = _1stByte + "." + _2ndByte + "." + _3rdByte + "." + _4thByte;
 
             return _multicastAddress;
-        }
-        //works
-        public void Timer(string sendingData)
-        {
-            System.Timers.Timer _syncTimer;
-
-            //Create a new timer
-            _syncTimer = new System.Timers.Timer();
-            _syncTimer.Elapsed += SyncTimer;
-
-            //Interval in milliseconds
-            _syncTimer.Interval = 1000;
-            _syncTimer.Enabled = true;
-
-            _sendingData = sendingData;
-
-        }  
-        private void SyncTimer( object sender, ElapsedEventArgs e )
-        {
-            Services.Lan.InitializeSender(_sendingData);
         }
     }
 }

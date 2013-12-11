@@ -15,113 +15,104 @@ namespace LocalAreaNetwork
 {
     public partial class LAN : ILocalAreaNetwork
     {
-        UdpClient _receivingClient = new UdpClient();
+        UdpClient _receivingGroupClient = new UdpClient();
+        IPAddress _groupAddress;
+
+        UdpClient _receivingDefaultGroupClient;
+        IPAddress _defaultGroupAddress = IPAddress.Parse( "224.0.1.0" );
+
         Thread _receivingThread;
-        IPAddress _multicastAddress;
 
-        //bool _receiverStatus;
         static int _port = 2222;
-        Object _data;
-        const string _mca = "224.0.1.0";
+        static int _defaultport = 3333;
 
-        public Object InitializeReceiver()
+        bool _receiverStatus;
+
+        Object _groupData;
+        Object _defaultGroupData;
+
+        public Action<Object> _receiveString;
+
+        public void InitializeReceiver()
         {
-            /*
-            //ON TEST PURPOSE ONLY
-            IPAddress _multicastaddress = IPAddress.Parse(_mca);
-            _receivingClient.JoinMulticastGroup(_multicastaddress);
-            */
-            /*
-            if (_receivingClient == null)
+            // DEFAULT
+            if (_receivingDefaultGroupClient == null)
             {
-                _receivingClient = new UdpClient();
+                _receivingDefaultGroupClient = new UdpClient();
+                _receivingDefaultGroupClient.JoinMulticastGroup( _defaultGroupAddress );
+
+                _receivingDefaultGroupClient.ExclusiveAddressUse = false;
+                _receivingDefaultGroupClient.Client.SetSocketOption( SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true );
             }
-            */
-            /*
-            //set option to get multiple receiver on a single machine
-            _receivingClient.ExclusiveAddressUse = false;
-            _receivingClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            */
+
+           // _receivingGroupClient.ExclusiveAddressUse = false;
+        //    _receivingGroupClient.Client.SetSocketOption( SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true );
+            
             //start a new thread to listen
-            _receivingThread = new Thread(new ThreadStart(Receiver));
+            _receivingThread = new Thread( new ThreadStart( Receiver ) );
 
             //set receiving thread to the background.
             _receivingThread.IsBackground = true;
             _receivingThread.Start();
-
-            return _data;
         }
 
         private void Receiver()
         {
-            //while (_receiverStatus)
-            while (true)
+            //create an IPEndPoint which contains IP address and port
+            IPEndPoint EndPoint = new IPEndPoint( IPAddress.Any, _port );
+            IPEndPoint DefaultEndPoint = new IPEndPoint( IPAddress.Any, _defaultport );
+
+            //bind the client (need to be able to receive)
+            _receivingDefaultGroupClient.Client.Bind( DefaultEndPoint );
+            _receivingGroupClient.Client.Bind( EndPoint );
+
+            _receiverStatus = true;
+
+            while (_receiverStatus)
             {
                 try
                 {
-                    //create an IPEndPoint which contains IP address and port
-                    IPEndPoint endPoint = new IPEndPoint( IPAddress.Any, _port );
+                    //receive object bytes array
+                    //byte[] _groupDataBytes = _receivingGroupClient.Receive( ref EndPoint );
+                    byte[] _defaultGroupDataBytes = _receivingDefaultGroupClient.Receive( ref DefaultEndPoint );
 
-                    //bind the endPoint (needed to receive data)
-                    _receivingClient.Client.Bind( endPoint );
+                    //Convert object bytes array to object
+                    //_groupData = ByteArrayToObject( _groupDataBytes );
+                    _defaultGroupData = ByteArrayToObject( _defaultGroupDataBytes );
 
-                    //receive data in bytes
-                    byte[] data = _receivingClient.Receive(ref endPoint);
+                    _receiveString = receive;
 
-                    //deserialize the object object bytes array to object
-                    _data = ByteArrayToObject( data );
-
-                    //convert bytes to string
-                   // _data = Encoding.ASCII.GetString( data );
-
+                    _receiveString( _defaultGroupData );
                 }
-                catch
+                catch (Exception e)
                 {
+                    Console.WriteLine( "{0} Exception caught.", e );
                 }
             }
         }
-        public void JoinGroup( string mca = _mca)
+        public void JoinGroup( string mca )
         {
-            _multicastAddress = IPAddress.Parse(mca);
-            _receivingClient.JoinMulticastGroup( _multicastAddress );
+            //convert string to IPAddress
+            _groupAddress = IPAddress.Parse( mca );
 
-            if(mca != _mca)
+            //receiving client join current group multicast address
+            _receivingGroupClient.JoinMulticastGroup( _groupAddress );
 
-                _sendingClient.JoinMulticastGroup( _multicastAddress );
-        }
-        public void LeaveGroup( string mca = _mca)
-        {
-            _multicastAddress = IPAddress.Parse( mca );
-            _receivingClient.DropMulticastGroup( _multicastAddress );
-
-            if (mca != _mca)
-            {
-                _sendingClient.DropMulticastGroup( _multicastAddress );
-                //_sendingClient.Close();
-            }
-          //  _receivingThread.Abort();
-          //  _receivingClient.Close();
+            //sending client join current group multicast address
+            _sendingGroupClient.JoinMulticastGroup( _groupAddress );
 
         }
-        /*
-        public static MemoryStream SerializeDataToStream( object o )
+        public void LeaveGroup( string mca )
         {
-            MemoryStream stream = new MemoryStream();
-            IFormatter formatter = new BinaryFormatter();
-            formatter.Serialize( stream, o );
-            return stream;
+            //convert string to IPAddress
+            _groupAddress = IPAddress.Parse( mca );
+
+            //receiving client leave current group multicast address
+            _receivingGroupClient.DropMulticastGroup( _groupAddress );
+
+            //sending client leave current group multicast address
+            _sendingGroupClient.DropMulticastGroup( _groupAddress );
         }
-         * */
-
-
-        /*
-        public static object DeserializeDataFromStream( MemoryStream stream )
-        {
-            IFormatter formatter = new BinaryFormatter();
-            stream.Seek( 0, SeekOrigin.Begin );
-            object o = formatter.Deserialize( stream );
-            return o;
-        }*/
 
         // Convert a byte array to an Object
         private Object ByteArrayToObject( byte[] arrBytes )
@@ -134,9 +125,26 @@ namespace LocalAreaNetwork
             return obj;
         }
 
-        //receive data
-     //   public string Data { get { return _data; } }
+        private void receive( Object obj )
+        {
+            _defaultGroupData = obj;
+        }
+        public Object GroupData()
+        {
+            return _groupData;
+        }
+        public Object DefaultGroupData()
+        {
+            return _defaultGroupData;
+        }
 
+        //TODO : close methode
 
+        /*
+        _receivingThread.Abort();
+        _receivingThread.Join();
+        _receivingClient.Close();
+        _sendingClient.Close();
+        */
     }
 }

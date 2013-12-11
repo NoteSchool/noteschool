@@ -8,9 +8,11 @@ namespace CoreLibrary
 {
     public interface ILocalAreaNetwork
     {
-        Object InitializeReceiver();
-        void JoinGroup(string mca ="224.0.1.0");
-        void LeaveGroup( string mca = "224.0.1.0" );
+        void InitializeReceiver();
         void InitializeSender(Object obj);
+        void JoinGroup(string mca);
+        void LeaveGroup( string mca);
+        Object GroupData();
+        Object DefaultGroupData();
     }
 }

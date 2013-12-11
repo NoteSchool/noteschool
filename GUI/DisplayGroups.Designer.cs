@@ -31,7 +31,7 @@
             this.btnCreateGroups = new System.Windows.Forms.Button();
             this.groupPanel = new System.Windows.Forms.Panel();
             this.tbSearchGroup = new System.Windows.Forms.TextBox();
-            this.welcomeBox = new System.Windows.Forms.RichTextBox();
+            this.lbWelcome = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCreateGroups
@@ -60,13 +60,14 @@
             this.tbSearchGroup.TabIndex = 2;
             this.tbSearchGroup.TextChanged += new System.EventHandler(this.tbSearchGroup_TextChanged);
             // 
-            // welcomeBox
+            // lbWelcome
             // 
-            this.welcomeBox.Location = new System.Drawing.Point(12, 16);
-            this.welcomeBox.Name = "welcomeBox";
-            this.welcomeBox.Size = new System.Drawing.Size(220, 36);
-            this.welcomeBox.TabIndex = 3;
-            this.welcomeBox.Text = "";
+            this.lbWelcome.AutoSize = true;
+            this.lbWelcome.Location = new System.Drawing.Point(71, 21);
+            this.lbWelcome.Name = "lbWelcome";
+            this.lbWelcome.Size = new System.Drawing.Size(35, 13);
+            this.lbWelcome.TabIndex = 3;
+            this.lbWelcome.Text = "label1";
             // 
             // DisplayGroups
             // 
@@ -74,7 +75,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.welcomeBox);
+            this.Controls.Add(this.lbWelcome);
             this.Controls.Add(this.tbSearchGroup);
             this.Controls.Add(this.groupPanel);
             this.Controls.Add(this.btnCreateGroups);
@@ -91,6 +92,6 @@
         private System.Windows.Forms.Button btnCreateGroups;
         private System.Windows.Forms.Panel groupPanel;
         private System.Windows.Forms.TextBox tbSearchGroup;
-        public System.Windows.Forms.RichTextBox welcomeBox;
+        public System.Windows.Forms.Label lbWelcome;
     }
 }

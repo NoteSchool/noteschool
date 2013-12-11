@@ -15,7 +15,6 @@ namespace GUI
         public event EventHandler ButtonCreateGroups;
         public event EventHandler TbSearchGroup;
 
-
         public DisplayGroups()
         {
             InitializeComponent();
@@ -28,10 +27,12 @@ namespace GUI
             if (ButtonCreateGroups != null)
                 ButtonCreateGroups(this, e);
         }
+
         public Panel panel
         {
             get { return groupPanel; }
         }
+
         public string getSearchText
         {
             get { return tbSearchGroup.Text; }
@@ -43,7 +44,5 @@ namespace GUI
             if (TbSearchGroup != null)
                 TbSearchGroup(this, e);
         }
-
-
     }
 }

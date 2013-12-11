@@ -22,34 +22,31 @@ namespace GUI
     {
         //path to determine
         private static string _path = @"data.ns";
-        private static IRepository _repo = new BinaryFileRepository(_path);
+        private static IRepository _repo = new BinaryFileRepository( _path );
         private static ILocalAreaNetwork _lan = new LAN();
         private NSContext c;
         private NSContextServices cs = new NSContextServices( _repo, _lan );
-
-        
-        string _data;
-        string _multicastAddress;
-        
 
         public MainForm()
         {
             InitializeComponent();
 
-            if (!File.Exists(_path))
+            if (!File.Exists( _path ))
             {
-                Controls.Add(_registerForm);
+                Controls.Add( _registerForm );
             }
             else
             {
-                c = NSContext.Load(cs);
+                c = NSContext.Load( cs );
 
-             DisplayGroups();
-   
+                c.Receiver();
+
+                DisplayGroups();
+
                 CreateGroupsButton();
             }
 
-            FormClosing += new System.Windows.Forms.FormClosingEventHandler(MainFormClosing );
+            FormClosing += new System.Windows.Forms.FormClosingEventHandler( MainFormClosing );
 
             _displayGroupsForm.ButtonCreateGroups += DisplayGroupsForm_ButtonCreateGroups;
 
@@ -61,31 +58,48 @@ namespace GUI
             _registerForm.ButtonRegister += RegisterForm_ButtonRegister;
 
             _displayGroupsForm.TbSearchGroup += DisplayGroupsForm_TbSearchGroup;
+
+            Timer();
         }
-        
+
+        public void Timer()
+        {
+            //Create a new timer
+            System.Timers.Timer _syncTimer = new System.Timers.Timer();
+            _syncTimer.Elapsed += SyncTimer;
+
+            //Interval in milliseconds
+            _syncTimer.Interval = 3000;
+            _syncTimer.Enabled = true;
+            _syncTimer.Start();
+        }
+
+        private void SyncTimer( object sender, ElapsedEventArgs e )
+        {
+            c.Sender();
+
+            CoreLibrary.Group g = c.DefaultGroupData();
+
+            if (g != null)
+            {
+                bool created;
+                c.FindOrCreateGroup( g.Name, g.Tag, g.MulticastAddress, out created );
+                CreateGroupsButton();
+            }
+        }
         private void DisplayGroups()
         {
-            c.JoinGroup();
-            c.Receiver();
+            c.CurrentGroup = c.FindGroup( "224.0.1.0" );
 
-            /*
-            _data = c.Receiver();
-            
-            if (_data != null)
-            {
-                string[] groupdata = _data.Split( '-' );
-                
-            }
-            */
+            c.JoinGroup( c.CurrentGroup.MulticastAddress );
 
-            if (!Controls.Contains(_displayGroupsForm))
+            if (!Controls.Contains( _displayGroupsForm ))
             {
-                _displayGroupsForm.welcomeBox.Text = "Bienvenue " + c.CurrentUser.FirstName;
-                Controls.Add(_displayGroupsForm);
+                _displayGroupsForm.lbWelcome.Text = "Bienvenue " + c.CurrentUser.FirstName + "\r\n Current Group:" + c.CurrentGroup.MulticastAddress;
+                Controls.Add( _displayGroupsForm );
             }
 
             _displayGroupsForm.Show();
-
         }
 
         /// <summary>
@@ -99,12 +113,18 @@ namespace GUI
 
             c.Initialize( cs );
 
-            c.CurrentUser = c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName);
+            c.CurrentUser = c.CreateUser( _registerForm.GetFirstName, _registerForm.GetLastName );
 
             c.Save();
 
             Controls.Remove( _registerForm );
             _registerForm.Dispose();
+
+            bool created;
+
+            c.CurrentGroup = c.FindOrCreateGroup( "waitingroom", "displaygroups", "224.0.1.0", out created );
+
+            c.Receiver();
 
             DisplayGroups();
         }
@@ -123,7 +143,7 @@ namespace GUI
             else
                 Controls.Add( _createGroupsForm );
         }
-        
+
         /// <summary>
         /// Executed when clicked on the confirm button to create a group in create groups' form
         /// </summary>
@@ -133,7 +153,7 @@ namespace GUI
         {
             bool created;
 
-            c.CurrentGroup = c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, c.SetMulticastAddress(), out created );
+            CoreLibrary.Group g = c.FindOrCreateGroup( _createGroupsForm.GroupName, _createGroupsForm.GroupTag, c.SetMulticastAddress(), out created );
 
             if (!created)
                 MessageBox.Show( "Le nom du groupe existe déjà" );
@@ -143,28 +163,29 @@ namespace GUI
                 CreateGroupsButton();
 
                 Controls.Remove( _displayGroupsForm );
-             //   _displayGroupsForm.Dispose();
+                //   _displayGroupsForm.Dispose();
 
                 Controls.Remove( _createGroupsForm );
-             //   _createGroupsForm.Dispose();
+                //   _createGroupsForm.Dispose();
+
+                c.LeaveGroup( c.CurrentGroup.MulticastAddress );
+                c.CurrentGroup = g;
 
                 NoteTaking();
             }
         }
-        
+
         private void NoteTaking()
         {
-            
-           // c.Timer(g);
-            
-            //Note note = new Note();
+            c.JoinGroup( c.CurrentGroup.MulticastAddress );
 
-            if (Controls.Contains(_noteTakingForm))
+            if (Controls.Contains( _noteTakingForm ))
                 _noteTakingForm.Show();
             else
                 Controls.Add( _noteTakingForm );
 
-            _noteTakingForm.groupNameTitle.Text = "Groupe: "+c.CurrentGroup.Name;
+            _noteTakingForm.groupNameTitle.Text = "Groupe: " + c.CurrentGroup.Name;
+            _noteTakingForm.lbCurrentGroupAddress.Text = c.CurrentGroup.MulticastAddress;
         }
 
         /// <summary>
@@ -174,10 +195,10 @@ namespace GUI
         /// <param name="e"></param>
         void NoteTakingForm_ButtonLeaveGroups( object sender, EventArgs e )
         {
-            c.LeaveGroup(_multicastAddress);
+            c.LeaveGroup( c.CurrentGroup.MulticastAddress );
 
             Controls.Remove( _noteTakingForm );
-          //  _noteTakingForm.Dispose();
+            //  _noteTakingForm.Dispose();
 
             DisplayGroups();
         }
@@ -189,21 +210,21 @@ namespace GUI
         /// <param name="e"></param>
         void CreateGroupsForm_ButtonGroupsCancel( object sender, EventArgs e )
         {
-        //    _createGroupsForm.Dispose();
+            //    _createGroupsForm.Dispose();
             _createGroupsForm.Hide();
             _displayGroupsForm.Show();
         }
 
-        private void DisplayGroupsForm_TbSearchGroup(object sender, EventArgs e)
+        private void DisplayGroupsForm_TbSearchGroup( object sender, EventArgs e )
         {
             string keyword = _displayGroupsForm.getSearchText;
-            CreateGroupsButton(keyword);
+            CreateGroupsButton( keyword );
 
         }
         /// <summary>
         /// This method creates a Button control at runtime
         /// </summary>
-        private void CreateGroupsButton(string keyword = null)
+        private void CreateGroupsButton( string keyword = null )
         {
 
             _displayGroupsForm.panel.Controls.Clear();
@@ -213,28 +234,29 @@ namespace GUI
             int y = 13;
             int button = 0;
             bool match;
-            
+
 
             foreach (var group in c.Groups)
-	        {
+            {
                 if (keyword != null)
                 {
-                    match = Regex.IsMatch(group.Key, keyword, RegexOptions.IgnoreCase);
+                    match = Regex.IsMatch( group.Key, keyword, RegexOptions.IgnoreCase );
                 }
-                else {
-                     match = true;
+                else
+                {
+                    match = true;
                 }
-                
-                if (match || string.IsNullOrEmpty(keyword))
+
+                if ((match || string.IsNullOrEmpty( keyword )) && group.Key != "224.0.1.0")
                 {
                     // Create a Button object
                     Button btn = new Button();
 
                     // Set Button properties
                     btn.Name = group.Key;
-                    btn.Size = new Size(111, 48);
+                    btn.Size = new Size( 111, 48 );
                     btn.Text = "Name :" + group.Value.Name + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
-                    btn.Location = new Point(x, y);
+                    btn.Location = new Point( x, y );
                     button++;
                     x += 117;
 
@@ -246,10 +268,10 @@ namespace GUI
                     }
 
                     // Add a Button Click Event handler
-                    btn.Click += new EventHandler(GroupsButton);
+                    btn.Click += new EventHandler( GroupsButton );
 
                     // Add Button to the Form. 
-                    _displayGroupsForm.panel.Controls.Add(btn);
+                    _displayGroupsForm.panel.Controls.Add( btn );
                 }
             }
         }
@@ -259,28 +281,17 @@ namespace GUI
             // Use "Sender" to know which button was clicked ?
             Button btn = sender as Button;
 
-            c.CurrentGroup = c.FindGroup(btn.Name);
-            /*
-            c.LeaveGroup();
-
-            foreach (var groups in c.GetGroups)
-            {
-                if (groups.Key.Contains( btn.Name ))
-                {
-                    _multicastAddress = groups.Value.MulticastAddress;
-                    c.JoinGroup( groups.Value.MulticastAddress );
-                }
-            }
-            */
+            c.LeaveGroup( c.CurrentGroup.MulticastAddress );
+            c.CurrentGroup = c.FindGroup( btn.Name );
 
             Controls.Remove( _displayGroupsForm );
-          //  _displayGroupsForm.Dispose();
+            //  _displayGroupsForm.Dispose();
 
             NoteTaking();
         }
         private void MainFormClosing( object sender, FormClosingEventArgs e )
         {
-            if (MessageBox.Show("Voulez-vous vraiment quitter l'application ?\r\nToutes les modifications effectuées seront enregistrées", "Fermeture", MessageBoxButtons.YesNo ) == DialogResult.Yes)
+            if (MessageBox.Show( "Voulez-vous vraiment quitter l'application ?\r\nToutes les modifications effectuées seront enregistrées", "Fermeture", MessageBoxButtons.YesNo ) == DialogResult.Yes)
             {
                 if (File.Exists( _path ))
                 {
@@ -291,7 +302,7 @@ namespace GUI
             else
             {
                 e.Cancel = true;
-            }              
+            }
         }
     }
 }
