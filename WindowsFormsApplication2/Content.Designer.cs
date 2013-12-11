@@ -34,11 +34,11 @@
             // Title
             // 
             this.Title.AutoSize = true;
-            this.Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
             this.Title.Location = new System.Drawing.Point(16, 14);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(53, 20);
+            this.Title.Size = new System.Drawing.Size(60, 24);
             this.Title.TabIndex = 0;
             this.Title.Text = "label1";
             // 
@@ -51,6 +51,8 @@
             this.Controls.Add(this.Title);
             this.Name = "Content";
             this.Size = new System.Drawing.Size(518, 375);
+            this.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.Content_ControlAdded);
+            this.Resize += new System.EventHandler(this.Content_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 

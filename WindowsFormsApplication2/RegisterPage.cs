@@ -20,6 +20,8 @@ namespace GUI2
         public RegisterPage()
         {
             InitializeComponent();
+
+            Tag = "page";
         }
 
         private void RegisterPage_Load(object sender, EventArgs e)

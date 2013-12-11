@@ -29,6 +29,10 @@ namespace GUI2
         private UsersPage UsersPageControl;
         private NoteEditor NoteEditorControl;
 
+        private Control _currentPage;
+
+        private Size _lastPageSize;
+
         private bool LoggedIn = false;
 
         public Main()
@@ -40,6 +44,26 @@ namespace GUI2
             }
 
             InitializeComponent();
+
+            //how to change the page size
+            //when a control added
+            this.content1.ControlAddedEvent += (s, e) =>
+                {
+                    var cont = content1.Controls[1];
+                    //MessageBox.Show(cont.Name);
+                    if ((string)cont.Tag == "page")
+                    {
+                        //MessageBox.Show("test");
+                        _currentPage = cont;
+                        System.Diagnostics.Debug.WriteLine(cont.Name + " page lunched");
+
+                       /* if (_lastPageSize != null)
+                        {
+                            cont.Size = _lastPageSize;
+                            System.Diagnostics.Debug.WriteLine(_lastPageSize.Width);
+                        }*/
+                    }
+                };
         }
 
         private void content1_Load(object sender, EventArgs e)
@@ -52,14 +76,15 @@ namespace GUI2
             }
             else
             {          
-                GroupsPage();
+                //GroupsPage();
+                NoteEditor();
             }
         }
 
-        private void header1_Load(object sender, EventArgs e)
+        private void header_Load(object sender, EventArgs e)
         {
             Header header = sender as Header;
-
+         
             if (LoggedIn)
             {
                 header.UsernameText = c.CurrentUser.FirstName;
@@ -74,7 +99,8 @@ namespace GUI2
 
         private void Main_Load(object sender, EventArgs e)
         {
-
+            //header_Load() by header1.Load not fire anymore!
+            header_Load(this.header1, e);
         }
 
         private void rightMenu1_Load(object sender, EventArgs e)
@@ -83,7 +109,8 @@ namespace GUI2
 
             menu.SuspendLayout();
 
-
+            //add another item
+            MenuItem groups = menu.createItem("Groupes");
             MenuItem users = menu.createItem("Utilisateurs");
             MenuItem about = menu.createItem("A Propos");
 
@@ -93,28 +120,31 @@ namespace GUI2
                 menu.menuItem1.LabelText = "Identification";
                 //menu.menuItem1.LabelIcon = "login";
 
-                //add another item
-                MenuItem groups = menu.createItem(label: "Groupes", disable: !LoggedIn, icon: "register");
-
                 groups.IsDisabled = true;
                 users.IsDisabled = true;
                 about.IsDisabled = true;
 
-                menu.Controls.Add(groups);
+                
             }
             else
             {
                 //Set first item
-                menu.menuItem1.LabelText = "Groupes";
+                menu.menuItem1.LabelText = "Note Editor";
                 menu.menuItem1.IsActive = true;
             }
 
             menu.ItemClick += (s, ev) =>
                 {
                     var item = s as MenuItem;
-            
+
+                    System.Diagnostics.Debug.WriteLine(item.LabelText + " menu clicked");
+
                     switch (item.LabelText)
                     {
+                        case "Note Editor":
+                            RemovePage();
+                            NoteEditor();
+                            break;
                         case "A Propos":                        
                             RemovePage();
                             AboutPage();
@@ -130,6 +160,7 @@ namespace GUI2
                     }
                 };
 
+            menu.Controls.Add(groups);
             menu.Controls.Add(users);
             menu.Controls.Add(about);
             menu.ResumeLayout();
@@ -141,20 +172,23 @@ namespace GUI2
             {
                 GroupsPageControl = new GUI2.GroupsPage();
                 GroupsPageControl.BackColor = System.Drawing.Color.White;
-                GroupsPageControl.Location = new System.Drawing.Point(20, 40);
-                GroupsPageControl.Name = "groupsPage1";
-                GroupsPageControl.Size = new System.Drawing.Size(500, 259);
-                GroupsPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+                GroupsPageControl.Location = new System.Drawing.Point(0, 50);
+                GroupsPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                GroupsPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
+                GroupsPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right))); 
                 GroupsPageControl.TabIndex = 5;
-                GroupsPageControl.AutoSize = true;
+                
+               // GroupsPageControl.AutoSize = true;
+                
                 GroupsPageControl.GroupButtonClick += (s, e) =>
                     {
                         Button btn = s as Button;
 
                         c.CurrentGroup = c.FindGroup(btn.Name);
 
-                        Controls.Remove(GroupsPageControl);
-                        GroupsPageControl.Dispose();
+                        RemovePage();
 
                         //open taking note
                     };
@@ -163,11 +197,17 @@ namespace GUI2
                     {
                         Button btn = s as Button;
 
-                        Controls.Remove(GroupsPageControl);
-                        GroupsPageControl.Dispose();
+                        RemovePage();
 
                         //open create group form
                         GroupCreatePage();
+                    };
+
+                GroupsPageControl.SearchTextChange += (s, e) =>
+                    {
+                        var input = s as TextBox;
+
+                        GroupsPageControl.CreateGroupButtons(c, input.Text);
                     };
             }
 
@@ -184,16 +224,17 @@ namespace GUI2
             {
                 CreateGroupPageControl = new GUI2.CreateGroupPage();
                 CreateGroupPageControl.BackColor = System.Drawing.Color.White;
-                CreateGroupPageControl.Location = new System.Drawing.Point(20, 40);
-                CreateGroupPageControl.Name = "groupsPage1";
-                CreateGroupPageControl.Size = new System.Drawing.Size(300, 259);
+                CreateGroupPageControl.Location = new System.Drawing.Point(0, 50);
+                CreateGroupPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                CreateGroupPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
+                CreateGroupPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right))); 
                 CreateGroupPageControl.TabIndex = 5;
                 CreateGroupPageControl.CancelButtonClick += (s, e) =>
                 {
                     Button btn = s as Button;
-
-                    Controls.Remove(CreateGroupPageControl);
-                    CreateGroupPageControl.Dispose();
+                    RemovePage();
 
                     //open page
                     GroupsPage();
@@ -213,8 +254,7 @@ namespace GUI2
                     else
                     {
                         c.Save();
-                        Controls.Remove(CreateGroupPageControl);
-                        CreateGroupPageControl.Dispose();
+                        RemovePage();
 
                         GroupsPage();
                     }
@@ -235,9 +275,12 @@ namespace GUI2
             {
                 RegisterPageControl = new GUI2.RegisterPage();
                 RegisterPageControl.BackColor = System.Drawing.Color.White;
-                RegisterPageControl.Location = new System.Drawing.Point(20, 40);
-                RegisterPageControl.Name = "groupsPage1";
-                RegisterPageControl.Size = new System.Drawing.Size(344, 259);
+                RegisterPageControl.Location = new System.Drawing.Point(0, 50);
+                RegisterPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                RegisterPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
+                RegisterPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right))); 
                 RegisterPageControl.TabIndex = 5;
 
                 RegisterPageControl.SaveButtonClick += (s, e) =>
@@ -247,11 +290,9 @@ namespace GUI2
                         c.Initialize(cs);
 
                         c.CurrentUser = c.CreateUser(RegisterPageControl.FirstName, RegisterPageControl.LastName);
-
+                      
                         c.Save();
-
-                        this.content1.Controls.Remove(RegisterPageControl);
-                        RegisterPageControl.Dispose();
+                        RemovePage();
 
                         GroupsPage();
                     };
@@ -263,16 +304,25 @@ namespace GUI2
             //this.ResumeLayout();
         }
 
-        private void NoteEditorPage()
+        private void NoteEditor()
         {
+            this.content1.Visible = false;
+
             if (NoteEditorControl == null)
             {
                 NoteEditorControl = new NoteEditor();
-
+                NoteEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+| System.Windows.Forms.AnchorStyles.Left)
+| System.Windows.Forms.AnchorStyles.Right)));
+                NoteEditorControl.AutoSize = false;
+                NoteEditorControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
+                NoteEditorControl.Location = new System.Drawing.Point(164, 52);
+                NoteEditorControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                NoteEditorControl.Size = new System.Drawing.Size(631, 427);
+                NoteEditorControl.TabIndex = 4;
             }
 
-            content1.TitleText = c.CurrentGroup.Name + ": Note";
-            content1.Controls.Add(NoteEditorControl);
+            this.Controls.Add(NoteEditorControl);
         }
 
         private void AboutPage()
@@ -281,10 +331,14 @@ namespace GUI2
             {
                 AboutPageControl = new GUI2.AboutPage();
                 AboutPageControl.BackColor = System.Drawing.Color.White;
-                AboutPageControl.Location = new System.Drawing.Point(20, 40);
-                AboutPageControl.Name = "groupsPage1";
-                AboutPageControl.Size = new System.Drawing.Size(344, 259);
+                AboutPageControl.Location = new System.Drawing.Point(0, 50);
+                AboutPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                AboutPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
+                AboutPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right))); 
                 AboutPageControl.TabIndex = 5;
+  
                 AboutPageControl.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "+Environment.NewLine
                 +"Mauris consequat quam vel ullamcorper varius. Phasellus vulputate quam in fermentum ultricies. "+Environment.NewLine
                 +"Sed consectetur elementum quam at posuere. Nulla sem felis, lobortis vestibulum eros sit amet, dictum "+Environment.NewLine
@@ -304,9 +358,12 @@ namespace GUI2
             {
                 UsersPageControl = new GUI2.UsersPage();
                 UsersPageControl.BackColor = System.Drawing.Color.White;
-                UsersPageControl.Location = new System.Drawing.Point(20, 40);
-                UsersPageControl.Name = "groupsPage1";
-                UsersPageControl.Size = new System.Drawing.Size(344, 259);
+                UsersPageControl.Location = new System.Drawing.Point(0, 50);
+                UsersPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                UsersPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
+                UsersPageControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right))); 
                 UsersPageControl.TabIndex = 5;
             }
 
@@ -322,13 +379,28 @@ namespace GUI2
 
         private void RemovePage()
         {
+            if (this.content1.Visible == false)
+            {
+                this.Controls.Remove(NoteEditorControl);
+                this.content1.Visible = true;
+            }
+            else
+            {
+                
+                if (_currentPage != null)
+                {
+                    System.Diagnostics.Debug.WriteLine(_currentPage.Name + " removed");
+                    _lastPageSize = _currentPage.Size;
+                    //page.Dispose();
 
-            content1.Controls.RemoveAt(1);
+                    content1.Controls.Remove(_currentPage);
+                }
+            }
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Voulez-vous vraiment quitter l'application ?\r\nToutes les modifications effectuées seront enregistrées", "Fermeture", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            /*if (MessageBox.Show("Voulez-vous vraiment quitter l'application ?\r\nToutes les modifications effectuées seront enregistrées", "Fermeture", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 if (File.Exists(_path))
                 {
@@ -339,7 +411,7 @@ namespace GUI2
             else
             {
                 e.Cancel = true;
-            } 
+            } */
         }
     }
 }

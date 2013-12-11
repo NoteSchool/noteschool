@@ -14,10 +14,24 @@ namespace GUI2
     {
         internal string TitleText { set { this.Title.Text = value; } }
         internal string TitleIcon = "dummy";
+        public EventHandler ControlAddedEvent;
 
         public Content()
         {
             InitializeComponent();
+        }
+
+        private void Content_Resize(object sender, EventArgs e)
+        {
+            /*foreach (Control cont in Controls)
+            {
+                cont.Size = new System.Drawing.Size(this.Size.Width, this.Size.Height - 50);   
+            }*/
+        }
+
+        private void Content_ControlAdded(object sender, ControlEventArgs e)
+        {
+            ControlAddedEvent(sender, e);
         }
     }
 }
