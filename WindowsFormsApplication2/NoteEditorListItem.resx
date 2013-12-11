@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="friendTextBox.Text" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla lobortis urna quis tempor. Quisque cursus odio nec dolor dictum fermentum. Fusce sodales felis sit amet risus tempus vehicula. Nunc volutpat neque ultricies urna tempus, a consequat lorem tincidunt. Quisque suscipit aliquam justo sit amet convallis. Sed suscipit a turpis sed laoreet. Ut ut sapien lorem. Etiam risus erat, bibendum in nulla vel, adipiscing tempus tellus. Donec sollicitudin tortor vel enim sodales, et lobortis nulla porttitor. Nam id ipsum metus. Nullam a dui tempor felis gravida pretium non facilisis dui. Proin interdum non mi at vestibulum. Proin at ullamcorper velit. Ut tristique et mi at convallis. Pellentesque auctor lectus vel blandit adipiscing.</value>
-  </data>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla lobortis urna quis tempor. Quisque cursus odio nec dolor dictum fermentum. Fusce sodales felis sit amet risus tempus vehicula. Nunc volutpat neque ultricies urna tempus, a consequat lorem tincidunt. Quisque suscipit aliquam justo sit amet convallis. Sed suscipit a turpis sed laoreet. Ut ut sapien lorem. Etiam risus erat, bibendum in nulla vel, adipiscing tempus tellus. Donec sollicitudin tortor vel enim sodales, et lobortis nulla porttitor. Nam id ipsum metus. Nullam a dui tempor felis gravida pretium non facilisis dui. Proin interdum non mi at vestibulum. Proin at ullamcorper velit. Ut tristique et mi at convallis. Pellentesque auctor lectus vel blandit adipiscing.</value>
-  </data>
+  <metadata name="lineShape1.Bounds" type="System.Drawing.Rectangle, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>0, 53, 180, 0</value>
+  </metadata>
+  <metadata name="lineShape1.Location" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>0, 53</value>
+  </metadata>
+  <metadata name="lineShape1.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>180, 0</value>
+  </metadata>
 </root>

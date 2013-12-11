@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace GUI2
 {
-    public partial class InputNLabel : UserControl
+    public partial class inputNLabel : UserControl
     {
-        public string LabelText { set { this.label1.Text = value; } }
-        public string Value { get { return this.textBox1.Text; } }
+        public string LabelText { set { this.titleLabel.Text = value; } }
+        public string Value { get { return this.inputTextBox.Text; } }
 
-        public InputNLabel()
+        public inputNLabel()
         {
             InitializeComponent();
         }

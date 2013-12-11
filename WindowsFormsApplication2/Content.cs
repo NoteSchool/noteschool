@@ -10,28 +10,26 @@ using System.Windows.Forms;
 
 namespace GUI2
 {
-    public partial class Content : UserControl
-    {
-        internal string TitleText { set { this.Title.Text = value; } }
-        internal string TitleIcon = "dummy";
-        public EventHandler ControlAddedEvent;
+    
 
-        public Content()
+    public partial class content : UserControl
+    {
+        internal string Title { set { this.titleLabel.Text = value; } }
+        internal string TitleIcon = "dummy";
+
+        internal delegate void RemoveNoteEditorPage();
+        internal RemoveNoteEditorPage RemoveNoteEditorPageFunc;
+
+        public content()
         {
             InitializeComponent();
         }
 
-        private void Content_Resize(object sender, EventArgs e)
+        internal void NewPage(Control ctrl)
         {
-            /*foreach (Control cont in Controls)
-            {
-                cont.Size = new System.Drawing.Size(this.Size.Width, this.Size.Height - 50);   
-            }*/
-        }
-
-        private void Content_ControlAdded(object sender, ControlEventArgs e)
-        {
-            ControlAddedEvent(sender, e);
+            RemoveNoteEditorPageFunc();
+            containerPanel.Controls.Clear();
+            containerPanel.Controls.Add(ctrl);
         }
     }
 }

@@ -10,11 +10,9 @@ using System.Windows.Forms;
 
 namespace GUI2
 {
-    public partial class header : UserControl
+    public partial class NoteEditor2 : UserControl
     {
-        internal string UsernameText { set { this.usernameLabel.Text = value; } }
-
-        public header()
+        public NoteEditor2()
         {
             InitializeComponent();
         }

@@ -24,12 +24,9 @@ namespace GUI2
 
         private GroupsPage GroupsPageControl;
         private RegisterPage RegisterPageControl;
-        private CreateGroupPage CreateGroupPageControl;
+        private CreateGroupPage GroupCreatePageControl;
         private AboutPage AboutPageControl;
-        private UsersPage UsersPageControl;
-        private NoteEditor NoteEditorControl;
-
-        private Control _currentPage;
+        private Panel NoteEditorControl;
 
         private bool LoggedIn = false;
 
@@ -43,49 +40,27 @@ namespace GUI2
 
             InitializeComponent();
 
-            //how to change the page size
-            //when a control added
-            this.content1.ControlAddedEvent += (s, e) =>
+            content1.RemoveNoteEditorPageFunc = delegate()
+            {
+                if (this.content1.Visible == false)
                 {
-                    /**var cont = content1.panel1.Controls[0];
-                    //MessageBox.Show(cont.Name);
-                    if ((string)cont.Tag == "page")
-                    {
-                        _currentPage = cont;
-                        System.Diagnostics.Debug.WriteLine(cont.Name + " page lunched");
-                    }*/
-                };
+                    this.header1.textItemLabel.Visible = false;
+                    this.Controls.Remove(NoteEditorControl);
+                    this.content1.Visible = true;
+                }
+            };
         }
 
         private void content1_Load(object sender, EventArgs e)
         {
-            Content content = sender as Content;
-
-            if (!LoggedIn)
-            {
-                RegisterPage();
-            }
-            else
-            {          
-               GroupsPage();
-                //NoteEditor();
-            }
+            if (!LoggedIn) {  RegisterPage(); }
+            else { GroupsPage(); }
         }
 
         private void header_Load(object sender, EventArgs e)
         {
-            Header header = sender as Header;
-         
-            if (LoggedIn)
-            {
-                header.UsernameText = c.CurrentUser.FirstName;
-            }
-            else
-            {
-                header.UsernameText = "Bienvenue";
-            }
-
-            header.SearchInput.Visible = false;
+            header header = sender as header;
+            header.UsernameText = LoggedIn ? c.CurrentUser.FirstName : "Bienvenue";
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -96,65 +71,49 @@ namespace GUI2
 
         private void rightMenu1_Load(object sender, EventArgs e)
         {
-            RightMenu menu = sender as RightMenu;
+            leftMenu menu = sender as leftMenu;
 
-            menu.SuspendLayout();
-
-            //add another item
-            MenuItem groups = menu.createItem("Groupes");
-            MenuItem users = menu.createItem("Utilisateurs");
-            MenuItem about = menu.createItem("A Propos");
+            menuItem groups = menu.createItem(label:"Groupes", id:"groups");
+            menuItem about = menu.createItem(label:"A Propos", id:"about");
 
             if (!LoggedIn)
             {
-                //Set first item
-                menu.menuItem1.LabelText = "Identification";
-                //menu.menuItem1.LabelIcon = "login";
+                menuItem register = menu.createItem(label:"Identification", id:"register");
+
+                menu.SelectedItem = register;
 
                 groups.IsDisabled = true;
-                users.IsDisabled = true;
                 about.IsDisabled = true;
 
-                
+                menu.Controls.Add(register);
             }
             else
             {
-                //Set first item
-                menu.menuItem1.LabelText = "Note Editor";
-                menu.menuItem1.IsActive = true;
+                menu.SelectedItem = groups;
             }
 
             menu.ItemClick += (s, ev) =>
                 {
-                    var item = s as MenuItem;
+                    var item = s as menuItem;
 
-                    System.Diagnostics.Debug.WriteLine(item.LabelText + " menu clicked");
+                    System.Diagnostics.Debug.WriteLine(item.Text + " menu clicked");
 
-                    switch (item.LabelText)
+                    switch (item.Id)
                     {
-                        case "Note Editor":
-                            RemovePage();
-                            NoteEditor();
+                        case "noteEditor":
+                            NoteEditor(c.CurrentGroup);
                             break;
-                        case "A Propos":                        
-                            RemovePage();
+                        case "about":                        
                             AboutPage();
                             break;
-                        case "Groupes":
-                            RemovePage();
+                        case "groups":
                             GroupsPage();
-                            break;
-                        case "Utilisateurs":
-                            RemovePage();
-                            UsersPage();
                             break;
                     }
                 };
 
             menu.Controls.Add(groups);
-            menu.Controls.Add(users);
             menu.Controls.Add(about);
-            menu.ResumeLayout();
         }
 
         private void GroupsPage()
@@ -163,89 +122,67 @@ namespace GUI2
             {
                 GroupsPageControl = new GUI2.GroupsPage();
                 GroupsPageControl.BackColor = System.Drawing.Color.White;
-                GroupsPageControl.Location = new System.Drawing.Point(0, 50);
                 GroupsPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                GroupsPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
-                GroupsPageControl.Dock = DockStyle.Fill;
-                
+                GroupsPageControl.Dock = DockStyle.Fill;               
                 GroupsPageControl.GroupButtonClick += (s, e) =>
                     {
                         Button btn = s as Button;
-
                         c.CurrentGroup = c.FindGroup(btn.Name);
-
-                        RemovePage();
-
                         //open taking note
+                        NoteEditor(c.CurrentGroup);
                     };
-
                 GroupsPageControl.CreateGroupButtonClick += (s, e) =>
                     {
                         Button btn = s as Button;
-
-                        RemovePage();
-
                         //open create group form
                         GroupCreatePage();
                     };
-
                 GroupsPageControl.SearchTextChange += (s, e) =>
                     {
                         var input = s as TextBox;
-
-                        GroupsPageControl.CreateGroupButtons(c, input.Text);
+                        GroupsPageControl.CreateGroupButtons(c.Groups, input.Text);
                     };
             }
 
-            GroupsPageControl.CreateGroupButtons(c);
-
-            content1.TitleText = "Choisissez votre classe de travail";
-            this.content1.panel1.Controls.Add(GroupsPageControl);
+            GroupsPageControl.CreateGroupButtons(c.Groups);
+         
+            content1.Title = "Choisissez votre classe de travail";
+            content1.NewPage(GroupsPageControl);
 
         }
 
         private void GroupCreatePage()
         {
-            if (CreateGroupPageControl == null)
+            if (GroupCreatePageControl == null)
             {
-                CreateGroupPageControl = new GUI2.CreateGroupPage();
-                CreateGroupPageControl.BackColor = System.Drawing.Color.White;
-                CreateGroupPageControl.Location = new System.Drawing.Point(0, 50);
-                CreateGroupPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                CreateGroupPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
-                CreateGroupPageControl.Dock = DockStyle.Fill;
-                CreateGroupPageControl.TabIndex = 5;
-                CreateGroupPageControl.CancelButtonClick += (s, e) =>
+                GroupCreatePageControl = new GUI2.CreateGroupPage();
+                GroupCreatePageControl.BackColor = System.Drawing.Color.White;
+                GroupCreatePageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                GroupCreatePageControl.Dock = DockStyle.Fill;
+                GroupCreatePageControl.CancelButtonClick += (s, e) =>
                 {
                     Button btn = s as Button;
-                    RemovePage();
                     //open page
                     GroupsPage();
                 };
-
-                CreateGroupPageControl.SaveButtonClick += (s, e) =>
+                GroupCreatePageControl.SaveButtonClick += (s, e) =>
                 {
-                    //Button btn = s as Button;
-
                     bool created;
-
-                    c.CurrentGroup = c.FindOrCreateGroup(CreateGroupPageControl.GroupTitle, CreateGroupPageControl.GroupTag, 
-                        c.SetMulticastAddress(), out created);
+                    c.CurrentGroup = c.FindOrCreateGroup(GroupCreatePageControl.GroupTitle, 
+                        GroupCreatePageControl.GroupTag, c.SetMulticastAddress(), out created);
 
                     if (!created)
                         MessageBox.Show("Le nom du groupe existe déjà");
                     else
                     {
                         c.Save();
-                        RemovePage();
-                        GroupsPage();
+                        NoteEditor(c.CurrentGroup);
                     }
                 };
-
             }
 
-            content1.TitleText = "Ajouter un nouveau groupe";
-            content1.panel1.Controls.Add(CreateGroupPageControl);
+            content1.Title = "Ajouter un nouveau groupe";
+            content1.NewPage(GroupCreatePageControl);
         }
 
 
@@ -255,44 +192,64 @@ namespace GUI2
             {
                 RegisterPageControl = new GUI2.RegisterPage();
                 RegisterPageControl.BackColor = System.Drawing.Color.White;
-                RegisterPageControl.Location = new System.Drawing.Point(0, 50);
                 RegisterPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                RegisterPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
                 RegisterPageControl.Dock = DockStyle.Fill;
-                RegisterPageControl.TabIndex = 5;
-
                 RegisterPageControl.SaveButtonClick += (s, e) =>
                     {
                         c = new NSContext();
                         c.Initialize(cs);
                         c.CurrentUser = c.CreateUser(RegisterPageControl.FirstName, RegisterPageControl.LastName);                     
                         c.Save();
-                        RemovePage();
                         GroupsPage();
                     };
             }
 
-            content1.TitleText = "Identifiez-vous pour accéder au savoir !";
-            content1.panel1.Controls.Add(RegisterPageControl);
+            content1.Title = "Identifiez-vous pour accéder au savoir !";
+            content1.NewPage(RegisterPageControl);
         }
 
-        private void NoteEditor()
+        private void NoteEditor(Group group = null)
         {
-            this.content1.Visible = false;
+              this.content1.Visible = false;
 
-            if (NoteEditorControl == null)
-            {
-                NoteEditorControl = new NoteEditor();
-                NoteEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-| System.Windows.Forms.AnchorStyles.Left)
-| System.Windows.Forms.AnchorStyles.Right)));
-                NoteEditorControl.AutoSize = false;
-                NoteEditorControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
-                NoteEditorControl.Location = new System.Drawing.Point(164, 52);
-                NoteEditorControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                NoteEditorControl.Size = new System.Drawing.Size(631, 427);
-                NoteEditorControl.TabIndex = 4;
-            }
+              if (NoteEditorControl == null)
+              {
+                  NoteEditorControl = new System.Windows.Forms.Panel();
+                  NoteEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+              | System.Windows.Forms.AnchorStyles.Left)
+              | System.Windows.Forms.AnchorStyles.Right)));
+                  NoteEditorControl.AutoSize = true;
+                  //NoteEditorControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
+                  NoteEditorControl.Location = new System.Drawing.Point(164, 52);
+                  NoteEditorControl.Name = "content1";
+                  NoteEditorControl.Size = new System.Drawing.Size(631, 427);
+
+                  NoteEditor2 _NoteEditorControl = new NoteEditor2();
+                  /*_NoteEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+  | System.Windows.Forms.AnchorStyles.Left)
+  | System.Windows.Forms.AnchorStyles.Right)));*/
+                  _NoteEditorControl.Dock = DockStyle.Fill;
+                  _NoteEditorControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
+                  _NoteEditorControl.Location = new System.Drawing.Point(0, 0);
+                  //_NoteEditorControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                  _NoteEditorControl.Size = new System.Drawing.Size(631, 427);
+                  //_NoteEditorControl.TabIndex = 4;
+
+                  NoteEditorControl.Controls.Add(_NoteEditorControl);
+
+                  var menuItem = this.rightMenu1.createItem(label: "Note Editor", pos: 0, id:"noteEditor");
+                  rightMenu1.Controls.Add(menuItem);
+                  this.rightMenu1.SelectedItem = menuItem;
+
+              }
+              else
+              {
+                  this.rightMenu1.SelectedItem = (menuItem) this.rightMenu1.Controls[2] ;
+              }
+
+            this.rightMenu1.SelectedItem.Text = group.Name;
+            this.header1.textItemLabel.Text = group.Name+"   8 participants";
+            this.header1.textItemLabel.Visible = true;
 
             this.Controls.Add(NoteEditorControl);
         }
@@ -303,11 +260,8 @@ namespace GUI2
             {
                 AboutPageControl = new GUI2.AboutPage();
                 AboutPageControl.BackColor = System.Drawing.Color.White;
-                AboutPageControl.Location = new System.Drawing.Point(0, 50);
                 AboutPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                AboutPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
-                AboutPageControl.Dock = DockStyle.Fill;
-  
+                AboutPageControl.Dock = DockStyle.Fill; 
                 AboutPageControl.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "+Environment.NewLine
                 +"Mauris consequat quam vel ullamcorper varius. Phasellus vulputate quam in fermentum ultricies. "+Environment.NewLine
                 +"Sed consectetur elementum quam at posuere. Nulla sem felis, lobortis vestibulum eros sit amet, dictum "+Environment.NewLine
@@ -316,60 +270,24 @@ namespace GUI2
                 +"Sed venenatis euismod tortor. Pellentesque vel est ut sem tincidunt dictum vel auctor odio.";
             }
 
-            content1.TitleText = "Qui somme nous ?";
-
-            content1.panel1.Controls.Add(AboutPageControl);
-        }
-
-        private void UsersPage()
-        {
-            if (UsersPageControl == null)
-            {
-                UsersPageControl = new GUI2.UsersPage();
-                UsersPageControl.BackColor = System.Drawing.Color.White;
-                UsersPageControl.Location = new System.Drawing.Point(0, 50);
-                UsersPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                UsersPageControl.Size = new System.Drawing.Size(this.content1.Size.Width, 427);
-                UsersPageControl.Dock = DockStyle.Fill;
-            }
-
-            content1.TitleText = "Retrouver vos amis";
-
-            content1.panel1.Controls.Add(UsersPageControl);
-        }
-
-        private void ChangePage()
-        {
-
-        }
-
-        private void RemovePage()
-        {
-            if (this.content1.Visible == false)
-            {
-                this.Controls.Remove(NoteEditorControl);
-                this.content1.Visible = true;
-            }
-            else
-            {
-                content1.panel1.Controls.Clear();
-            }
+            content1.Title = "Qui somme nous ?";
+            content1.NewPage(AboutPageControl);
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            /*if (MessageBox.Show("Voulez-vous vraiment quitter l'application ?\r\nToutes les modifications effectuées seront enregistrées", "Fermeture", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (LoggedIn)
             {
-                if (File.Exists(_path))
+                if (MessageBox.Show("Voulez-vous vraiment quitter l'application ?",
+                  "Fermeture", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     c.Save();
                 }
-                e.Cancel = false;
+                else
+                {
+                    e.Cancel = true;
+                }
             }
-            else
-            {
-                e.Cancel = true;
-            } */
         }
     }
 }

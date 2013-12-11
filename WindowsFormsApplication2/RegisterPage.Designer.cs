@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.inputNLabel2 = new GUI2.InputNLabel();
-            this.inputNLabel1 = new GUI2.InputNLabel();
+            this.inputNLabel2 = new GUI2.inputNLabel();
+            this.inputNLabel1 = new GUI2.inputNLabel();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.SuspendLayout();
@@ -105,8 +105,8 @@
 
         #endregion
 
-        private InputNLabel inputNLabel1;
-        private InputNLabel inputNLabel2;
+        private inputNLabel inputNLabel1;
+        private inputNLabel inputNLabel2;
         private System.Windows.Forms.Button button1;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;

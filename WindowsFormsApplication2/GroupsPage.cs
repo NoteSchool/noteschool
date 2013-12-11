@@ -25,53 +25,34 @@ namespace GUI2
             Tag = "page";
         }
 
-        public void CreateGroupButtons(NSContext c, string keyword = null)
+        public void CreateGroupButtons(Dictionary<string, CoreLibrary.Group> groups, string keyword = null)
         {
-            this.panel1.Controls.Clear();
+            this.containerPanel.Controls.Clear();
 
-            // X & Y Location of each created button in the panel
-            int x = 27;
-            int y = 13;
-            int button = 0;
             bool match;
+            Button btn;
 
-            foreach (var group in c.Groups)
+            foreach (var group in groups)
             {
-                if (keyword != null)
-                {
-                    match = Regex.IsMatch(group.Value.Name, keyword, RegexOptions.IgnoreCase)
-                        || Regex.IsMatch(group.Value.Tag, keyword, RegexOptions.IgnoreCase);
-                }
-                else
-                {
-                    match = true;
-                }
+                match = string.IsNullOrEmpty(keyword) ? true :
+                    (Regex.IsMatch(group.Value.Name, keyword, RegexOptions.IgnoreCase)
+                        || Regex.IsMatch(group.Value.Tag, keyword, RegexOptions.IgnoreCase));
 
-                if (match || string.IsNullOrEmpty(keyword))
+                if (match)
                 {
                     // Create a Button object
-                    Button btn = new Button();
-
-                    // Set Button properties
+                    btn = new Button();
+                    btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                    btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(133)))), ((int)(((byte)(133)))));
+                    btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    btn.ForeColor = System.Drawing.Color.White;
                     btn.Name = group.Key;
-                    btn.Size = new Size(111, 48);
+                    btn.AutoSize = true;
                     btn.Text = "Name :" + group.Value.Name + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
-                    btn.Location = new Point(x, y);
-                    button++;
-                    x += 117;
-
-                    if (button >= 6)
-                    {
-                        x = 27;
-                        y += 54;
-                        button = 0;
-                    }
-
-                    // Add a Button Click Event handler
                     btn.Click += new EventHandler(GroupClick);
 
                     // Add Button to the Form. 
-                    panel1.Controls.Add(btn);
+                    containerPanel.Controls.Add(btn);
                 }
             }
         }

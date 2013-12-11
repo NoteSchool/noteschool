@@ -10,74 +10,57 @@ using System.Windows.Forms;
 
 namespace GUI2
 {
-    public partial class MenuItem : UserControl
+    public partial class menuItem : UserControl
     {
-        public bool IsDisabled = false;
-        public bool IsActive = false;
-        public string ID;
+        internal bool IsDisabled = false;
+        internal bool IsActive = false;
+        internal string Id;
 
-        public string LabelText 
+        internal new string Text 
         {
-            get { return this.ItemText.Text; }
+            get { return this.titleLabel.Text; }
             set 
             { 
-                this.ItemText.Text = value;
+                this.titleLabel.Text = value;
                 //center text within the item
-                this.ItemText.Left = (this.Width - this.ItemText.Size.Width) / 2;
+                this.titleLabel.Left = (this.Width - this.titleLabel.Size.Width) / 2;
             } 
         }
 
-        public MenuItem()
+        public menuItem()
         {
             InitializeComponent();
+            iconPictureBox.Click += Item_Click;
+            titleLabel.Click += Item_Click;
+        }
+
+        void Item_Click(object sender, EventArgs e)
+        {
+            OnClick( e );
         }
 
         public void Active(bool sel = true)
         {       
-            if (sel && !ItemLeftBorder.Visible)
+            if (sel && !leftBorderLineShape.Visible)
             {
                 this.SuspendLayout();
-                ItemIcon.Image = global::GUI2.Properties.Resources.registerHover;
-                ItemText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(229)))), ((int)(((byte)(233)))));
+                iconPictureBox.Image = global::GUI2.Properties.Resources.registerHover;
+                titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(229)))), ((int)(((byte)(233)))));
 
-                ItemLeftBorder.Visible = true;
+                leftBorderLineShape.Visible = true;
                 IsActive = true;
                 this.ResumeLayout();
             }
-            else if (!sel && ItemLeftBorder.Visible)
+            else if (!sel && leftBorderLineShape.Visible)
             {
                 this.SuspendLayout();
-                ItemIcon.Image = global::GUI2.Properties.Resources.register;
-                ItemText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(158)))), ((int)(((byte)(174)))));
+                iconPictureBox.Image = global::GUI2.Properties.Resources.register;
+                titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(158)))), ((int)(((byte)(174)))));
 
-                ItemLeftBorder.Visible = false;
+                leftBorderLineShape.Visible = false;
                 IsActive = false;
                 this.ResumeLayout();
             }            
-        }
-
-        public void rectangleShape1_MouseEnter(object sender, EventArgs e)
-        {
-            //System.Diagnostics.Debug.WriteLine("enter");
-            /*
-            if (!IsDisabled)
-            {
-                ItemIcon.Image = global::GUI2.Properties.Resources.registerHover;
-                ItemText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(229)))), ((int)(((byte)(233)))));
-            }
-             * */
-        }
-
-        public void rectangleShape1_MouseLeave(object sender, EventArgs e)
-        {
-            //System.Diagnostics.Debug.WriteLine("leave");
-            /*
-            if (!IsActive)
-            {
-                ItemIcon.Image = global::GUI2.Properties.Resources.register;
-                ItemText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(158)))), ((int)(((byte)(174)))));
-            }
-             * */
         }
     }
 }
