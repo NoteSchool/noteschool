@@ -36,8 +36,9 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontButton = new System.Windows.Forms.Button();
             this.ColorButton = new System.Windows.Forms.Button();
-            this.rating1 = new GUI.Rating();
             this.groupNameTitle = new System.Windows.Forms.Label();
+            this.lbCurrentGroupAddress = new System.Windows.Forms.Label();
+            this.rating1 = new GUI.Rating();
             this.SuspendLayout();
             // 
             // rtbNoteTaking
@@ -101,14 +102,6 @@
             this.ColorButton.UseVisualStyleBackColor = false;
             this.ColorButton.Click += new System.EventHandler(this.ColorButton_Click_1);
             // 
-            // rating1
-            // 
-            this.rating1.BackColor = System.Drawing.Color.Transparent;
-            this.rating1.Location = new System.Drawing.Point(467, 429);
-            this.rating1.Name = "rating1";
-            this.rating1.Size = new System.Drawing.Size(121, 34);
-            this.rating1.TabIndex = 4;
-            // 
             // groupNameTitle
             // 
             this.groupNameTitle.AutoSize = true;
@@ -119,11 +112,29 @@
             this.groupNameTitle.TabIndex = 7;
             this.groupNameTitle.Text = "Groupe xxx";
             // 
+            // lbCurrentGroupAddress
+            // 
+            this.lbCurrentGroupAddress.AutoSize = true;
+            this.lbCurrentGroupAddress.Location = new System.Drawing.Point(373, 14);
+            this.lbCurrentGroupAddress.Name = "lbCurrentGroupAddress";
+            this.lbCurrentGroupAddress.Size = new System.Drawing.Size(35, 13);
+            this.lbCurrentGroupAddress.TabIndex = 8;
+            this.lbCurrentGroupAddress.Text = "label1";
+            // 
+            // rating1
+            // 
+            this.rating1.BackColor = System.Drawing.Color.Transparent;
+            this.rating1.Location = new System.Drawing.Point(467, 429);
+            this.rating1.Name = "rating1";
+            this.rating1.Size = new System.Drawing.Size(121, 34);
+            this.rating1.TabIndex = 4;
+            // 
             // NoteTaking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.Controls.Add(this.lbCurrentGroupAddress);
             this.Controls.Add(this.groupNameTitle);
             this.Controls.Add(this.ColorButton);
             this.Controls.Add(this.FontButton);
@@ -151,5 +162,6 @@
         private System.Windows.Forms.Button FontButton;
         private System.Windows.Forms.Button ColorButton;
         public System.Windows.Forms.Label groupNameTitle;
+        public System.Windows.Forms.Label lbCurrentGroupAddress;
     }
 }
