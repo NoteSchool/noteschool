@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rightMenu1 = new GUI2.leftMenu();
+            this.leftMenu1 = new GUI2.leftMenu();
             this.header1 = new GUI2.header();
             this.content1 = new GUI2.content();
             this.SuspendLayout();
             // 
             // rightMenu1
             // 
-            this.rightMenu1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.leftMenu1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.rightMenu1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(52)))), ((int)(((byte)(69)))));
-            this.rightMenu1.Location = new System.Drawing.Point(0, 51);
-            this.rightMenu1.Name = "rightMenu1";
-            this.rightMenu1.Size = new System.Drawing.Size(164, 435);
-            this.rightMenu1.TabIndex = 1;
-            this.rightMenu1.Load += new System.EventHandler(this.rightMenu1_Load);
+            this.leftMenu1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(52)))), ((int)(((byte)(69)))));
+            this.leftMenu1.Location = new System.Drawing.Point(0, 51);
+            this.leftMenu1.Name = "rightMenu1";
+            this.leftMenu1.Size = new System.Drawing.Size(164, 435);
+            this.leftMenu1.TabIndex = 1;
+            this.leftMenu1.Load += new System.EventHandler(this.rightMenu1_Load);
             // 
             // header1
             // 
@@ -71,7 +71,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(795, 480);
-            this.Controls.Add(this.rightMenu1);
+            this.Controls.Add(this.leftMenu1);
             this.Controls.Add(this.header1);
             this.Controls.Add(this.content1);
             this.MinimumSize = new System.Drawing.Size(748, 471);
@@ -87,7 +87,7 @@
         #endregion
 
         private header header1;
-        private leftMenu rightMenu1;
+        private leftMenu leftMenu1;
         private content content1;
     }
 }

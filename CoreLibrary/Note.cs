@@ -12,8 +12,8 @@ namespace CoreLibrary
         private string _text;
         private DateTime _editedAt;
 
-        private int _rate;
-        private List<String> _ratersId;
+        private int _likes;
+        private List<String> _likersId;
 
         public string Text
         {
@@ -21,25 +21,32 @@ namespace CoreLibrary
             set { _text = value; }
         }
 
-        public DateTime EditedAt { get { return _editedAt; } }
-        public int Rate { get { return _rate; }}
-        public List<String> RatersId { get { return _ratersId; }}
+        public DateTime EditedAt { get { return _editedAt; } set { _editedAt = value; } }
+        public int Rate { get { return _likes; }}
+        public List<String> RatersId { get { return _likersId; }}
 
         internal Note()
         {
             _editedAt = DateTime.Now;
-            _rate = 0;
-            _ratersId = new List<string>();
+            _likes = 0;
+            _likersId = new List<string>();
         }
 
         /// <summary>
         /// Ajoute un like à la note
         /// </summary>
         /// <param name="userid"></param>
-        public void RateIt(string userid)
+        public void LikeIt(string userid)
         {
-            _rate++;
-            _ratersId.Add(userid);
+            _likes++;
+            _likersId.Add(userid);
+        }
+
+        public static Note GetNote(string text)
+        {
+            var note = new Note();
+            note.Text = text;
+            return note;
         }
     }
 }

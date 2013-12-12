@@ -30,6 +30,7 @@ namespace GUI2
         public menuItem()
         {
             InitializeComponent();
+
             iconPictureBox.Click += Item_Click;
             titleLabel.Click += Item_Click;
         }

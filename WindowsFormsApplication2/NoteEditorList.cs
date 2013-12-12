@@ -14,13 +14,55 @@ namespace GUI2
     public partial class NoteEditorList : UserControl
     {
         private readonly int _itemHeight = 56;
+        private NoteEditorListItem _activeItem;
+        public EventHandler OnItemClick;
+        public EventHandler OnSearch;
 
         public NoteEditorList()
         {
             InitializeComponent();
+
+            searchTextBox.TextChanged += (s, e) =>
+                {
+                    if (searchTextBox.Text != "Recherche..")
+                    OnSearch(s, e);
+                };
+
+            searchTextBox.GotFocus += (s, e) =>
+            {
+                if (searchTextBox.Text == "Recherche..")
+                    searchTextBox.Text = "";
+            };
+            searchTextBox.LostFocus += (s, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(searchTextBox.Text))
+                    searchTextBox.Text = "Recherche..";
+            };
         }
 
-        internal NoteEditorListItem CreateItem(string title, DateTime lastUpdate, int likes = 0, bool isConnected=true)
+        internal void BuildList(Dictionary<string, CoreLibrary.User> users, string keyword = "")
+        {
+            if (users != null)
+            {
+                List<NoteEditorListItem> items = new List<NoteEditorListItem>();
+                bool match;
+
+                foreach (var u in users)
+                {
+                    match = string.IsNullOrEmpty(keyword) ? true :
+                        Regex.IsMatch(u.Value.FirstName+u.Value.LastName, keyword, RegexOptions.IgnoreCase);
+
+                    if (match)
+                    {
+                        items.Add(CreateItem(id: u.Value.Id, title: u.Value.FirstName + " " + u.Value.LastName));
+                    }
+                }
+
+                InsertItems(items);
+            }
+        }
+
+        internal NoteEditorListItem CreateItem(string id, string title, /*DateTime lastUpdate,*/ int likes = 0, bool isConnected=true)
         {
             NoteEditorListItem item = new NoteEditorListItem();
 
@@ -30,30 +72,39 @@ namespace GUI2
             item.Size = new System.Drawing.Size(167, _itemHeight);
 
             item.Title = title;
-            item.LastUpdate = lastUpdate;
+            //item.LastUpdate = lastUpdate;
             item.Likes = likes;
             item.IsConnected = isConnected;
+            item.Id = id;
+            item.Click += (s, e) =>
+                {
+                    NoteEditorListItem it = s as NoteEditorListItem;
+
+                    if (_activeItem != it)
+                    {
+                        _activeItem = it;
+
+                        OnItemClick(it, e);
+                    }
+                };
 
             return item;
         }
 
-        internal void InsertItems(List<NoteEditorListItem> items, string keyword="")
+        internal void InsertItems(List<NoteEditorListItem> items)
         {
-            bool match;
+            this.itemContainerPanel.SuspendLayout();
+            this.itemContainerPanel.Controls.Clear();
             int c = 0;
             foreach (var i in items)
             {
-                match = string.IsNullOrEmpty(keyword) ? true :
-                    Regex.IsMatch(i.Title, keyword, RegexOptions.IgnoreCase);
-
-                if (match)
-                {
                     i.Location = new System.Drawing.Point(0, c * _itemHeight);
                     this.itemContainerPanel.Controls.Add(i);
 
                     c++;
-                }
             }
+            this.itemContainerPanel.ResumeLayout(false);
+            this.itemContainerPanel.PerformLayout();
         }
     }
 }

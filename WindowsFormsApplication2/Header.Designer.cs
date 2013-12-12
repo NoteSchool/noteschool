@@ -39,17 +39,16 @@
             // 
             // usernameLabel
             // 
-            this.usernameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usernameLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.usernameLabel.AutoSize = true;
             this.usernameLabel.CausesValidation = false;
             this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
-            this.usernameLabel.Location = new System.Drawing.Point(678, 15);
+            this.usernameLabel.Location = new System.Drawing.Point(641, 15);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(28, 16);
+            this.usernameLabel.Size = new System.Drawing.Size(72, 16);
             this.usernameLabel.TabIndex = 1;
-            this.usernameLabel.Text = "text";
+            this.usernameLabel.Text = "Bienvenue";
             // 
             // logoPictureBox
             // 

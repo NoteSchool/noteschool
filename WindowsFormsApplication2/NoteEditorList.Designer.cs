@@ -62,7 +62,8 @@
             // 
             // searchContainerPanel
             // 
-            this.searchContainerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.searchContainerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.searchContainerPanel.BackColor = System.Drawing.Color.White;
             this.searchContainerPanel.Controls.Add(this.searchTextBox);
             this.searchContainerPanel.Location = new System.Drawing.Point(2, 372);
@@ -86,6 +87,9 @@
             // 
             // itemContainerPanel
             // 
+            this.itemContainerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemContainerPanel.AutoScroll = true;
             this.itemContainerPanel.Controls.Add(this.noteEditorListItem1);
             this.itemContainerPanel.Location = new System.Drawing.Point(2, 0);
@@ -95,6 +99,8 @@
             // 
             // noteEditorListItem1
             // 
+            this.noteEditorListItem1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.noteEditorListItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
             this.noteEditorListItem1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.noteEditorListItem1.Location = new System.Drawing.Point(0, 0);

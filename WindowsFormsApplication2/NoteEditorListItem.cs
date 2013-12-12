@@ -12,7 +12,7 @@ namespace GUI2
 {
     public partial class NoteEditorListItem : UserControl
     {
-
+        internal string Id;
         internal string Title 
         {
             get { return this.titleLabel.Text; }
@@ -42,6 +42,15 @@ namespace GUI2
         public NoteEditorListItem()
         {
             InitializeComponent();
+
+            titleLabel.Click += Item_Click;
+            lastTimeLabel.Click += Item_Click;
+            likesLabel.Click += Item_Click;
+        }
+
+        void Item_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
         }
     }
 }

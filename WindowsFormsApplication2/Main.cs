@@ -27,6 +27,7 @@ namespace GUI2
         private CreateGroupPage GroupCreatePageControl;
         private AboutPage AboutPageControl;
         private Panel NoteEditorControl;
+        private NoteEditor2 NoteEditorControl2;
 
         private bool LoggedIn = false;
 
@@ -78,12 +79,11 @@ namespace GUI2
 
             if (!LoggedIn)
             {
-                menuItem register = menu.createItem(label:"Identification", id:"register");
+                menuItem register = menu.createItem(label:"Identification", id:"register", pos:0);
 
                 menu.SelectedItem = register;
 
                 groups.IsDisabled = true;
-                about.IsDisabled = true;
 
                 menu.Controls.Add(register);
             }
@@ -109,11 +109,11 @@ namespace GUI2
                         case "groups":
                             GroupsPage();
                             break;
+                        case "register":
+                            RegisterPage();
+                            break;
                     }
                 };
-
-            menu.Controls.Add(groups);
-            menu.Controls.Add(about);
         }
 
         private void GroupsPage()
@@ -181,6 +181,9 @@ namespace GUI2
                 };
             }
 
+            GroupCreatePageControl.GroupTitle = "";
+            GroupCreatePageControl.GroupTag = "";
+
             content1.Title = "Ajouter un nouveau groupe";
             content1.NewPage(GroupCreatePageControl);
         }
@@ -196,11 +199,24 @@ namespace GUI2
                 RegisterPageControl.Dock = DockStyle.Fill;
                 RegisterPageControl.SaveButtonClick += (s, e) =>
                     {
-                        c = new NSContext();
-                        c.Initialize(cs);
-                        c.CurrentUser = c.CreateUser(RegisterPageControl.FirstName, RegisterPageControl.LastName);                     
-                        c.Save();
-                        GroupsPage();
+                        List<string> results;
+                        if (RegisterPageControl.Validation(out results))
+                        {
+                            c = new NSContext();
+                            c.Initialize(cs);
+                            c.CurrentUser = c.CreateUser(results[0], results[1]);
+                            c.Save();
+
+                            header1.UsernameText = c.CurrentUser.FirstName;
+                            leftMenu1.RemoveItem(leftMenu1.SelectedItem);
+                            leftMenu1.SelectedItem = leftMenu1.Controls[0] as menuItem;
+
+                            GroupsPage();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Les champs doivent être remplis et avec des characteres normals");
+                        }
                     };
             }
 
@@ -208,9 +224,10 @@ namespace GUI2
             content1.NewPage(RegisterPageControl);
         }
 
-        private void NoteEditor(Group group = null)
+        private void NoteEditor(Group group)
         {
               this.content1.Visible = false;
+              this.SuspendLayout();
 
               if (NoteEditorControl == null)
               {
@@ -222,36 +239,52 @@ namespace GUI2
                   //NoteEditorControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
                   NoteEditorControl.Location = new System.Drawing.Point(164, 52);
                   NoteEditorControl.Name = "content1";
-                  NoteEditorControl.Size = new System.Drawing.Size(631, 427);
+                 NoteEditorControl.Size = new System.Drawing.Size(631, 427);
 
-                  NoteEditor2 _NoteEditorControl = new NoteEditor2();
+                  this.NoteEditorControl2 = new NoteEditor2();
                   /*_NoteEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
   | System.Windows.Forms.AnchorStyles.Left)
   | System.Windows.Forms.AnchorStyles.Right)));*/
-                  _NoteEditorControl.Dock = DockStyle.Fill;
-                  _NoteEditorControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
-                  _NoteEditorControl.Location = new System.Drawing.Point(0, 0);
+                  this.NoteEditorControl2.Dock = DockStyle.Fill;
+                  this.NoteEditorControl2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
+                  this.NoteEditorControl2.Location = new System.Drawing.Point(0, 0);
                   //_NoteEditorControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                  _NoteEditorControl.Size = new System.Drawing.Size(631, 427);
+                 this. NoteEditorControl2.Size = new System.Drawing.Size(631, 427);
                   //_NoteEditorControl.TabIndex = 4;
+                 NoteEditorControl2.UserId = c.CurrentUser.Id;
 
-                  NoteEditorControl.Controls.Add(_NoteEditorControl);
+                  //add some friends
 
-                  var menuItem = this.rightMenu1.createItem(label: "Note Editor", pos: 0, id:"noteEditor");
-                  rightMenu1.Controls.Add(menuItem);
-                  this.rightMenu1.SelectedItem = menuItem;
+                  NoteEditorControl.Controls.Add(NoteEditorControl2);
 
+                  var menuItem = this.leftMenu1.createItem(label: "Note Editor", pos: 0, id:"noteEditor");
+                  this.leftMenu1.SelectedItem = menuItem;
+
+                  //No friend note is show
+                  NoteEditorControl2.ViewType(1);
               }
               else
               {
-                  this.rightMenu1.SelectedItem = (menuItem) this.rightMenu1.Controls[2] ;
+                  this.leftMenu1.SelectedItem = (menuItem) this.leftMenu1.Controls[2] ;
               }
 
-            this.rightMenu1.SelectedItem.Text = group.Name;
-            this.header1.textItemLabel.Text = group.Name+"   8 participants";
+              //MessageBox.Show(group.Notes.Count.ToString());
+              if( group.Notes.Count == 1)
+                DummyUsers(group);
+
+            //textbox will be setted
+            group.Users[c.CurrentUser.Id] = c.CurrentUser;
+            this.NoteEditorControl2.Group = group;
+            
+
+            this.leftMenu1.SelectedItem.Text = group.Name;
+            this.header1.textItemLabel.Text = group.Name + "   " + (group.Users.Count-1)+ " participants";
             this.header1.textItemLabel.Visible = true;
 
             this.Controls.Add(NoteEditorControl);
+           
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         private void AboutPage()
@@ -288,6 +321,36 @@ namespace GUI2
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void DummyUsers(CoreLibrary.Group group)
+        {
+            string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."+
+            "Sed tristique ipsum in massa viverra, sed laoreet dui dignissim. Fusce "+
+              "  vestibulum, mi a suscipit tempor, augue nisi pellentesque odio, quis "+
+           " tincidunt nulla orci vel tortor. Pellentesque at laoreet sem, at consectetur"+
+           " ligula. Vestibulum id quam id magna bibendum dignissim. Quisque sollicitudin"+
+           " lorem et dui ultrices fringilla. Curabitur aliquam dui a porttitor tristique."+
+           " Nullam in sagittis felis. Proin vestibulum iaculis nunc, at porttitor nisi dapibus"+
+           " ac. Aliquam auctor felis libero, ac consequat ligula vehicula eget. Sed sit amet bibendum justo."+
+"Cras libero lacus, pulvinar et posuere ac, congue vel eros. Vivamus laoreet orci ac dolor pretium venenatis. "+
+    "Morbi semper feugiat lectus, quis porttitor nulla aliquet eget. Nunc sit amet condimentum ante. In mattis at "+
+       " ante non imperdiet. Sed lacus odio, euismod vitae dictum eu, adipiscing eu urna. Nam dignissim leo sem, ut "+
+        "    commodo magna laoreet consequat. Quisque at ipsum nunc.";
+
+            //MessageBox.Show("test");
+
+            CoreLibrary.User user;
+            Random rnd = new Random();
+
+            for (int i = 0; i < 10; i++)
+            {
+                user = c.CreateUser("André" +i, "Paul"+  i);
+                group.Users.Add(user.Id, user);
+                group.Notes.Add(user.Id, Note.GetNote( text.Substring(rnd.Next(10, text.Length)) ));
+            }
+
+            //System.Diagnostics.Debug.WriteLine("test");
         }
     }
 }

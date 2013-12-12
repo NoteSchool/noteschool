@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NoteEditor2));
-            this.noteEditorList1 = new GUI2.NoteEditorList();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.noteTextBox = new System.Windows.Forms.TextBox();
             this.friendNoteContainerPanel = new System.Windows.Forms.Panel();
             this.friendNoteTextBox = new System.Windows.Forms.TextBox();
             this.friendContainerPanel = new System.Windows.Forms.Panel();
             this.friendUsernameLabel = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.noteEditorList1 = new GUI2.NoteEditorList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -43,16 +44,6 @@
             this.friendNoteContainerPanel.SuspendLayout();
             this.friendContainerPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // noteEditorList1
-            // 
-            this.noteEditorList1.AutoScroll = true;
-            this.noteEditorList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
-            this.noteEditorList1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.noteEditorList1.Location = new System.Drawing.Point(574, 0);
-            this.noteEditorList1.Name = "noteEditorList1";
-            this.noteEditorList1.Size = new System.Drawing.Size(169, 450);
-            this.noteEditorList1.TabIndex = 0;
             // 
             // splitContainer1
             // 
@@ -71,8 +62,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.friendNoteContainerPanel);
             this.splitContainer1.Panel2.Controls.Add(this.friendContainerPanel);
-            this.splitContainer1.Size = new System.Drawing.Size(574, 450);
-            this.splitContainer1.SplitterDistance = 203;
+            this.splitContainer1.Size = new System.Drawing.Size(548, 450);
+            this.splitContainer1.SplitterDistance = 193;
             this.splitContainer1.TabIndex = 1;
             // 
             // noteTextBox
@@ -88,9 +79,9 @@
             this.noteTextBox.Multiline = true;
             this.noteTextBox.Name = "noteTextBox";
             this.noteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.noteTextBox.Size = new System.Drawing.Size(193, 440);
+            this.noteTextBox.Size = new System.Drawing.Size(183, 440);
             this.noteTextBox.TabIndex = 0;
-            this.noteTextBox.Text = "Ma note..";
+            this.noteTextBox.Text = "Ma note";
             // 
             // friendNoteContainerPanel
             // 
@@ -100,7 +91,7 @@
             this.friendNoteContainerPanel.Margin = new System.Windows.Forms.Padding(0);
             this.friendNoteContainerPanel.Name = "friendNoteContainerPanel";
             this.friendNoteContainerPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.friendNoteContainerPanel.Size = new System.Drawing.Size(367, 413);
+            this.friendNoteContainerPanel.Size = new System.Drawing.Size(351, 413);
             this.friendNoteContainerPanel.TabIndex = 1;
             // 
             // friendNoteTextBox
@@ -117,20 +108,21 @@
             this.friendNoteTextBox.Name = "friendNoteTextBox";
             this.friendNoteTextBox.ReadOnly = true;
             this.friendNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.friendNoteTextBox.Size = new System.Drawing.Size(361, 407);
+            this.friendNoteTextBox.Size = new System.Drawing.Size(345, 407);
             this.friendNoteTextBox.TabIndex = 0;
             this.friendNoteTextBox.Text = resources.GetString("friendNoteTextBox.Text");
             // 
             // friendContainerPanel
             // 
             this.friendContainerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(196)))), ((int)(((byte)(165)))));
+            this.friendContainerPanel.Controls.Add(this.linkLabel1);
             this.friendContainerPanel.Controls.Add(this.friendUsernameLabel);
             this.friendContainerPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.friendContainerPanel.Location = new System.Drawing.Point(0, 0);
             this.friendContainerPanel.Margin = new System.Windows.Forms.Padding(0);
             this.friendContainerPanel.Name = "friendContainerPanel";
             this.friendContainerPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.friendContainerPanel.Size = new System.Drawing.Size(367, 37);
+            this.friendContainerPanel.Size = new System.Drawing.Size(351, 37);
             this.friendContainerPanel.TabIndex = 0;
             // 
             // friendUsernameLabel
@@ -144,6 +136,28 @@
             this.friendUsernameLabel.Size = new System.Drawing.Size(114, 24);
             this.friendUsernameLabel.TabIndex = 0;
             this.friendUsernameLabel.Text = "André Paul";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkColor = System.Drawing.Color.Black;
+            this.linkLabel1.Location = new System.Drawing.Point(293, 14);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(39, 13);
+            this.linkLabel1.TabIndex = 1;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Fermer";
+            // 
+            // noteEditorList1
+            // 
+            this.noteEditorList1.AutoScroll = true;
+            this.noteEditorList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
+            this.noteEditorList1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.noteEditorList1.Location = new System.Drawing.Point(548, 0);
+            this.noteEditorList1.Name = "noteEditorList1";
+            this.noteEditorList1.Size = new System.Drawing.Size(195, 450);
+            this.noteEditorList1.TabIndex = 0;
             // 
             // NoteEditor2
             // 
@@ -170,10 +184,11 @@
 
         private NoteEditorList noteEditorList1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TextBox noteTextBox;
+        public System.Windows.Forms.TextBox noteTextBox;
         private System.Windows.Forms.Panel friendContainerPanel;
         private System.Windows.Forms.Label friendUsernameLabel;
         private System.Windows.Forms.Panel friendNoteContainerPanel;
         private System.Windows.Forms.TextBox friendNoteTextBox;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

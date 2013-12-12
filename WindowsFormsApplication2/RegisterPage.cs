@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace GUI2
 {
@@ -14,14 +15,25 @@ namespace GUI2
     {
         public EventHandler SaveButtonClick;
 
-        public string FirstName { get { return this.inputNLabel1.Value; } }
-        public string LastName { get { return this.inputNLabel2.Value; } }
+        public string FirstName { get { return this.inputNLabel1.Value.Trim(); } }
+        public string LastName { get { return this.inputNLabel2.Value.Trim(); } }
 
         public RegisterPage()
         {
             InitializeComponent();
 
             Tag = "page";
+
+            this.inputNLabel1.KeyUp += OnKeyEnter;
+            this.inputNLabel2.KeyUp += OnKeyEnter;
+        }
+
+        private void OnKeyEnter(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode & Keys.Enter) == Keys.Enter)
+            {
+                SaveButtonClick(this, e);
+            }   
         }
 
         private void RegisterPage_Load(object sender, EventArgs e)
@@ -39,6 +51,24 @@ namespace GUI2
            SaveButtonClick(this, e);
         }
 
+        internal bool Validation(out List<string> inputs)
+        {
+            inputs = new List<string>();
 
+            if (!String.IsNullOrWhiteSpace(FirstName)
+                            && !String.IsNullOrWhiteSpace(LastName))
+            {
+                if (Regex.IsMatch(FirstName, @"^[\p{L}\p{M}' \.\-]+$")
+                    && Regex.IsMatch(LastName, @"^[\p{L}\p{M}' \.\-]+$"))
+                {
+                    inputs.Add(FirstName);
+                    inputs.Add(LastName);
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

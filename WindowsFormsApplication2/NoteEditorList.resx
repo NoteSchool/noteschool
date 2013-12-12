@@ -126,13 +126,4 @@
   <metadata name="borderLeftLineShape.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 396</value>
   </metadata>
-  <metadata name="borderLeftLineShape.Bounds" type="System.Drawing.Rectangle, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1, 0, 0, 396</value>
-  </metadata>
-  <metadata name="borderLeftLineShape.Location" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1, 0</value>
-  </metadata>
-  <metadata name="borderLeftLineShape.Size" type="System.Drawing.Size, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>0, 396</value>
-  </metadata>
 </root>

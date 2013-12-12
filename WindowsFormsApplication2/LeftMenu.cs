@@ -53,7 +53,7 @@ namespace GUI2
             if (pos != -1)
             {
                 _menuItems.Insert(pos, menuItem);
-
+                
                 ReposItems();
             }
             else
@@ -61,19 +61,17 @@ namespace GUI2
                 menuItem.Location = new System.Drawing.Point(0, _menuItems.Count * _itemHeight);
                 _menuItems.Add(menuItem);
             }
- 
+
+            Controls.Add(menuItem);
             return menuItem;
         }
 
         public void RemoveItem(menuItem item)
         {
-            this.SuspendLayout();
-
             this.Controls.Remove(item);
+            _menuItems.Remove(item);
 
             ReposItems();
-
-            this.ResumeLayout();
         }
 
         private void MenuItem_click(object sender, EventArgs e)
@@ -92,12 +90,17 @@ namespace GUI2
 
         private void ReposItems()
         {
+            
+            this.SuspendLayout();
             int i = 0;
-            foreach (menuItem m in _menuItems)
+            foreach (Control m in Controls)
             {
-                m.Location = new System.Drawing.Point(0, i * _itemHeight);
+                m.Location = new System.Drawing.Point(0, _menuItems.IndexOf(m as menuItem) * _itemHeight);
                 i++;
             }
+            this.ResumeLayout();
+
+            System.Diagnostics.Debug.WriteLine(Controls.Count + " " + _menuItems.Count);
         }
     }
 }

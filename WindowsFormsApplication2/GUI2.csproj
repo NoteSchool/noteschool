@@ -109,12 +109,6 @@
     <Compile Include="Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
     </Compile>
-    <Compile Include="NoteEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="NoteEditor.Designer.cs">
-      <DependentUpon>NoteEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="NoteEditorListItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -179,9 +173,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuItem.resx">
       <DependentUpon>MenuItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NoteEditor.resx">
-      <DependentUpon>NoteEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NoteEditorListItem.resx">
       <DependentUpon>NoteEditorListItem.cs</DependentUpon>

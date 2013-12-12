@@ -15,8 +15,8 @@ namespace GUI2
         public EventHandler SaveButtonClick;
         public EventHandler CancelButtonClick;
 
-        public string GroupTitle { get { return this.inputNLabel1.Value; } }
-        public string GroupTag { get { return this.inputNLabel2.Value; } }
+        public string GroupTitle { get { return this.inputNLabel1.Value; } set { this.inputNLabel1.Text = value; } }
+        public string GroupTag { get { return this.inputNLabel2.Value; } set { this.inputNLabel2.Text = value; } }
 
         public CreateGroupPage()
         {
