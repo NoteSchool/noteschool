@@ -82,42 +82,60 @@ namespace GUI
         private void SyncTimer( object sender, ElapsedEventArgs e )
         {
             System.Diagnostics.Debug.WriteLine("Timer firering -------------------------------------------");
-            c.Sender();
-            Object receiveData = c.ReceivedData();
-
-            if (receiveData != null)
+            if (c != null)
             {
-                System.Diagnostics.Debug.WriteLine("Timer receive data");
+                c.Sender();
+                Object receiveData = c.ReceivedData();
 
-                if (receiveData is CoreLibrary.Group)
+                if (receiveData != null)
                 {
-                    CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
+                    System.Diagnostics.Debug.WriteLine("Timer receive data");
 
-                    c.Groups.Add(g.Name, g);
+                    if (receiveData is CoreLibrary.Group)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Timer receive Group data");
 
-                    CreateGroupsButton();
+                        CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
 
-                    System.Diagnostics.Debug.WriteLine("Timer receive Group data");
+                        if (!c.Groups.ContainsKey(g.Name))
+                        {
+                            c.Groups.Add(g.Name, g);
+                            //CreateGroupsButton();
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("Timer group "+g.Name+" already exist");
+                        }
+
+                        
+
+                        
+                    }
+                    else
+                    {
+                        //merge groups
+                        System.Diagnostics.Debug.WriteLine("Timer receive all groups");
+
+                        Dictionary<string, CoreLibrary.Group> newGroups = (Dictionary<string, CoreLibrary.Group>)receiveData;
+                        int oldCount = c.Groups.Count;
+
+                        foreach (var ng in newGroups)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Timer received group: " + ng.Value.Name);
+                        }
+
+                        c.Groups = c.Groups.Union(newGroups).GroupBy(d => d.Key)
+                            .ToDictionary(d => d.Key, d => d.First().Value);
+
+                        int newCount = c.Groups.Count;
+                        //CreateGroupsButton();
+                        System.Diagnostics.Debug.WriteLine("Timer receive " + (newCount - oldCount) + "/"+newGroups.Count+" groups");
+                    }
                 }
                 else
                 {
-                    //merge groups
-                    System.Diagnostics.Debug.WriteLine("Timer receive all groups");
-
-                    Dictionary<string, CoreLibrary.Group> newGroups = (Dictionary<string, CoreLibrary.Group>)receiveData;
-                    int oldCount = c.Groups.Count;
-
-                    c.Groups = c.Groups.Union(newGroups).GroupBy(d => d.Key)
-                        .ToDictionary(d => d.Key, d => d.First().Value);
-
-                    int newCount = c.Groups.Count;
-
-                    System.Diagnostics.Debug.WriteLine("Timer receive "+(newCount-oldCount)+" groups");
+                    System.Diagnostics.Debug.WriteLine("Timer didn't receive data");
                 }
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("Timer didn't receive data");
             }
         }
         private void DisplayGroups()
