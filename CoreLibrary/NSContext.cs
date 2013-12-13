@@ -142,7 +142,10 @@ namespace CoreLibrary
         public void Sender()
         {
             if (CurrentGroup.MulticastAddress != "224.0.1.0")
-                Services.Lan.InitializeSender( CurrentGroup );
+            {
+                System.Diagnostics.Debug.WriteLine("Sender initialized and send CurrentGroup");
+                Services.Lan.InitializeSender(CurrentGroup);
+            }
         }
         public void JoinGroup( string mca )
         {

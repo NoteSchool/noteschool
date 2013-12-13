@@ -27,6 +27,7 @@ namespace GUI
         private NSContext c;
         private NSContextServices cs = new NSContextServices( _repo, _lan );
 
+
         public MainForm()
         {
             InitializeComponent();
@@ -45,7 +46,7 @@ namespace GUI
 
                 CreateGroupsButton();
 
-                Timer();
+                
             }
 
             FormClosing += new System.Windows.Forms.FormClosingEventHandler( MainFormClosing );
@@ -61,13 +62,15 @@ namespace GUI
 
             _displayGroupsForm.TbSearchGroup += DisplayGroupsForm_TbSearchGroup;
 
-            
+            Timer();
         }
 
         public void Timer()
         {
             //Create a new timer
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
+
+
             _syncTimer.Elapsed += SyncTimer;
 
             //Interval in milliseconds
@@ -79,14 +82,21 @@ namespace GUI
         private void SyncTimer( object sender, ElapsedEventArgs e )
         {
             c.Sender();
-
             CoreLibrary.Group g = c.DefaultGroupData();
 
             if (g != null)
             {
-                bool created;
-                c.FindOrCreateGroup( g.Name, g.Tag, g.MulticastAddress, out created );
+                //bool created;
+                //c.FindOrCreateGroup(g.Name, g.Tag, g.MulticastAddress, out created);
+                c.Groups.Add(g.Name, g);
+
                 CreateGroupsButton();
+
+                System.Diagnostics.Debug.WriteLine("Timer receive data");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Timer didn't receive data");
             }
         }
         private void DisplayGroups()
@@ -94,6 +104,8 @@ namespace GUI
             c.CurrentGroup = c.FindGroup( "224.0.1.0" );
 
             c.JoinGroup( c.CurrentGroup.MulticastAddress );
+
+            System.Diagnostics.Debug.WriteLine("The default group 224.0.1.0 was joined");
 
             if (!Controls.Contains( _displayGroupsForm ))
             {
