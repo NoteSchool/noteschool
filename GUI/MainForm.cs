@@ -81,18 +81,39 @@ namespace GUI
 
         private void SyncTimer( object sender, ElapsedEventArgs e )
         {
+            System.Diagnostics.Debug.WriteLine("Timer firering -------------------------------------------");
             c.Sender();
-            CoreLibrary.Group g = c.DefaultGroupData();
+            Object receiveData = c.ReceivedData();
 
-            if (g != null)
+            if (receiveData != null)
             {
-                //bool created;
-                //c.FindOrCreateGroup(g.Name, g.Tag, g.MulticastAddress, out created);
-                c.Groups.Add(g.Name, g);
-
-                CreateGroupsButton();
-
                 System.Diagnostics.Debug.WriteLine("Timer receive data");
+
+                if (receiveData is CoreLibrary.Group)
+                {
+                    CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
+
+                    c.Groups.Add(g.Name, g);
+
+                    CreateGroupsButton();
+
+                    System.Diagnostics.Debug.WriteLine("Timer receive Group data");
+                }
+                else
+                {
+                    //merge groups
+                    System.Diagnostics.Debug.WriteLine("Timer receive all groups");
+
+                    Dictionary<string, CoreLibrary.Group> newGroups = (Dictionary<string, CoreLibrary.Group>)receiveData;
+                    int oldCount = c.Groups.Count;
+
+                    c.Groups = c.Groups.Union(newGroups).GroupBy(d => d.Key)
+                        .ToDictionary(d => d.Key, d => d.First().Value);
+
+                    int newCount = c.Groups.Count;
+
+                    System.Diagnostics.Debug.WriteLine("Timer receive "+(newCount-oldCount)+" groups");
+                }
             }
             else
             {

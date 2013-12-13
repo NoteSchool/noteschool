@@ -127,7 +127,6 @@ namespace LocalAreaNetwork
 
         private void receive( Object obj )
         {
-            System.Diagnostics.Debug.WriteLine("Socket receive an object");
             _defaultGroupData = obj;
         }
         public Object GroupData()
