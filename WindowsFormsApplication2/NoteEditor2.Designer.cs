@@ -34,8 +34,8 @@
             this.friendNoteContainerPanel = new System.Windows.Forms.Panel();
             this.friendNoteTextBox = new System.Windows.Forms.TextBox();
             this.friendContainerPanel = new System.Windows.Forms.Panel();
-            this.friendUsernameLabel = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.friendUsernameLabel = new System.Windows.Forms.Label();
             this.noteEditorList1 = new GUI2.NoteEditorList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -125,18 +125,6 @@
             this.friendContainerPanel.Size = new System.Drawing.Size(351, 37);
             this.friendContainerPanel.TabIndex = 0;
             // 
-            // friendUsernameLabel
-            // 
-            this.friendUsernameLabel.AutoSize = true;
-            this.friendUsernameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.friendUsernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.friendUsernameLabel.ForeColor = System.Drawing.Color.White;
-            this.friendUsernameLabel.Location = new System.Drawing.Point(3, 3);
-            this.friendUsernameLabel.Name = "friendUsernameLabel";
-            this.friendUsernameLabel.Size = new System.Drawing.Size(114, 24);
-            this.friendUsernameLabel.TabIndex = 0;
-            this.friendUsernameLabel.Text = "André Paul";
-            // 
             // linkLabel1
             // 
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -148,6 +136,18 @@
             this.linkLabel1.TabIndex = 1;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Fermer";
+            // 
+            // friendUsernameLabel
+            // 
+            this.friendUsernameLabel.AutoSize = true;
+            this.friendUsernameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.friendUsernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.friendUsernameLabel.ForeColor = System.Drawing.Color.White;
+            this.friendUsernameLabel.Location = new System.Drawing.Point(3, 3);
+            this.friendUsernameLabel.Name = "friendUsernameLabel";
+            this.friendUsernameLabel.Size = new System.Drawing.Size(114, 24);
+            this.friendUsernameLabel.TabIndex = 0;
+            this.friendUsernameLabel.Text = "André Paul";
             // 
             // noteEditorList1
             // 

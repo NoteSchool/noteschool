@@ -210,6 +210,7 @@ namespace GUI2
                             header1.UsernameText = c.CurrentUser.FirstName;
                             leftMenu1.RemoveItem(leftMenu1.SelectedItem);
                             leftMenu1.SelectedItem = leftMenu1.Controls[0] as menuItem;
+                            leftMenu1.SelectedItem.IsDisabled = false;
 
                             GroupsPage();
                         }

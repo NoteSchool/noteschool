@@ -26,7 +26,7 @@ namespace GUI2
             }
         }
 
-        internal string Note { set { this.noteTextBox.Text = value; } }
+        internal string Note { set { this.noteTextBox.Text = !string.IsNullOrEmpty(value) ? value : "Ma note"; } }
 
         private CoreLibrary.Group _group;
         internal CoreLibrary.Group Group
@@ -91,6 +91,13 @@ namespace GUI2
                     this.SuspendLayout();
                     ViewType(1);
                     this.ResumeLayout();
+                };
+
+            this.Load += (s, e) =>
+                {
+                    //var toolBox = new NoteEditorToolBox();
+                    //this.likes.Location = new System.Drawing.Point(170, 21);
+                    //noteTextBox.Controls.Add(
                 };
         }
 
