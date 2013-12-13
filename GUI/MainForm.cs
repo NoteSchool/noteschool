@@ -44,6 +44,8 @@ namespace GUI
                 DisplayGroups();
 
                 CreateGroupsButton();
+
+                Timer();
             }
 
             FormClosing += new System.Windows.Forms.FormClosingEventHandler( MainFormClosing );
@@ -59,7 +61,7 @@ namespace GUI
 
             _displayGroupsForm.TbSearchGroup += DisplayGroupsForm_TbSearchGroup;
 
-            Timer();
+            
         }
 
         public void Timer()
