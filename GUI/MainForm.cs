@@ -97,9 +97,9 @@ namespace GUI
 
                         CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
 
-                        if (!c.Groups.ContainsKey(g.Name))
+                        if (!c.Groups.ContainsKey(g.MulticastAddress))
                         {
-                            c.Groups.Add(g.Name, g);
+                            c.Groups.Add(g.MulticastAddress, g);
                             //CreateGroupsButton();
                         }
                         else
