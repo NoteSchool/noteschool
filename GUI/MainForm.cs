@@ -70,7 +70,6 @@ namespace GUI
             //Create a new timer
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
 
-
             _syncTimer.Elapsed += SyncTimer;
 
             //Interval in milliseconds
@@ -81,6 +80,28 @@ namespace GUI
 
         private void SyncTimer( object sender, ElapsedEventArgs e )
         {
+            System.Diagnostics.Debug.WriteLine( "Timer firering -------------------------------------------" );
+
+            c.Sender();
+            System.Diagnostics.Debug.WriteLine( "Timer - CurrentGroup sended" );
+            CoreLibrary.Group g = (CoreLibrary.Group)c.ReceivedData();
+            System.Diagnostics.Debug.WriteLine( "Timer - Group received" );
+
+            if (g != null)
+            {
+                MessageBox.Show( g.Name + g.MulticastAddress );
+                /*
+                bool created;
+
+                c.FindOrCreateGroup( g.Name, g.Tag, g.MulticastAddress, out created );
+
+                if(!created)
+                    System.Diagnostics.Debug.WriteLine( "Timer - Group " + g.Name + " already exist" );
+                 * */
+            }
+
+         //   CreateGroupsButton();
+            /*
             System.Diagnostics.Debug.WriteLine("Timer firering -------------------------------------------");
             if (c != null)
             {
@@ -105,11 +126,7 @@ namespace GUI
                         else
                         {
                             System.Diagnostics.Debug.WriteLine("Timer group "+g.Name+" already exist");
-                        }
-
-                        
-
-                        
+                        }  
                     }
                     else
                     {
@@ -137,6 +154,7 @@ namespace GUI
                     System.Diagnostics.Debug.WriteLine("Timer didn't receive data");
                 }
             }
+            */
         }
         private void DisplayGroups()
         {

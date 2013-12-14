@@ -60,9 +60,12 @@ namespace CoreLibrary
         public Group FindOrCreateGroup( string name, string tag, string multicastAddress, out bool created )
         {
             if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );
+
             created = false;
             bool existed = false;
-            Group g;
+
+            Group g = null;
+
             if (!_groups.TryGetValue( name, out g ))
             {
                 while (!created)
@@ -87,6 +90,7 @@ namespace CoreLibrary
                     }
                 }
             }
+
             return g;
         }
 
@@ -141,17 +145,18 @@ namespace CoreLibrary
         }
         public void Sender()
         {
-
             if (CurrentGroup.MulticastAddress != "224.0.1.0")
             {
-                System.Diagnostics.Debug.WriteLine("Sender send CurrentGroup");
-                Services.Lan.InitializeSender(CurrentGroup);
+                System.Diagnostics.Debug.WriteLine( "Sender send CurrentGroup" );
+                Services.Lan.InitializeSender( CurrentGroup );
             }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("Sender send all groups");
-                Services.Lan.InitializeSender(_groups);
-            }
+            /*
+        else
+        {
+            System.Diagnostics.Debug.WriteLine("Sender send all groups");
+            Services.Lan.InitializeSender(_groups);
+        }
+             */
         }
         public void JoinGroup( string mca )
         {
