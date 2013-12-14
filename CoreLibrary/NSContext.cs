@@ -145,11 +145,13 @@ namespace CoreLibrary
         }
         public void Sender()
         {
+            Services.Lan.InitializeSender(Groups);
+            /*
             if (CurrentGroup.MulticastAddress != "224.0.1.0")
             {
                 System.Diagnostics.Debug.WriteLine( "Sender send CurrentGroup" );
                 Services.Lan.InitializeSender( CurrentGroup );
-            }
+            }*/
             /*
         else
         {

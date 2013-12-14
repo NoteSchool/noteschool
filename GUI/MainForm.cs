@@ -45,7 +45,7 @@ namespace GUI
                 DisplayGroups();
 
                 CreateGroupsButton();
-
+                Timer();
                 
             }
 
@@ -62,7 +62,7 @@ namespace GUI
 
             _displayGroupsForm.TbSearchGroup += DisplayGroupsForm_TbSearchGroup;
 
-            Timer();
+            
         }
 
         public void Timer()
@@ -80,28 +80,9 @@ namespace GUI
 
         private void SyncTimer( object sender, ElapsedEventArgs e )
         {
-            System.Diagnostics.Debug.WriteLine( "Timer firering -------------------------------------------" );
-
             c.Sender();
-            System.Diagnostics.Debug.WriteLine( "Timer - CurrentGroup sended" );
-            CoreLibrary.Group g = (CoreLibrary.Group)c.ReceivedData();
-            System.Diagnostics.Debug.WriteLine( "Timer - Group received" );
 
-            if (g != null)
-            {
-                MessageBox.Show( g.Name + g.MulticastAddress );
-                /*
-                bool created;
-
-                c.FindOrCreateGroup( g.Name, g.Tag, g.MulticastAddress, out created );
-
-                if(!created)
-                    System.Diagnostics.Debug.WriteLine( "Timer - Group " + g.Name + " already exist" );
-                 * */
-            }
-
-         //   CreateGroupsButton();
-            /*
+            
             System.Diagnostics.Debug.WriteLine("Timer firering -------------------------------------------");
             if (c != null)
             {
@@ -121,7 +102,7 @@ namespace GUI
                         if (!c.Groups.ContainsKey(g.MulticastAddress))
                         {
                             c.Groups.Add(g.MulticastAddress, g);
-                            //CreateGroupsButton();
+                            CreateGroupsButton();
                         }
                         else
                         {
@@ -145,7 +126,7 @@ namespace GUI
                             .ToDictionary(d => d.Key, d => d.First().Value);
 
                         int newCount = c.Groups.Count;
-                        //CreateGroupsButton();
+                        if( newCount - oldCount > 0) CreateGroupsButton();
                         System.Diagnostics.Debug.WriteLine("Timer receive " + (newCount - oldCount) + "/"+newGroups.Count+" groups");
                     }
                 }
@@ -154,7 +135,7 @@ namespace GUI
                     System.Diagnostics.Debug.WriteLine("Timer didn't receive data");
                 }
             }
-            */
+            
         }
         private void DisplayGroups()
         {
