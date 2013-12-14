@@ -75,16 +75,13 @@ namespace GUI
             _syncTimer.Elapsed += SyncTimer;
 
             //Interval in milliseconds
-            _syncTimer.Interval = 3000;
+            _syncTimer.Interval = 2000;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
 
         private void SyncTimer( object sender, ElapsedEventArgs e )
         {
-            c.Sender();
-
-            
             System.Diagnostics.Debug.WriteLine("Timer firering -------------------------------------------");
             if (c != null)
             {
