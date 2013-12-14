@@ -14,7 +14,7 @@ namespace CoreLibrary
         [NonSerialized]
         NSContextServices _services;
 
-        readonly Dictionary<string, Group> _groups;
+        Dictionary<string, Group> _groups;
         readonly Dictionary<string, User> _users;
         readonly Dictionary<string, Note> _notes;
 
@@ -47,7 +47,7 @@ namespace CoreLibrary
         public User CurrentUser { get { return _currentUser; } set { _currentUser = value; } }
         public Group ListGroup { get { return _listgroup; } }
 
-        public Dictionary<string, Group> Groups { get { return _groups; } }
+        public Dictionary<string, Group> Groups { get { return _groups; } set { _groups = value; } }
         public Dictionary<string, User> Users { get { return _users; } }
         public Dictionary<string, Note> Notes { get { return _notes; } }
 
@@ -60,9 +60,12 @@ namespace CoreLibrary
         public Group FindOrCreateGroup( string name, string tag, string multicastAddress, out bool created )
         {
             if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );
+
             created = false;
             bool existed = false;
-            Group g;
+
+            Group g = null;
+
             if (!_groups.TryGetValue( name, out g ))
             {
                 while (!created)
@@ -87,6 +90,7 @@ namespace CoreLibrary
                     }
                 }
             }
+
             return g;
         }
 
@@ -141,8 +145,20 @@ namespace CoreLibrary
         }
         public void Sender()
         {
+            Services.Lan.InitializeSender(Groups);
+            /*
             if (CurrentGroup.MulticastAddress != "224.0.1.0")
+            {
+                System.Diagnostics.Debug.WriteLine( "Sender send CurrentGroup" );
                 Services.Lan.InitializeSender( CurrentGroup );
+            }*/
+            /*
+        else
+        {
+            System.Diagnostics.Debug.WriteLine("Sender send all groups");
+            Services.Lan.InitializeSender(_groups);
+        }
+             */
         }
         public void JoinGroup( string mca )
         {
@@ -152,9 +168,9 @@ namespace CoreLibrary
         {
             Services.Lan.LeaveGroup( mca );
         }
-        public Group DefaultGroupData()
+        public Object ReceivedData()
         {
-            return (Group)Services.Lan.DefaultGroupData();
+            return Services.Lan.DefaultGroupData();
         }
 
         /// <summary>

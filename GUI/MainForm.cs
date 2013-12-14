@@ -26,6 +26,8 @@ namespace GUI
         private static ILocalAreaNetwork _lan = new LAN();
         private NSContext c;
         private NSContextServices cs = new NSContextServices( _repo, _lan );
+        delegate void ClearGroupsListInvoker();
+        delegate void AddGroupInvoker(Button btn);
 
         public MainForm()
         {
@@ -44,7 +46,10 @@ namespace GUI
                 DisplayGroups();
 
                 CreateGroupsButton();
+                Timer();
+                
             }
+
 
             FormClosing += new System.Windows.Forms.FormClosingEventHandler( MainFormClosing );
 
@@ -59,39 +64,92 @@ namespace GUI
 
             _displayGroupsForm.TbSearchGroup += DisplayGroupsForm_TbSearchGroup;
 
-            Timer();
+            
         }
 
         public void Timer()
         {
             //Create a new timer
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
+
             _syncTimer.Elapsed += SyncTimer;
 
             //Interval in milliseconds
-            _syncTimer.Interval = 3000;
+            _syncTimer.Interval = 2000;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
 
         private void SyncTimer( object sender, ElapsedEventArgs e )
         {
-            c.Sender();
-
-            CoreLibrary.Group g = c.DefaultGroupData();
-
-            if (g != null)
+            System.Diagnostics.Debug.WriteLine("Timer firering -------------------------------------------");
+            if (c != null)
             {
-                bool created;
-                c.FindOrCreateGroup( g.Name, g.Tag, g.MulticastAddress, out created );
-                CreateGroupsButton();
+                c.Sender();
+                Object receiveData = c.ReceivedData();
+
+                if (receiveData != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Timer receive data");
+
+                    if (receiveData is CoreLibrary.Group)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Timer receive Group data");
+
+                        CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
+
+                        if (!c.Groups.ContainsKey(g.MulticastAddress))
+                        {
+                            c.Groups.Add(g.MulticastAddress, g);
+                            CreateGroupsButton();
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("Timer group "+g.Name+" already exist");
+                        }  
+                    }
+                    else
+                    {
+                        //merge groups
+                        System.Diagnostics.Debug.WriteLine("Timer receive all groups");
+
+                        Dictionary<string, CoreLibrary.Group> newGroups = (Dictionary<string, CoreLibrary.Group>)receiveData;
+                        int oldCount = c.Groups.Count;
+
+                        foreach (var ng in newGroups)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Timer received group: " + ng.Value.Name);
+                        }
+
+                        c.Groups = c.Groups.Union(newGroups).GroupBy(d => d.Key)
+                            .ToDictionary(d => d.Key, d => d.First().Value);
+
+                        int newCount = c.Groups.Count;
+                        if (newCount - oldCount > 0)
+                        {
+                            CreateGroupsButton();
+                            //SetTextCallback d = new SetTextCallback(CreateGroupsButton);
+                            //this.Invoke(d);
+                            //this.backgroundWorker1.RunWorkerAsync();
+                        }
+
+                        System.Diagnostics.Debug.WriteLine("Timer receive " + (newCount - oldCount) + "/"+newGroups.Count+" groups");
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Timer didn't receive data");
+                }
             }
+            
         }
         private void DisplayGroups()
         {
             c.CurrentGroup = c.FindGroup( "224.0.1.0" );
 
             c.JoinGroup( c.CurrentGroup.MulticastAddress );
+
+            System.Diagnostics.Debug.WriteLine("The default group 224.0.1.0 was joined");
 
             if (!Controls.Contains( _displayGroupsForm ))
             {
@@ -221,13 +279,32 @@ namespace GUI
             CreateGroupsButton( keyword );
 
         }
+
+        private void ClearGroupsList()
+        {
+            _displayGroupsForm.panel.Controls.Clear();
+        }
+
+        private void AddGroup(Button btn)
+        {
+            _displayGroupsForm.panel.Controls.Add( btn );
+        }
         /// <summary>
         /// This method creates a Button control at runtime
         /// </summary>
         private void CreateGroupsButton( string keyword = null )
         {
 
-            _displayGroupsForm.panel.Controls.Clear();
+            //_displayGroupsForm.panel.Controls.Clear();
+
+            if (_displayGroupsForm.InvokeRequired)
+            {
+                this.Invoke(new ClearGroupsListInvoker(ClearGroupsList));
+            }
+            else
+            {
+                ClearGroupsList();
+            }
 
             // X & Y Location of each created button in the panel
             int x = 27;
@@ -271,7 +348,17 @@ namespace GUI
                     btn.Click += new EventHandler( GroupsButton );
 
                     // Add Button to the Form. 
-                    _displayGroupsForm.panel.Controls.Add( btn );
+                    
+
+                    if (_displayGroupsForm.InvokeRequired)
+                    {
+                        this.Invoke(new AddGroupInvoker(AddGroup), btn);
+                    }
+                    else
+                    {
+                        _displayGroupsForm.panel.Controls.Add(btn);
+                    }
+
                 }
             }
         }

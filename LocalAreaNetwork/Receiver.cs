@@ -31,7 +31,7 @@ namespace LocalAreaNetwork
         Object _groupData;
         Object _defaultGroupData;
 
-        public Action<Object> _receiveString;
+        public Action<Object> _receiveObject;
 
         public void InitializeReceiver()
         {
@@ -72,6 +72,9 @@ namespace LocalAreaNetwork
             {
                 try
                 {
+                    IPEndPoint TemporaryEndPoint = new IPEndPoint( IPAddress.Any, _port );
+                    IPEndPoint TemporaryDefaultEndPoint = new IPEndPoint( IPAddress.Any, _defaultport );
+
                     //receive object bytes array
                     //byte[] _groupDataBytes = _receivingGroupClient.Receive( ref EndPoint );
                     byte[] _defaultGroupDataBytes = _receivingDefaultGroupClient.Receive( ref DefaultEndPoint );
@@ -80,9 +83,9 @@ namespace LocalAreaNetwork
                     //_groupData = ByteArrayToObject( _groupDataBytes );
                     _defaultGroupData = ByteArrayToObject( _defaultGroupDataBytes );
 
-                    _receiveString = receive;
+                    _receiveObject = receive;
 
-                    _receiveString( _defaultGroupData );
+                    _receiveObject( _defaultGroupData );
                 }
                 catch (Exception e)
                 {
