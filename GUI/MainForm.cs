@@ -26,7 +26,8 @@ namespace GUI
         private static ILocalAreaNetwork _lan = new LAN();
         private NSContext c;
         private NSContextServices cs = new NSContextServices( _repo, _lan );
-        private BackgroundWorker backgroundWorker1;
+        delegate void ClearGroupsListInvoker();
+        delegate void AddGroupInvoker(Button btn);
 
         public MainForm()
         {
@@ -49,8 +50,6 @@ namespace GUI
                 
             }
 
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
 
             FormClosing += new System.Windows.Forms.FormClosingEventHandler( MainFormClosing );
 
@@ -66,13 +65,6 @@ namespace GUI
             _displayGroupsForm.TbSearchGroup += DisplayGroupsForm_TbSearchGroup;
 
             
-        }
-
-        private void backgroundWorker1_RunWorkerCompleted(
-            object sender,
-            RunWorkerCompletedEventArgs e)
-        {
-            CreateGroupsButton();
         }
 
         public void Timer()
@@ -138,10 +130,10 @@ namespace GUI
                         int newCount = c.Groups.Count;
                         if (newCount - oldCount > 0)
                         {
-                            //CreateGroupsButton();
+                            CreateGroupsButton();
                             //SetTextCallback d = new SetTextCallback(CreateGroupsButton);
                             //this.Invoke(d);
-                            this.backgroundWorker1.RunWorkerAsync();
+                            //this.backgroundWorker1.RunWorkerAsync();
                         }
 
                         System.Diagnostics.Debug.WriteLine("Timer receive " + (newCount - oldCount) + "/"+newGroups.Count+" groups");
@@ -290,13 +282,32 @@ namespace GUI
             CreateGroupsButton( keyword );
 
         }
+
+        private void ClearGroupsList()
+        {
+            _displayGroupsForm.panel.Controls.Clear();
+        }
+
+        private void AddGroup(Button btn)
+        {
+            _displayGroupsForm.panel.Controls.Add( btn );
+        }
         /// <summary>
         /// This method creates a Button control at runtime
         /// </summary>
         private void CreateGroupsButton( string keyword = null )
         {
 
-            _displayGroupsForm.panel.Controls.Clear();
+            //_displayGroupsForm.panel.Controls.Clear();
+
+            if (_displayGroupsForm.InvokeRequired)
+            {
+                this.Invoke(new ClearGroupsListInvoker(ClearGroupsList));
+            }
+            else
+            {
+                ClearGroupsList();
+            }
 
             // X & Y Location of each created button in the panel
             int x = 27;
@@ -340,7 +351,16 @@ namespace GUI
                     btn.Click += new EventHandler( GroupsButton );
 
                     // Add Button to the Form. 
-                    _displayGroupsForm.panel.Controls.Add( btn );
+                    
+
+                    if (_displayGroupsForm.InvokeRequired)
+                    {
+                        this.Invoke(new AddGroupInvoker(AddGroup), btn);
+                    }
+                    else
+                    {
+                        _displayGroupsForm.panel.Controls.Add(btn);
+                    }
 
                 }
             }
