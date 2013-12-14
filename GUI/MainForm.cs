@@ -26,7 +26,7 @@ namespace GUI
         private static ILocalAreaNetwork _lan = new LAN();
         private NSContext c;
         private NSContextServices cs = new NSContextServices( _repo, _lan );
-
+        private BackgroundWorker backgroundWorker1;
 
         public MainForm()
         {
@@ -49,6 +49,9 @@ namespace GUI
                 
             }
 
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+
             FormClosing += new System.Windows.Forms.FormClosingEventHandler( MainFormClosing );
 
             _displayGroupsForm.ButtonCreateGroups += DisplayGroupsForm_ButtonCreateGroups;
@@ -63,6 +66,13 @@ namespace GUI
             _displayGroupsForm.TbSearchGroup += DisplayGroupsForm_TbSearchGroup;
 
             
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(
+            object sender,
+            RunWorkerCompletedEventArgs e)
+        {
+            CreateGroupsButton();
         }
 
         public void Timer()
@@ -126,7 +136,14 @@ namespace GUI
                             .ToDictionary(d => d.Key, d => d.First().Value);
 
                         int newCount = c.Groups.Count;
-                        if( newCount - oldCount > 0) CreateGroupsButton();
+                        if (newCount - oldCount > 0)
+                        {
+                            //CreateGroupsButton();
+                            //SetTextCallback d = new SetTextCallback(CreateGroupsButton);
+                            //this.Invoke(d);
+                            this.backgroundWorker1.RunWorkerAsync();
+                        }
+
                         System.Diagnostics.Debug.WriteLine("Timer receive " + (newCount - oldCount) + "/"+newGroups.Count+" groups");
                     }
                 }
@@ -324,6 +341,7 @@ namespace GUI
 
                     // Add Button to the Form. 
                     _displayGroupsForm.panel.Controls.Add( btn );
+
                 }
             }
         }
