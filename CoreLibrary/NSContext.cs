@@ -57,7 +57,7 @@ namespace CoreLibrary
             _services = services;
         }
 
-        //NEED TO FIX 
+        //NEED TO FIX _groups key is a multicast address
         public Group FindOrCreateGroup( string name, string tag, string multicastAddress, out bool created )
         {
             if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );
@@ -67,6 +67,7 @@ namespace CoreLibrary
 
             Group g = null;
 
+            //_groups looking for a multicast address. we give it a name;
             if (!_groups.TryGetValue( name, out g ))
             {
                 while (!created)
