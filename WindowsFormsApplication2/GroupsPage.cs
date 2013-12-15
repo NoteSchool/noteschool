@@ -44,9 +44,14 @@ namespace GUI2
 
             this.containerPanel.SuspendLayout();
             this.containerPanel.Controls.Clear();
-
+               
             bool match;
             Button btn;
+            var btns = new List<Control>();
+
+            var btnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(133)))), ((int)(((byte)(133)))));
+            var btnFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            var BtnEvent = new EventHandler(GroupClick);
 
             foreach (var group in groups)
             {
@@ -59,19 +64,20 @@ namespace GUI2
                     // Create a Button object
                     btn = new Button();
                     btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-                    btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(133)))), ((int)(((byte)(133)))));
-                    btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    btn.BackColor = btnBackColor;
+                    btn.Font = btnFont;
                     btn.ForeColor = System.Drawing.Color.White;
                     btn.Name = group.Key;
                     btn.AutoSize = true;
                     btn.Text = "Name :" + group.Value.Name + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
-                    btn.Click += new EventHandler(GroupClick);
+                    btn.Click += BtnEvent;
 
                     // Add Button to the Form. 
-                    containerPanel.Controls.Add(btn);
+                    btns.Add(btn);
                 }
             }
 
+            containerPanel.Controls.AddRange(btns.ToArray());
             this.containerPanel.ResumeLayout();
         }
 

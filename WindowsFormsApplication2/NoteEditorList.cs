@@ -17,10 +17,16 @@ namespace GUI2
         private NoteEditorListItem _activeItem;
         public EventHandler OnItemClick;
         public EventHandler OnSearch;
+        private Color _itemBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
+        private Size _itemSize;
+        private EventHandler _itemClick;
 
         public NoteEditorList()
         {
             InitializeComponent();
+
+            _itemSize = new System.Drawing.Size(167, _itemHeight);
+            _itemClick = new EventHandler(itemClick);
 
             searchTextBox.TextChanged += (s, e) =>
                 {
@@ -66,27 +72,17 @@ namespace GUI2
         {
             NoteEditorListItem item = new NoteEditorListItem();
 
-            item.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
+            item.BackColor = _itemBackColor;
             item.Cursor = System.Windows.Forms.Cursors.Hand;
             item.Name = title;
-            item.Size = new System.Drawing.Size(167, _itemHeight);
+            item.Size = _itemSize;
 
             item.Title = title;
             //item.LastUpdate = lastUpdate;
             item.Likes = likes;
             item.IsConnected = isConnected;
             item.Id = id;
-            item.Click += (s, e) =>
-                {
-                    NoteEditorListItem it = s as NoteEditorListItem;
-
-                    if (_activeItem != it)
-                    {
-                        _activeItem = it;
-
-                        OnItemClick(it, e);
-                    }
-                };
+            item.Click += _itemClick;
 
             return item;
         }
@@ -96,15 +92,29 @@ namespace GUI2
             this.itemContainerPanel.SuspendLayout();
             this.itemContainerPanel.Controls.Clear();
             int c = 0;
+            var tItems = new List<Control>();
             foreach (var i in items)
             {
                     i.Location = new System.Drawing.Point(0, c * _itemHeight);
-                    this.itemContainerPanel.Controls.Add(i);
+                    tItems.Add(i);
 
                     c++;
             }
+            this.itemContainerPanel.Controls.AddRange(tItems.ToArray());
             this.itemContainerPanel.ResumeLayout(false);
             this.itemContainerPanel.PerformLayout();
+        }
+
+        void itemClick(Object s, EventArgs e)
+        {
+            NoteEditorListItem it = s as NoteEditorListItem;
+
+            if (_activeItem != it)
+            {
+                _activeItem = it;
+
+                OnItemClick(it, e);
+            }
         }
     }
 }
