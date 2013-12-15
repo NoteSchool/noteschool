@@ -28,10 +28,8 @@ namespace LocalAreaNetwork
 
         bool _receiverStatus;
 
-        Object _groupData;
+     // Object _groupData;
         Object _defaultGroupData;
-
-        public Action<Object> _receiveObject;
 
         public void InitializeReceiver()
         {
@@ -44,9 +42,6 @@ namespace LocalAreaNetwork
                 _receivingDefaultGroupClient.ExclusiveAddressUse = false;
                 _receivingDefaultGroupClient.Client.SetSocketOption( SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true );
             }
-
-           // _receivingGroupClient.ExclusiveAddressUse = false;
-        //    _receivingGroupClient.Client.SetSocketOption( SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true );
             
             //start a new thread to listen
             _receivingThread = new Thread( new ThreadStart( Receiver ) );
@@ -76,16 +71,12 @@ namespace LocalAreaNetwork
                     IPEndPoint TemporaryDefaultEndPoint = new IPEndPoint( IPAddress.Any, _defaultport );
 
                     //receive object bytes array
-                    //byte[] _groupDataBytes = _receivingGroupClient.Receive( ref EndPoint );
+                  //byte[] _groupDataBytes = _receivingGroupClient.Receive( ref EndPoint );
                     byte[] _defaultGroupDataBytes = _receivingDefaultGroupClient.Receive( ref DefaultEndPoint );
 
                     //Convert object bytes array to object
-                    //_groupData = ByteArrayToObject( _groupDataBytes );
+                  //_groupData = ByteArrayToObject( _groupDataBytes );
                     _defaultGroupData = ByteArrayToObject( _defaultGroupDataBytes );
-
-                    _receiveObject = receive;
-
-                    _receiveObject( _defaultGroupData );
                 }
                 catch (Exception e)
                 {
@@ -93,6 +84,7 @@ namespace LocalAreaNetwork
                 }
             }
         }
+
         public void JoinGroup( string mca )
         {
             //convert string to IPAddress
@@ -105,6 +97,7 @@ namespace LocalAreaNetwork
             _sendingGroupClient.JoinMulticastGroup( _groupAddress );
 
         }
+
         public void LeaveGroup( string mca )
         {
             //convert string to IPAddress
@@ -127,15 +120,12 @@ namespace LocalAreaNetwork
             Object obj = (Object)binForm.Deserialize( memStream );
             return obj;
         }
-
-        private void receive( Object obj )
-        {
-            _defaultGroupData = obj;
-        }
+        /*
         public Object GroupData()
         {
             return _groupData;
         }
+         * */
         public Object DefaultGroupData()
         {
             return _defaultGroupData;

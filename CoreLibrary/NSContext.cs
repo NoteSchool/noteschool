@@ -57,6 +57,7 @@ namespace CoreLibrary
             _services = services;
         }
 
+        //NEED TO FIX 
         public Group FindOrCreateGroup( string name, string tag, string multicastAddress, out bool created )
         {
             if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );
@@ -145,13 +146,13 @@ namespace CoreLibrary
         }
         public void Sender()
         {
-            Services.Lan.InitializeSender(Groups);
-            /*
+            //  Services.Lan.InitializeSender(Groups);
+
             if (CurrentGroup.MulticastAddress != "224.0.1.0")
             {
-                System.Diagnostics.Debug.WriteLine( "Sender send CurrentGroup" );
                 Services.Lan.InitializeSender( CurrentGroup );
-            }*/
+            }
+
             /*
         else
         {
