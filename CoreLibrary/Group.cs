@@ -33,8 +33,11 @@ namespace CoreLibrary
             _notesEditedAt = DateTime.Now;
 
             _notes = new Dictionary<String, Note>();
+            _users = new Dictionary<String, User>();
             //default note
-            FindOrCreateNote();
+  
+            _notes.Add(Context.CurrentUser.Id, new Note());
+            _users.Add(Context.CurrentUser.Id, Context.CurrentUser);
         }
 
         public DateTime NoteEditedAt { get { return _notesEditedAt; } set { _notesEditedAt = value; } }
@@ -52,8 +55,7 @@ namespace CoreLibrary
                 n = new Note();
                 _notes.Add(Context.CurrentUser.Id, n);
 
-                if (!Users.ContainsKey(Context.CurrentUser.Id))
-                    _users.Add(Context.CurrentUser.Id, Context.CurrentUser);
+                _users.Add(Context.CurrentUser.Id, Context.CurrentUser);
             }
 
             return n;
