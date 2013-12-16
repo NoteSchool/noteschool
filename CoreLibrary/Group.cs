@@ -50,6 +50,9 @@ namespace CoreLibrary
             {
                 n = new Note();
                 _notes.Add(Context.CurrentUser.Id, n);
+
+                if (!Users.ContainsKey(Context.CurrentUser.Id))
+                    Users.Add(Context.CurrentUser.Id, Context.CurrentUser);
             }
 
             return n;
