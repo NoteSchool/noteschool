@@ -79,7 +79,7 @@ namespace GUI
 
         private void SyncTimer( object sender, ElapsedEventArgs e )
         {
-            System.Diagnostics.Debug.WriteLine( "Timer firing -------------------------------------------" );
+            Helper.dd( "Timer firing -------------------------------------------" );
 
             if (c != null)
             {
@@ -88,11 +88,11 @@ namespace GUI
 
                 if (receiveData != null)
                 {
-                    System.Diagnostics.Debug.WriteLine("Data received");
+                    Helper.dd("Data received");
 
                     if (receiveData is CoreLibrary.Group)
                     {
-                        System.Diagnostics.Debug.WriteLine("Data is a group");
+                        Helper.dd("Data is a group");
 
                         CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
 
@@ -100,25 +100,25 @@ namespace GUI
                         {
                             c.Groups.Add(g.MulticastAddress, g);
                             CreateGroupsButton();
-                            System.Diagnostics.Debug.WriteLine("Group is created");
+                            Helper.dd("Group is created");
                         }
                         else
                         {
-                            System.Diagnostics.Debug.WriteLine("Group " + g.Name + " already exist");
+                            Helper.dd("Group " + g.Name + " already exist");
                         }
                     }
                     /*
                 else
                 {
                     //merge groups
-                    System.Diagnostics.Debug.WriteLine("Timer receive all groups");
+                    Helper.dd("Timer receive all groups");
 
                     Dictionary<string, CoreLibrary.Group> newGroups = (Dictionary<string, CoreLibrary.Group>)receiveData;
                     int oldCount = c.Groups.Count;
 
                     foreach (var ng in newGroups)
                     {
-                        System.Diagnostics.Debug.WriteLine("Timer received group: " + ng.Value.Name);
+                        Helper.dd("Timer received group: " + ng.Value.Name);
                     }
 
                     c.Groups = c.Groups.Union(newGroups).GroupBy(d => d.Key)
@@ -133,13 +133,13 @@ namespace GUI
                         //this.backgroundWorker1.RunWorkerAsync();
                     }
 
-                    System.Diagnostics.Debug.WriteLine("Timer receive " + (newCount - oldCount) + "/"+newGroups.Count+" groups");
+                    Helper.dd("Timer receive " + (newCount - oldCount) + "/"+newGroups.Count+" groups");
                 }
                      * */
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("No data received");
+                    Helper.dd("No data received");
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace GUI
 
             c.JoinGroup( c.CurrentGroup.MulticastAddress );
 
-            System.Diagnostics.Debug.WriteLine( "The default group 224.0.1.0 was joined" );
+            Helper.dd( "The default group 224.0.1.0 was joined" );
 
             if (!Controls.Contains( _displayGroupsForm ))
             {

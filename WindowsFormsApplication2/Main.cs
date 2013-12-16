@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -32,13 +33,19 @@ namespace GUI2
 
         private bool LoggedIn = false;
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
+
         public Main()
         {
+            AllocConsole();
             if (File.Exists(_path))
             {
                 LoggedIn = true;
                 c = NSContext.Load(cs);
-                c.Receiver();
+                c.JoinGroup("224.0.1.0");
+                c.Receiver();         
             }
 
             InitializeComponent();
@@ -47,10 +54,6 @@ namespace GUI2
             {
                 if (this.content1.Visible == false)
                 {
-                    //Leave group
-                    c.LeaveGroup(c.CurrentGroup.MulticastAddress);
-                    c.CurrentGroup = c.FindGroup("224.0.1.0");
-
                     this.header1.textItemLabel.Visible = false;
                     this.Controls.Remove(NoteEditorControl);
                     this.content1.Visible = true;
@@ -71,7 +74,7 @@ namespace GUI2
 
         private void SyncTimer(object sender, ElapsedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Timer firing -------------------------------------------");
+            Helper.dd("Timer firing -------------------------------------------");
 
             if (c != null)
             {
@@ -79,30 +82,32 @@ namespace GUI2
                 Object receiveData = c.ReceivedData();
                 if (receiveData != null)
                 {
-                    System.Diagnostics.Debug.WriteLine("Data received");
+                    Helper.dd("Data received");
 
                     if (receiveData is CoreLibrary.Group)
                     {
-                        System.Diagnostics.Debug.WriteLine("Data is a group");
-
                         CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
 
                         if (!c.Groups.ContainsKey(g.MulticastAddress))
                         {
                             c.Groups.Add(g.MulticastAddress, g);
                             GroupsPageControl.CreateGroupButtons(c.Groups);
-                            //CreateGroupsButton();
-                            System.Diagnostics.Debug.WriteLine("Group is created");
+
+                            Helper.dd(g.Name+" was added");
                         }
                         else
                         {
-                            System.Diagnostics.Debug.WriteLine("Group " + g.Name + " already exist");
+                            Helper.dd("Group " + g.Name + " already exist");
                         }
+                    }
+                    else
+                    {
+                        Helper.dd("Data receveived is not a group");
                     }
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("No data received");
+                    Helper.dd("No data received");
                 }
             }
         }
@@ -150,7 +155,7 @@ namespace GUI2
                 {
                     var item = s as menuItem;
 
-                    System.Diagnostics.Debug.WriteLine(item.Text + " menu clicked");
+                    Helper.dd(item.Text + " menu clicked");
 
                     switch (item.Id)
                     {
@@ -172,10 +177,6 @@ namespace GUI2
 
         private void GroupsPage()
         {
-            c.CurrentGroup = c.FindGroup("224.0.1.0");
-            c.JoinGroup(c.CurrentGroup.MulticastAddress);
-            System.Diagnostics.Debug.WriteLine("The default group 224.0.1.0 was joined");
-
             if (GroupsPageControl == null)
             {
                 GroupsPageControl = new GUI2.GroupsPage();
@@ -185,10 +186,8 @@ namespace GUI2
                 GroupsPageControl.GroupButtonClick += (s, e) =>
                     {
                         Button btn = s as Button;
-                        c.LeaveGroup(c.CurrentGroup.MulticastAddress);
-                        c.CurrentGroup = c.FindGroup(btn.Name);
                         //open taking note
-                        NoteEditor(c.CurrentGroup);
+                        NoteEditor(c.FindGroup(btn.Name));
                     };
                 GroupsPageControl.CreateGroupButtonClick += (s, e) =>
                     {
@@ -227,8 +226,6 @@ namespace GUI2
                 GroupCreatePageControl.SaveButtonClick += (s, e) =>
                 {
                     bool created;
-                    c.LeaveGroup(c.CurrentGroup.MulticastAddress);
-
                     c.CurrentGroup = c.FindOrCreateGroup(GroupCreatePageControl.GroupTitle, 
                         GroupCreatePageControl.GroupTag, c.SetMulticastAddress(), out created);
 
@@ -270,8 +267,7 @@ namespace GUI2
                             c.CurrentUser = c.CreateUser(results[0], results[1]);
                             c.Save();
 
-                            bool created;
-                            c.CurrentGroup = c.FindOrCreateGroup("waitingroom", "displaygroups", "224.0.1.0", out created);
+                            c.JoinGroup("224.0.1.0");
                             c.Receiver();
 
                             header1.UsernameText = c.CurrentUser.FirstName;
@@ -341,7 +337,7 @@ namespace GUI2
                 DummyUsers(group);*/
 
               c.CurrentGroup = group;
-              c.JoinGroup(c.CurrentGroup.MulticastAddress);
+
 
             //textbox will be setted
             group.Users[c.CurrentUser.Id] = c.CurrentUser;
@@ -421,7 +417,7 @@ namespace GUI2
                 group.Notes.Add(user.Id, Note.GetNote( text.Substring(rnd.Next(10, text.Length)) ));
             }
 
-            //System.Diagnostics.Debug.WriteLine("test");
+            //Helper.dd("test");
         }
     }
 }

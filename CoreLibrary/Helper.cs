@@ -73,5 +73,11 @@ namespace CoreLibrary
 
             return years <= 1 ? "one year ago" : years + " years ago";
         }
+
+        public static void dd(string message)
+        {
+            System.Diagnostics.Debug.WriteLine(message);
+            Console.WriteLine(message);
+        }
     }
 }

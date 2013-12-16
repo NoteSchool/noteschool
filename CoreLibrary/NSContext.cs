@@ -19,6 +19,8 @@ namespace CoreLibrary
         readonly Dictionary<string, Note> _notes;
 
         private User _currentUser;
+
+        [NonSerialized]
         private Group _currentGroup;
 
         //TODO group list to add
@@ -43,7 +45,27 @@ namespace CoreLibrary
             }
         }
 
-        public Group CurrentGroup { get { return _currentGroup; } set { _currentGroup = value; } }
+        public Group CurrentGroup 
+        { 
+            get { return _currentGroup; } 
+            set 
+            {
+                //currentGroup was set before AND currentGroup is different than that one
+                if (_currentGroup != null && _currentGroup.MulticastAddress != value.MulticastAddress)
+                {
+                    Helper.dd("group " + _currentGroup.Name + "(" + _currentGroup.MulticastAddress + ") was leave");
+                    LeaveGroup(_currentGroup.MulticastAddress);
+                }
+
+                //currentGroup no set yet OR currentGroup is not that one
+                if (_currentGroup == null || _currentGroup.MulticastAddress != value.MulticastAddress)
+                {
+                    Helper.dd("group " + value.Name + "(" + value.MulticastAddress + ") was join");
+                    JoinGroup(value.MulticastAddress);
+                }
+                _currentGroup = value; 
+            } 
+        }
         public User CurrentUser { get { return _currentUser; } set { _currentUser = value; } }
         public Group ListGroup { get { return _listgroup; } }
 
@@ -107,21 +129,7 @@ namespace CoreLibrary
 
             return u;
         }
-        /*
-        public Group CreateGroup(string name, bool autoNumbering = true )
-        {
-            if (String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Must be a non empty string", "name");
-            string candidateName = name;
-            int candidateSuffixNumber = 0;
-            while( _groups.ContainsKey(candidateName) )
-            {
-                candidateName = String.Format("{0} ({1})", name, ++candidateSuffixNumber);
-            }
-            var g = new Group(this, candidateName );
-            _groups.Add(candidateName, g);
-            return g;
-        }
-        */
+
         public Group FindGroup( string id )
         {
             Group g;
@@ -147,23 +155,14 @@ namespace CoreLibrary
         }
         public void Sender()
         {
-            //  Services.Lan.InitializeSender(Groups);
-
-            if (CurrentGroup.MulticastAddress != "224.0.1.0")
+            if (CurrentGroup != null)
             {
                 Services.Lan.InitializeSender( CurrentGroup );
             }
-
-            /*
-        else
-        {
-            System.Diagnostics.Debug.WriteLine("Sender send all groups");
-            Services.Lan.InitializeSender(_groups);
-        }
-             */
         }
         public void JoinGroup( string mca )
         {
+            Helper.dd("MCA " + mca + " is joining");
             Services.Lan.JoinGroup( mca );
         }
         public void LeaveGroup( string mca )

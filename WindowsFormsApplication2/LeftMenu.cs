@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CoreLibrary;
 
 namespace GUI2
 {
@@ -100,7 +101,7 @@ namespace GUI2
             }
             this.ResumeLayout();
 
-            System.Diagnostics.Debug.WriteLine(Controls.Count + " " + _menuItems.Count);
+            Helper.dd(Controls.Count + " " + _menuItems.Count);
         }
     }
 }
