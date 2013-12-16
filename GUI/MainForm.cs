@@ -81,63 +81,66 @@ namespace GUI
         {
             System.Diagnostics.Debug.WriteLine( "Timer firing -------------------------------------------" );
 
-            c.Sender();
-            Object receiveData = c.ReceivedData();
-
-            if (receiveData != null)
+            if (c != null)
             {
-                System.Diagnostics.Debug.WriteLine( "Data received" );
+                c.Sender();
+                Object receiveData = c.ReceivedData();
 
-                if (receiveData is CoreLibrary.Group)
+                if (receiveData != null)
                 {
-                    System.Diagnostics.Debug.WriteLine( "Data is a group" );
+                    System.Diagnostics.Debug.WriteLine("Data received");
 
-                    CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
-
-                    if (!c.Groups.ContainsKey( g.MulticastAddress ))
+                    if (receiveData is CoreLibrary.Group)
                     {
-                        c.Groups.Add( g.MulticastAddress, g );
+                        System.Diagnostics.Debug.WriteLine("Data is a group");
+
+                        CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
+
+                        if (!c.Groups.ContainsKey(g.MulticastAddress))
+                        {
+                            c.Groups.Add(g.MulticastAddress, g);
+                            CreateGroupsButton();
+                            System.Diagnostics.Debug.WriteLine("Group is created");
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("Group " + g.Name + " already exist");
+                        }
+                    }
+                    /*
+                else
+                {
+                    //merge groups
+                    System.Diagnostics.Debug.WriteLine("Timer receive all groups");
+
+                    Dictionary<string, CoreLibrary.Group> newGroups = (Dictionary<string, CoreLibrary.Group>)receiveData;
+                    int oldCount = c.Groups.Count;
+
+                    foreach (var ng in newGroups)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Timer received group: " + ng.Value.Name);
+                    }
+
+                    c.Groups = c.Groups.Union(newGroups).GroupBy(d => d.Key)
+                        .ToDictionary(d => d.Key, d => d.First().Value);
+
+                    int newCount = c.Groups.Count;
+                    if (newCount - oldCount > 0)
+                    {
                         CreateGroupsButton();
-                        System.Diagnostics.Debug.WriteLine( "Group is created" );
+                        //SetTextCallback d = new SetTextCallback(CreateGroupsButton);
+                        //this.Invoke(d);
+                        //this.backgroundWorker1.RunWorkerAsync();
                     }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine( "Group " + g.Name + " already exist" );
-                    }
+
+                    System.Diagnostics.Debug.WriteLine("Timer receive " + (newCount - oldCount) + "/"+newGroups.Count+" groups");
                 }
-                /*
-            else
-            {
-                //merge groups
-                System.Diagnostics.Debug.WriteLine("Timer receive all groups");
-
-                Dictionary<string, CoreLibrary.Group> newGroups = (Dictionary<string, CoreLibrary.Group>)receiveData;
-                int oldCount = c.Groups.Count;
-
-                foreach (var ng in newGroups)
+                     * */
+                }
+                else
                 {
-                    System.Diagnostics.Debug.WriteLine("Timer received group: " + ng.Value.Name);
+                    System.Diagnostics.Debug.WriteLine("No data received");
                 }
-
-                c.Groups = c.Groups.Union(newGroups).GroupBy(d => d.Key)
-                    .ToDictionary(d => d.Key, d => d.First().Value);
-
-                int newCount = c.Groups.Count;
-                if (newCount - oldCount > 0)
-                {
-                    CreateGroupsButton();
-                    //SetTextCallback d = new SetTextCallback(CreateGroupsButton);
-                    //this.Invoke(d);
-                    //this.backgroundWorker1.RunWorkerAsync();
-                }
-
-                System.Diagnostics.Debug.WriteLine("Timer receive " + (newCount - oldCount) + "/"+newGroups.Count+" groups");
-            }
-                 * */
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine( "No data received" );
             }
         }
         private void DisplayGroups()
