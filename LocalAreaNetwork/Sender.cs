@@ -57,7 +57,7 @@ namespace LocalAreaNetwork
             }
             catch (Exception e)
             {
-                Console.WriteLine( "{0} Exception caught.", e );
+                System.Diagnostics.Debug.WriteLine( "{0} Exception caught.", e );
             }
         }
 

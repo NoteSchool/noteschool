@@ -19,6 +19,9 @@ namespace GUI2
         public EventHandler SearchTextChange;
         private string _keyword;
 
+        delegate void StartButtonsCreationInvoker();
+        delegate void FinishButtonsCreationInvoker(List<Control> btns);
+
         public GroupsPage()
         {
             InitializeComponent();
@@ -37,13 +40,31 @@ namespace GUI2
                 };
         }
 
+        private void StartButtonsCreation()
+        {
+            this.containerPanel.SuspendLayout();
+            this.containerPanel.Controls.Clear();
+        }
+
+        private void FinishButtonsCreation(List<Control> btns)
+        {
+            containerPanel.Controls.AddRange(btns.ToArray());
+            this.containerPanel.ResumeLayout();
+        }
+
         public void CreateGroupButtons(Dictionary<string, CoreLibrary.Group> groups, string keyword = null)
         {
             keyword = keyword != null ? keyword : _keyword;
             _keyword = keyword;
 
-            this.containerPanel.SuspendLayout();
-            this.containerPanel.Controls.Clear();
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new StartButtonsCreationInvoker(StartButtonsCreation));
+            }
+            else
+            {
+                StartButtonsCreation();
+            }
                
             bool match;
             Button btn;
@@ -77,8 +98,14 @@ namespace GUI2
                 }
             }
 
-            containerPanel.Controls.AddRange(btns.ToArray());
-            this.containerPanel.ResumeLayout();
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new FinishButtonsCreationInvoker(FinishButtonsCreation), btns);
+            }
+            else
+            {
+                FinishButtonsCreation(btns);
+            }
         }
 
         private void GroupClick(object sender, EventArgs e)

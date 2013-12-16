@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace GUI2
@@ -45,13 +46,65 @@ namespace GUI2
             {
                 if (this.content1.Visible == false)
                 {
+                    //Leave group
+                    c.LeaveGroup(c.CurrentGroup.MulticastAddress);
+                    c.CurrentGroup = c.FindGroup("224.0.1.0");
+
                     this.header1.textItemLabel.Visible = false;
                     this.Controls.Remove(NoteEditorControl);
                     this.content1.Visible = true;
                 }
             };
+
+            Timer();
         }
 
+        public void Timer()
+        {
+            System.Timers.Timer _syncTimer = new System.Timers.Timer();
+            _syncTimer.Elapsed += SyncTimer;
+            _syncTimer.Interval = 3000;
+            _syncTimer.Enabled = true;
+            _syncTimer.Start();
+        }
+
+        private void SyncTimer(object sender, ElapsedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Timer firing -------------------------------------------");
+
+            if (c != null)
+            {
+                c.Sender();
+                Object receiveData = c.ReceivedData();
+                if (receiveData != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Data received");
+
+                    if (receiveData is CoreLibrary.Group)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Data is a group");
+
+                        CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
+
+                        if (!c.Groups.ContainsKey(g.MulticastAddress))
+                        {
+                            c.Groups.Add(g.MulticastAddress, g);
+                            GroupsPageControl.CreateGroupButtons(c.Groups);
+                            //CreateGroupsButton();
+                            System.Diagnostics.Debug.WriteLine("Group is created");
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("Group " + g.Name + " already exist");
+                        }
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("No data received");
+                }
+            }
+        }
         private void content1_Load(object sender, EventArgs e)
         {
             if (!LoggedIn) {  RegisterPage(); }
@@ -118,6 +171,10 @@ namespace GUI2
 
         private void GroupsPage()
         {
+            c.CurrentGroup = c.FindGroup("224.0.1.0");
+            c.JoinGroup(c.CurrentGroup.MulticastAddress);
+            System.Diagnostics.Debug.WriteLine("The default group 224.0.1.0 was joined");
+
             if (GroupsPageControl == null)
             {
                 GroupsPageControl = new GUI2.GroupsPage();
@@ -127,6 +184,7 @@ namespace GUI2
                 GroupsPageControl.GroupButtonClick += (s, e) =>
                     {
                         Button btn = s as Button;
+                        c.LeaveGroup(c.CurrentGroup.MulticastAddress);
                         c.CurrentGroup = c.FindGroup(btn.Name);
                         //open taking note
                         NoteEditor(c.CurrentGroup);
@@ -207,6 +265,10 @@ namespace GUI2
                             c.CurrentUser = c.CreateUser(results[0], results[1]);
                             c.Save();
 
+                            bool created;
+                            c.CurrentGroup = c.FindOrCreateGroup("waitingroom", "displaygroups", "224.0.1.0", out created);
+                            c.Receiver();
+
                             header1.UsernameText = c.CurrentUser.FirstName;
                             leftMenu1.RemoveItem(leftMenu1.SelectedItem);
                             leftMenu1.SelectedItem = leftMenu1.Controls[0] as menuItem;
@@ -270,8 +332,10 @@ namespace GUI2
               }
 
               //MessageBox.Show(group.Notes.Count.ToString());
-              if( group.Notes.Count == 1)
-                DummyUsers(group);
+              /*if( group.Notes.Count == 1)
+                DummyUsers(group);*/
+
+              c.JoinGroup(c.CurrentGroup.MulticastAddress);
 
             //textbox will be setted
             group.Users[c.CurrentUser.Id] = c.CurrentUser;
