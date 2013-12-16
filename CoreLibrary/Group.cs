@@ -18,6 +18,7 @@ namespace CoreLibrary
         string _multicastAddress;
         DateTime _notesEditedAt;
         Dictionary<String, Note> _notes;
+        Dictionary<String, User> _users;
 
         internal Group( NSContext c, string name, string tag, string multicastAddress)
             : base( c )
@@ -41,7 +42,7 @@ namespace CoreLibrary
         public string Name { get { return _name; } }
         public string Tag { get { return _tag; } }
         public string MulticastAddress { get { return _multicastAddress; } }
-        public Dictionary<string, User> Users = new Dictionary<string, User>();
+        public Dictionary<string, User> Users { get { return _users; } set { _users = value; } }
 
         public Note FindOrCreateNote()
         {
@@ -52,7 +53,7 @@ namespace CoreLibrary
                 _notes.Add(Context.CurrentUser.Id, n);
 
                 if (!Users.ContainsKey(Context.CurrentUser.Id))
-                    Users.Add(Context.CurrentUser.Id, Context.CurrentUser);
+                    _users.Add(Context.CurrentUser.Id, Context.CurrentUser);
             }
 
             return n;

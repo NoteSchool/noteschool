@@ -336,6 +336,7 @@ namespace GUI2
               /*if( group.Notes.Count == 1)
                 DummyUsers(group);*/
 
+              group.FindOrCreateNote();
               c.CurrentGroup = group;
 
 
