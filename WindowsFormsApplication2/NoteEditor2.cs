@@ -16,13 +16,35 @@ namespace GUI2
         internal string Keyword;
         internal string UserId;
 
+        private string _watchUserNote;
+        internal string WatchUserId;
+        internal string WatchUserNote
+        {
+            get { return _watchUserNote; }
+            set 
+            {
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new SetFriendNoteInvoker(_setFriendNote), value);
+                }
+                else
+                {
+                    _setFriendNote(value);
+                }
+                _watchUserNote = value;
+            }
+        }
+
+        delegate void BuildUserListInvoker(Dictionary<string, CoreLibrary.User> users);
+        delegate void SetFriendNoteInvoker(string text);
+
         private Dictionary<string, CoreLibrary.User> _users;
         internal Dictionary<string, CoreLibrary.User> Users 
         {
             set
             {
-                if (_users !=  null && value.Count != _users.Count)
-                    this.noteEditorList1.BuildList(value, Keyword);
+                //if (_users !=  null && value.Count != _users.Count)
+                _buildUserList(value);
 
                 _users = value;          
             }
@@ -66,6 +88,8 @@ namespace GUI2
                     ViewType(2);
                     friendUsernameLabel.Text = user.FirstName + " " + user.LastName;
                     friendNoteTextBox.Text = Group.Notes[user.Id].Text;
+                    WatchUserId = item.Id;
+                    _watchUserNote = friendNoteTextBox.Text;
                 };
 
             //Users = Group.Users;
@@ -101,6 +125,23 @@ namespace GUI2
                     //this.likes.Location = new System.Drawing.Point(170, 21);
                     //noteTextBox.Controls.Add(
                 };
+        }
+
+        void _setFriendNote(string msg)
+        {
+            friendNoteTextBox.Text = msg;
+        }
+
+        void _buildUserList(Dictionary<string, CoreLibrary.User> users)
+        {
+            if( this.noteEditorList1.InvokeRequired)
+            {
+                this.Invoke(new BuildUserListInvoker(_buildUserList), users);
+            }
+            else
+            {
+                this.noteEditorList1.BuildList(users, Keyword);
+            }
         }
 
         internal void DoSearch()

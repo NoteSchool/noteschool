@@ -33,9 +33,7 @@
             this.searchContainerPanel = new System.Windows.Forms.Panel();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.itemContainerPanel = new System.Windows.Forms.Panel();
-            this.noteEditorListItem1 = new GUI2.NoteEditorListItem();
             this.searchContainerPanel.SuspendLayout();
-            this.itemContainerPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // shapeContainer1
@@ -91,22 +89,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.itemContainerPanel.AutoScroll = true;
-            this.itemContainerPanel.Controls.Add(this.noteEditorListItem1);
             this.itemContainerPanel.Location = new System.Drawing.Point(2, 0);
             this.itemContainerPanel.Name = "itemContainerPanel";
             this.itemContainerPanel.Size = new System.Drawing.Size(167, 369);
             this.itemContainerPanel.TabIndex = 3;
-            // 
-            // noteEditorListItem1
-            // 
-            this.noteEditorListItem1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.noteEditorListItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
-            this.noteEditorListItem1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.noteEditorListItem1.Location = new System.Drawing.Point(0, 0);
-            this.noteEditorListItem1.Name = "noteEditorListItem1";
-            this.noteEditorListItem1.Size = new System.Drawing.Size(167, 56);
-            this.noteEditorListItem1.TabIndex = 0;
             // 
             // NoteEditorList
             // 
@@ -120,7 +106,6 @@
             this.Size = new System.Drawing.Size(169, 396);
             this.searchContainerPanel.ResumeLayout(false);
             this.searchContainerPanel.PerformLayout();
-            this.itemContainerPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -132,6 +117,5 @@
         private System.Windows.Forms.Panel searchContainerPanel;
         private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Panel itemContainerPanel;
-        private NoteEditorListItem noteEditorListItem1;
     }
 }
