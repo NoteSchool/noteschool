@@ -95,9 +95,28 @@ namespace GUI2
 
                             Helper.dd(g.Name+" was added");
                         }
-                        else
+                        else if(c.CurrentGroup == g)
                         {
-                            Helper.dd("Group " + g.Name + " already exist");
+                            foreach (var u in g.Users)
+                            {
+                                if (!c.CurrentGroup.Users.ContainsKey(u.Key))
+                                {
+                                    c.CurrentGroup.Users.Add(u.Key, u.Value);
+                                }
+                            }
+
+                            foreach (var n in g.Notes)
+                            {
+                                if (!c.CurrentGroup.Notes.ContainsKey(n.Key))
+                                {
+                                    c.CurrentGroup.Notes.Add(n.Key, n.Value);
+                                }
+                                else if (n.Value.Text != c.CurrentGroup.Notes[n.Key].Text)
+                                {
+                                    c.CurrentGroup.Notes[n.Key].Text = n.Value.Text;
+                                }
+                            }
+                            Helper.dd("Group " + g.Name + " updated");
                         }
                     }
                     else
@@ -336,7 +355,8 @@ namespace GUI2
               /*if( group.Notes.Count == 1)
                 DummyUsers(group);*/
 
-              group.FindOrCreateNote();
+              group.ReInialize(c);
+              group.CreateNote();
               c.CurrentGroup = group;
 
 

@@ -12,7 +12,7 @@ namespace CoreLibrary
     [Serializable]
     public abstract class NSObject
     {
-        readonly NSContext _context;
+        protected NSContext _context;
 
         protected NSObject(NSContext c)
         {

@@ -21,8 +21,10 @@ namespace GUI2
         {
             set
             {
-                _users = value;
-                this.noteEditorList1.BuildList(value, Keyword);
+                if( value != _users)
+                    this.noteEditorList1.BuildList(value, Keyword);
+
+                _users = value;          
             }
         }
 

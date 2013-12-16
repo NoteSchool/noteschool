@@ -35,9 +35,8 @@ namespace CoreLibrary
             _notes = new Dictionary<String, Note>();
             _users = new Dictionary<String, User>();
             //default note
-  
-            _notes.Add(Context.CurrentUser.Id, new Note());
-            _users.Add(Context.CurrentUser.Id, Context.CurrentUser);
+
+            CreateNote();
         }
 
         public DateTime NoteEditedAt { get { return _notesEditedAt; } set { _notesEditedAt = value; } }
@@ -47,18 +46,18 @@ namespace CoreLibrary
         public string MulticastAddress { get { return _multicastAddress; } }
         public Dictionary<string, User> Users { get { return _users; } set { _users = value; } }
 
-        public Note FindOrCreateNote()
+        public void ReInialize(NSContext c)
         {
-            Note n;
-            if (!_notes.TryGetValue(Context.CurrentUser.Id, out n))
-            {
-                n = new Note();
-                _notes.Add(Context.CurrentUser.Id, n);
+            _context = c;
+        }
 
+        public void CreateNote()
+        {
+            if (!_notes.ContainsKey(Context.CurrentUser.Id))
+                _notes.Add(Context.CurrentUser.Id, new Note());
+
+            if(!_users.ContainsKey(Context.CurrentUser.Id))
                 _users.Add(Context.CurrentUser.Id, Context.CurrentUser);
-            }
-
-            return n;
         }
     }
 }
