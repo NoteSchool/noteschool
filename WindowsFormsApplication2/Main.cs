@@ -97,11 +97,13 @@ namespace GUI2
                         }
                         else if(c.CurrentGroup == g)
                         {
+                            bool updateWasDone = false;
                             foreach (var u in g.Users)
                             {
                                 if (!c.CurrentGroup.Users.ContainsKey(u.Key))
                                 {
                                     c.CurrentGroup.Users.Add(u.Key, u.Value);
+                                    updateWasDone = true;
                                 }
                             }
 
@@ -110,11 +112,18 @@ namespace GUI2
                                 if (!c.CurrentGroup.Notes.ContainsKey(n.Key))
                                 {
                                     c.CurrentGroup.Notes.Add(n.Key, n.Value);
+                                    updateWasDone = true;
                                 }
                                 else if (n.Value.Text != c.CurrentGroup.Notes[n.Key].Text)
                                 {
                                     c.CurrentGroup.Notes[n.Key].Text = n.Value.Text;
+                                    updateWasDone = true;
                                 }
+                            }
+
+                            if (updateWasDone)
+                            {
+                                NoteEditorControl2.Group = c.CurrentGroup;
                             }
                             Helper.dd("Group " + g.Name + " updated");
                         }
