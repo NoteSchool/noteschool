@@ -21,7 +21,7 @@ namespace GUI2
         {
             set
             {
-                if( value != _users)
+                if (_users !=  null && value.Count != _users.Count)
                     this.noteEditorList1.BuildList(value, Keyword);
 
                 _users = value;          

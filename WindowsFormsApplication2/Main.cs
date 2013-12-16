@@ -95,7 +95,7 @@ namespace GUI2
 
                             Helper.dd(g.Name+" was added");
                         }
-                        else if(c.CurrentGroup == g)
+                        else if (c.CurrentGroup != null && c.CurrentGroup.Name == g.Name)
                         {
                             bool updateWasDone = false;
                             foreach (var u in g.Users)
