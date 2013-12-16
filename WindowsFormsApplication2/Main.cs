@@ -38,6 +38,7 @@ namespace GUI2
             {
                 LoggedIn = true;
                 c = NSContext.Load(cs);
+                c.Receiver();
             }
 
             InitializeComponent();
@@ -226,6 +227,8 @@ namespace GUI2
                 GroupCreatePageControl.SaveButtonClick += (s, e) =>
                 {
                     bool created;
+                    c.LeaveGroup(c.CurrentGroup.MulticastAddress);
+
                     c.CurrentGroup = c.FindOrCreateGroup(GroupCreatePageControl.GroupTitle, 
                         GroupCreatePageControl.GroupTag, c.SetMulticastAddress(), out created);
 
@@ -234,6 +237,8 @@ namespace GUI2
                     else
                     {
                         c.Save();
+                        
+
                         NoteEditor(c.CurrentGroup);
                     }
                 };
@@ -335,6 +340,7 @@ namespace GUI2
               /*if( group.Notes.Count == 1)
                 DummyUsers(group);*/
 
+              c.CurrentGroup = group;
               c.JoinGroup(c.CurrentGroup.MulticastAddress);
 
             //textbox will be setted
