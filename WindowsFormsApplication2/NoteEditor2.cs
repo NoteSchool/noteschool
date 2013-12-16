@@ -115,6 +115,7 @@ namespace GUI2
             linkLabel1.Click += (s, e) =>
                 {
                     this.SuspendLayout();
+                    noteEditorList1.ResetActive();
                     ViewType(1);
                     this.ResumeLayout();
                 };

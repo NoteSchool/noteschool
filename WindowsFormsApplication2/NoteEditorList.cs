@@ -46,6 +46,11 @@ namespace GUI2
             };
         }
 
+        internal void ResetActive()
+        {
+            _activeItem = null;
+        }
+
         internal void BuildList(Dictionary<string, CoreLibrary.User> users, string keyword = "")
         {
             if (users != null)
