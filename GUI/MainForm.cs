@@ -72,7 +72,7 @@ namespace GUI
             _syncTimer.Elapsed += SyncTimer;
 
             //Interval in milliseconds
-            _syncTimer.Interval = 2000;
+            _syncTimer.Interval = 3000;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }

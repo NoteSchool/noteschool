@@ -34,10 +34,11 @@ namespace LocalAreaNetwork
 
             try
             {
+                /*
                 if (LastData != obj)
                 {
                     LastData = obj;
-
+                */
                     //convert string to bytes (needed to be able to send)
                     byte[] data = ObjectToByteArray( obj );
 
@@ -47,12 +48,12 @@ namespace LocalAreaNetwork
                     //send byte array to client
                     //_sendingGroupClient.Send( data, data.Length, EndPoint);
 
-                    System.Diagnostics.Debug.WriteLine( "Send Current Group" );
+                    System.Diagnostics.Debug.WriteLine( "Send Current Group" );/*
                 }
                 else
                 {
                     _defaultGroupData = null;
-                }
+                }*/
             }
             catch (Exception e)
             {
