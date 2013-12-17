@@ -80,11 +80,10 @@ namespace GUI2
                 c.Sender();
                 Object receiveData = c.ReceivedData();
                 if (receiveData != null)
-                {
-                    Helper.dd("Data received");
-
+                {                   
                     if (receiveData is CoreLibrary.Group)
                     {
+                        Helper.dd("Data received");
                         CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
 
                         if (!c.Groups.ContainsKey(g.MulticastAddress))

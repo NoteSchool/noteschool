@@ -44,6 +44,7 @@ namespace GUI2
             set
             {
                 //if (_users !=  null && value.Count != _users.Count)
+                value.Remove(UserId);
                 _buildUserList(value);
 
                 _users = value;          
