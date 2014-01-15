@@ -12,7 +12,7 @@ namespace CoreLibrary
         void InitializeSender(Object obj);
         void JoinGroup(string mca);
         void LeaveGroup( string mca);
-        //Object GroupData();
+        Object GroupData();
         Object DefaultGroupData();
     }
 }

@@ -173,6 +173,10 @@ namespace CoreLibrary
         {
             return Services.Lan.DefaultGroupData();
         }
+        public Object GroupData()
+        {
+            return Services.Lan.GroupData();
+        }
 
         /// <summary>
         /// Create new multicast address from 224.0.1.1 to 239.255.255.255

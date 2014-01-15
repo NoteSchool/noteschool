@@ -17,8 +17,6 @@ namespace LocalAreaNetwork
         UdpClient _sendingGroupClient = new UdpClient();
         UdpClient _sendingDefaultGroupClient;
 
-        Object LastData;
-
         public void InitializeSender(Object obj)
         {
             //create udp sending default client if not existed
@@ -28,12 +26,11 @@ namespace LocalAreaNetwork
                 _sendingDefaultGroupClient.JoinMulticastGroup(_defaultGroupAddress);
             }
 
-            //create an IPEndPoint which contains IP address and port
-            IPEndPoint DefaultEndPoint = new IPEndPoint(_defaultGroupAddress, _defaultport);
-            IPEndPoint EndPoint = new IPEndPoint(_groupAddress, _port);
-
             try
             {
+                //create an IPEndPoint which contains IP address and port
+                IPEndPoint DefaultEndPoint = new IPEndPoint( _defaultGroupAddress, _defaultport );
+                IPEndPoint EndPoint = new IPEndPoint( _groupAddress, _port );
 
                 //convert string to bytes (needed to be able to send)
                 byte[] data = ObjectToByteArray(obj);
@@ -42,7 +39,7 @@ namespace LocalAreaNetwork
                 _sendingDefaultGroupClient.Send(data, data.Length, DefaultEndPoint);
 
                 //send byte array to client
-                //_sendingGroupClient.Send( data, data.Length, EndPoint);
+                _sendingGroupClient.Send( data, data.Length, EndPoint);
 
                 Helper.dd("data was sended");
             }

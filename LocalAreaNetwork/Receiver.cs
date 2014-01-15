@@ -28,7 +28,7 @@ namespace LocalAreaNetwork
 
         bool _receiverStatus;
 
-     // Object _groupData;
+        Object _groupData;
         Object _defaultGroupData;
 
         public void InitializeReceiver()
@@ -71,11 +71,11 @@ namespace LocalAreaNetwork
                     IPEndPoint TemporaryDefaultEndPoint = new IPEndPoint( IPAddress.Any, _defaultport );
 
                     //receive object bytes array
-                  //byte[] _groupDataBytes = _receivingGroupClient.Receive( ref EndPoint );
+                    byte[] _groupDataBytes = _receivingGroupClient.Receive( ref EndPoint );
                     byte[] _defaultGroupDataBytes = _receivingDefaultGroupClient.Receive( ref DefaultEndPoint );
 
                     //Convert object bytes array to object
-                  //_groupData = ByteArrayToObject( _groupDataBytes );
+                    _groupData = ByteArrayToObject( _groupDataBytes );
                     _defaultGroupData = ByteArrayToObject( _defaultGroupDataBytes );
                 }
                 catch (Exception e)
@@ -120,12 +120,11 @@ namespace LocalAreaNetwork
             Object obj = (Object)binForm.Deserialize( memStream );
             return obj;
         }
-        /*
+        
         public Object GroupData()
         {
             return _groupData;
         }
-         * */
         public Object DefaultGroupData()
         {
             return _defaultGroupData;

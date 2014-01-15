@@ -75,10 +75,20 @@ namespace GUI2
         {
             Helper.dd("Timer firing -------------------------------------------");
 
+            //NEW GROUP DATA !!!
+            Object receiveData1 = c.GroupData();
+
+            if (receiveData1 != null)
+            {
+                CoreLibrary.Group g1 = (CoreLibrary.Group)receiveData1;
+            }
+
             if (c != null)
             {
                 c.Sender();
+                //liste des groupes
                 Object receiveData = c.ReceivedData();
+
                 if (receiveData != null)
                 {                   
                     if (receiveData is CoreLibrary.Group)
