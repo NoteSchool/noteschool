@@ -18,7 +18,7 @@ namespace CoreLibrary
         public string Text
         {
             get { return _text; }
-            set { _text = value; }
+            set { _text = value; _editedAt = DateTime.Now; }
         }
 
         public DateTime EditedAt { get { return _editedAt; } set { _editedAt = value; } }

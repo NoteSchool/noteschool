@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GroupPacket.cs" />
     <Compile Include="ILocalAreaNetwork.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Network.cs" />

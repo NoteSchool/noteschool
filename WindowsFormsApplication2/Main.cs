@@ -74,20 +74,96 @@ namespace GUI2
         private void SyncTimer(object sender, ElapsedEventArgs e)
         {
             Helper.dd("Timer firing -------------------------------------------");
+            if (c == null) return;
 
-            //NEW GROUP DATA !!!
-            Object receiveData1 = c.GroupData();
+            //send current group to others
+            c.Sender();
 
-            if (receiveData1 != null)
+            /* +----------------------------------------+
+             * |    NOTES                               |
+             * |    List of the current group notes     |
+             * |                                        |
+             * +----------------------------------------+ */
+            Object notesReceived = c.GroupData();
+
+            if (notesReceived != null)
             {
-                CoreLibrary.Group g1 = (CoreLibrary.Group)receiveData1;
+                Helper.dd("Notes received");
+
+                Dictionary<String, Note> notes = (Dictionary<String, Note>)notesReceived;
+                bool updateWasMade = false;
+
+                //Loop over each note to add or update it localy
+                foreach (var n in notes)
+                {
+                    //i received my own note ?
+                    if (n.Key != c.CurrentUser.Id)
+                    {
+                        //already have this note ?
+                        if (!c.CurrentGroup.Notes.ContainsKey(n.Key))
+                        {
+                            c.CurrentGroup.Notes.Add(n.Key, n.Value);
+                            Helper.dd("Note of user " + n.Key + " added");
+                            updateWasMade = true;
+                        }
+                        //have it but was it changed remotely ?
+                        else if (n.Value.Text != c.CurrentGroup.Notes[n.Key].Text)
+                        {
+                            c.CurrentGroup.Notes[n.Key].Text = n.Value.Text;
+                            Helper.dd("Note of user " + n.Key + " updated");
+                            updateWasMade = true;
+
+                            //this note is displaying ?
+                            if (NoteEditorControl2.WatchUserId == n.Key && NoteEditorControl2.WatchUserNote != n.Value.Text)
+                            {
+                                NoteEditorControl2.WatchUserNote = n.Value.Text;
+                            }
+                        }
+                    }
+                }
+
+                if (updateWasMade)
+                {
+                    NoteEditorControl2.Group = c.CurrentGroup;
+                    //Helper.dd("Group " + g.Name + " updated");
+                }
             }
 
+
+            /* +----------------------------------------+
+             * |    GROUP                               |
+             * |    group just created in the current   |
+             * |    network                             |
+             * +----------------------------------------+ */
+
+            Object receiveData = c.ReceivedData();
+
+            if (receiveData != null)
+            {
+                Helper.dd("Group received");
+
+                CoreLibrary.GroupPacket group = (CoreLibrary.GroupPacket)receiveData;
+
+                Helper.dd("Group " + group.Name + " received");
+
+                if (!c.Groups.ContainsKey(group.MulticastAddress))
+                {
+                    c.Groups.Add(group.MulticastAddress, c.CreateGroupFromPacket(group));
+                    GroupsPageControl.CreateGroupButtons(c.Groups);
+
+                    Helper.dd("Group added");
+                }
+            }
+
+            if( notesReceived == null && receiveData == null)
+                Helper.dd("No data received");
+
+            /*
             if (c != null)
             {
                 c.Sender();
                 //liste des groupes
-                Object receiveData = c.ReceivedData();
+                //Object receiveData = c.ReceivedData();
 
                 if (receiveData != null)
                 {                   
@@ -157,7 +233,7 @@ namespace GUI2
                 {
                     Helper.dd("No data received");
                 }
-            }
+            }*/
         }
         private void content1_Load(object sender, EventArgs e)
         {

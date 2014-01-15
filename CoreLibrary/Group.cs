@@ -59,5 +59,10 @@ namespace CoreLibrary
             if(!_users.ContainsKey(Context.CurrentUser.Id))
                 _users.Add(Context.CurrentUser.Id, Context.CurrentUser);
         }
+
+        public GroupPacket ToTransportable()
+        {
+            return new CoreLibrary.GroupPacket(this);
+        }
     }
 }

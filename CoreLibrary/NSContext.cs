@@ -118,6 +118,12 @@ namespace CoreLibrary
             return g;
         }
 
+        public Group CreateGroupFromPacket(GroupPacket group)
+        {
+            bool created;
+            return FindOrCreateGroup(group.Name, group.Tag, group.MulticastAddress, out created);
+        }
+
         public User CreateUser( string firstName, string lastName )
         {
             if (String.IsNullOrWhiteSpace( firstName )) throw new ArgumentException( "Must be a non empty string", "firstName" );
