@@ -101,11 +101,14 @@ namespace GUI2
                     NoteEditorControl2.WatchUserNote = group.Notes[NoteEditorControl2.WatchUserId].Text;
                     
                 }
-
+                Helper.dd(Group.Notes.Count.ToString());
                 //notes count has changed
                 if( c.CurrentGroup.Notes.Count != group.Notes.Count)
                     NoteEditorControl2.Group = c.CurrentGroup;
 
+                if (group.Users.Count != NoteEditorControl2.Users.Count)
+                    NoteEditorControl2.Users = Group.Users;
+                       
                 //c.CurrentGroup = Group;
             }
 

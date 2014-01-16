@@ -44,11 +44,12 @@ namespace GUI2
             set
             {
                 //if (_users !=  null && value.Count != _users.Count)
-                value.Remove(UserId);
+                //value.Remove(UserId);
                 _buildUserList(value);
 
                 _users = value;          
             }
+            get { return _users; }
         }
 
         internal string Note { set { this.noteTextBox.Text = !string.IsNullOrEmpty(value) ? value : "Ma note"; } }
