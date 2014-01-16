@@ -41,8 +41,6 @@ namespace LocalAreaNetwork
 
                 //send byte array to client
                 _sendingGroupClient.Send( data, data.Length, EndPoint);
-
-                Helper.dd("data was sended");
             }
             catch (Exception e)
             {

@@ -45,7 +45,6 @@ namespace GUI2
                 LoggedIn = true;
                 c = NSContext.Load(cs);
                 c.Receiver();
-                c.JoinGroup("224.0.1.0");
             }
 
             InitializeComponent();
@@ -96,12 +95,6 @@ namespace GUI2
 
                 Helper.dd(group.Name);
 
-                /*if (!c.Groups.ContainsKey(group.MulticastAddress))
-                {
-                    c.Groups.Add(group.MulticastAddress, Group);
-                    Helper.dd("Group added");
-                }*/
-
                 if (NoteEditorControl2.WatchUserId != null && group.Notes.ContainsKey(NoteEditorControl2.WatchUserId)
                     && group.Notes[NoteEditorControl2.WatchUserId].EditedAt > c.CurrentGroup.NoteEditedAt)
                 {
@@ -113,7 +106,7 @@ namespace GUI2
                 if( c.CurrentGroup.Notes.Count != group.Notes.Count)
                     NoteEditorControl2.Group = c.CurrentGroup;
 
-                c.CurrentGroup = Group;
+                //c.CurrentGroup = Group;
             }
 
 
@@ -135,7 +128,7 @@ namespace GUI2
 
                 if (!c.Groups.ContainsKey(group.MulticastAddress))
                 {
-                    c.Groups.Add(group.MulticastAddress, c.CreateGroupFromPacket(group));
+                    c.CreateGroupFromPacket(group);
                     GroupsPageControl.CreateGroupButtons(c.Groups);
 
                     Helper.dd("Group added");
@@ -373,8 +366,6 @@ namespace GUI2
                         List<string> results;
                         if (RegisterPageControl.Validation(out results))
                         {
-                            c.JoinGroup("224.0.1.0");
-
                             c = new NSContext();
                             c.Initialize(cs);
                             c.CurrentUser = c.CreateUser(results[0], results[1]);

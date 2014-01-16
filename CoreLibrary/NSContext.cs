@@ -28,6 +28,7 @@ namespace CoreLibrary
 
         readonly Dictionary<string, List<string>> _userListPerGroup;
 
+        [NonSerialized]
         private string _currentMca;
 
         public NSContext()
@@ -182,6 +183,7 @@ namespace CoreLibrary
         {
             if (CurrentGroup != null)
             {
+                Helper.dd(CurrentGroup.Name + " was send");
                 Services.Lan.InitializeSender( CurrentGroup.ToTransportable(), 
                     CurrentGroup.ToTransportable(true));
             }
