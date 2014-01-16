@@ -45,6 +45,7 @@ namespace GUI2
                 LoggedIn = true;
                 c = NSContext.Load(cs);
                 c.Receiver();
+                c.JoinGroup("224.0.1.0");
             }
 
             InitializeComponent();
@@ -88,10 +89,12 @@ namespace GUI2
 
             if (notesReceived != null)
             {
-                Helper.dd("Notes received");
+                Helper.dd("Full Group received");
 
                 CoreLibrary.GroupFullPacket group = (CoreLibrary.GroupFullPacket)notesReceived;
                 CoreLibrary.Group Group = c.CreateGroupFromPacket(group);
+
+                Helper.dd(group.Name);
 
                 /*if (!c.Groups.ContainsKey(group.MulticastAddress))
                 {
@@ -124,11 +127,11 @@ namespace GUI2
 
             if (receiveData != null)
             {
-                Helper.dd("Group received");
+                Helper.dd("Light Group received");
 
                 CoreLibrary.GroupLightPacket group = (CoreLibrary.GroupLightPacket)receiveData;
 
-                Helper.dd("Group " + group.Name + " received");
+                Helper.dd(group.Name);
 
                 if (!c.Groups.ContainsKey(group.MulticastAddress))
                 {
@@ -370,6 +373,8 @@ namespace GUI2
                         List<string> results;
                         if (RegisterPageControl.Validation(out results))
                         {
+                            c.JoinGroup("224.0.1.0");
+
                             c = new NSContext();
                             c.Initialize(cs);
                             c.CurrentUser = c.CreateUser(results[0], results[1]);

@@ -28,6 +28,8 @@ namespace CoreLibrary
 
         readonly Dictionary<string, List<string>> _userListPerGroup;
 
+        private string _currentMca;
+
         public NSContext()
         {
             _groups = new Dictionary<string, Group>();
@@ -186,8 +188,11 @@ namespace CoreLibrary
         }
         public void JoinGroup( string mca )
         {
-            Helper.dd("MCA " + mca + " is joining");
-            Services.Lan.JoinGroup( mca );
+            if (_currentMca != mca)
+            {
+                _currentMca = mca;
+                Services.Lan.JoinGroup(mca);
+            }
         }
         public void LeaveGroup( string mca )
         {
