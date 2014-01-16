@@ -96,8 +96,10 @@ namespace GUI2
                 Helper.dd(group.Name);
 
                 if (NoteEditorControl2.WatchUserId != null && group.Notes.ContainsKey(NoteEditorControl2.WatchUserId)
-                    && group.Notes[NoteEditorControl2.WatchUserId].EditedAt > c.CurrentGroup.NoteEditedAt)
-                {
+                    //&& group.Notes[NoteEditorControl2.WatchUserId].EditedAt > c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].EditedAt
+                    && group.Notes[NoteEditorControl2.WatchUserId].Text != c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].Text
+                )
+                  {
                     NoteEditorControl2.WatchUserNote = group.Notes[NoteEditorControl2.WatchUserId].Text;
                     
                 }
