@@ -17,7 +17,7 @@ namespace LocalAreaNetwork
         UdpClient _sendingGroupClient = new UdpClient();
         UdpClient _sendingDefaultGroupClient;
 
-        public void InitializeSender(Object obj)
+        public void InitializeSender(Object obj, Object obj2)
         {
             //create udp sending default client if not existed
             if (_sendingDefaultGroupClient == null)
@@ -34,9 +34,10 @@ namespace LocalAreaNetwork
 
                 //convert string to bytes (needed to be able to send)
                 byte[] data = ObjectToByteArray(obj);
+                byte[] data2 = ObjectToByteArray(obj2);
 
                 //send byte array to default client
-                _sendingDefaultGroupClient.Send(data, data.Length, DefaultEndPoint);
+                _sendingDefaultGroupClient.Send(data2, data2.Length, DefaultEndPoint);
 
                 //send byte array to client
                 _sendingGroupClient.Send( data, data.Length, EndPoint);

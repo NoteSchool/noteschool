@@ -60,9 +60,14 @@ namespace CoreLibrary
                 _users.Add(Context.CurrentUser.Id, Context.CurrentUser);
         }
 
-        public GroupPacket ToTransportable()
+        public GroupFullPacket ToTransportable()
         {
-            return new CoreLibrary.GroupPacket(this);
+            return new CoreLibrary.GroupFullPacket(this);
+        }
+
+        public GroupLightPacket ToTransportable(bool full)
+        {
+            return new CoreLibrary.GroupLightPacket(this);
         }
     }
 }

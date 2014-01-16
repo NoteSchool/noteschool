@@ -9,7 +9,7 @@ namespace CoreLibrary
     public interface ILocalAreaNetwork
     {
         void InitializeReceiver();
-        void InitializeSender(Object obj);
+        void InitializeSender(Object obj, Object obj2);
         void JoinGroup(string mca);
         void LeaveGroup( string mca);
         Object GroupData();

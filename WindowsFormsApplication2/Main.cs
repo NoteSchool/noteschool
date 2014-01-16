@@ -90,43 +90,27 @@ namespace GUI2
             {
                 Helper.dd("Notes received");
 
-                Dictionary<String, Note> notes = (Dictionary<String, Note>)notesReceived;
-                bool updateWasMade = false;
+                CoreLibrary.GroupFullPacket group = (CoreLibrary.GroupFullPacket)notesReceived;
+                CoreLibrary.Group Group = c.CreateGroupFromPacket(group);
 
-                //Loop over each note to add or update it localy
-                foreach (var n in notes)
+                /*if (!c.Groups.ContainsKey(group.MulticastAddress))
                 {
-                    //i received my own note ?
-                    if (n.Key != c.CurrentUser.Id)
-                    {
-                        //already have this note ?
-                        if (!c.CurrentGroup.Notes.ContainsKey(n.Key))
-                        {
-                            c.CurrentGroup.Notes.Add(n.Key, n.Value);
-                            Helper.dd("Note of user " + n.Key + " added");
-                            updateWasMade = true;
-                        }
-                        //have it but was it changed remotely ?
-                        else if (n.Value.Text != c.CurrentGroup.Notes[n.Key].Text)
-                        {
-                            c.CurrentGroup.Notes[n.Key].Text = n.Value.Text;
-                            Helper.dd("Note of user " + n.Key + " updated");
-                            updateWasMade = true;
+                    c.Groups.Add(group.MulticastAddress, Group);
+                    Helper.dd("Group added");
+                }*/
 
-                            //this note is displaying ?
-                            if (NoteEditorControl2.WatchUserId == n.Key && NoteEditorControl2.WatchUserNote != n.Value.Text)
-                            {
-                                NoteEditorControl2.WatchUserNote = n.Value.Text;
-                            }
-                        }
-                    }
+                if (NoteEditorControl2.WatchUserId != null && group.Notes.ContainsKey(NoteEditorControl2.WatchUserId)
+                    && group.Notes[NoteEditorControl2.WatchUserId].EditedAt > c.CurrentGroup.NoteEditedAt)
+                {
+                    NoteEditorControl2.WatchUserNote = group.Notes[NoteEditorControl2.WatchUserId].Text;
+                    
                 }
 
-                if (updateWasMade)
-                {
+                //notes count has changed
+                if( c.CurrentGroup.Notes.Count != group.Notes.Count)
                     NoteEditorControl2.Group = c.CurrentGroup;
-                    //Helper.dd("Group " + g.Name + " updated");
-                }
+
+                c.CurrentGroup = Group;
             }
 
 
@@ -142,7 +126,7 @@ namespace GUI2
             {
                 Helper.dd("Group received");
 
-                CoreLibrary.GroupPacket group = (CoreLibrary.GroupPacket)receiveData;
+                CoreLibrary.GroupLightPacket group = (CoreLibrary.GroupLightPacket)receiveData;
 
                 Helper.dd("Group " + group.Name + " received");
 

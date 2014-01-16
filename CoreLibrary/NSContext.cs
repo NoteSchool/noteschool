@@ -118,7 +118,44 @@ namespace CoreLibrary
             return g;
         }
 
-        public Group CreateGroupFromPacket(GroupPacket group)
+        public Group CreateGroupFromPacket(GroupFullPacket group)
+        {
+            bool created;
+            var g = FindOrCreateGroup(group.Name, group.Tag, group.MulticastAddress, out created);
+
+            if (created)
+            {
+                g.Notes = group.Notes;
+                g.Users = group.Users;
+            }
+            else //merge user and notes
+            {
+                group.Users.ToList().ForEach(x => g.Users[x.Key] = x.Value);
+    
+                foreach (var v in group.Notes)
+                {
+                    //update
+                    if (g.Notes.ContainsKey(v.Key))
+                    {
+                        //different date ?
+                        if (g.Notes[v.Key].EditedAt < v.Value.EditedAt)
+                        {
+                            g.Notes[v.Key].Text = v.Value.Text;
+                            g.NoteEditedAt = DateTime.Now;
+                        }
+                    }
+                    else //add
+                    {
+                        g.Notes.Add(v.Key, v.Value);
+                        g.NoteEditedAt = DateTime.Now;
+                    }
+                }
+            }
+
+            return g;
+        }
+
+        public Group CreateGroupFromPacket(GroupLightPacket group)
         {
             bool created;
             return FindOrCreateGroup(group.Name, group.Tag, group.MulticastAddress, out created);
@@ -163,7 +200,8 @@ namespace CoreLibrary
         {
             if (CurrentGroup != null)
             {
-                Services.Lan.InitializeSender( CurrentGroup );
+                Services.Lan.InitializeSender( CurrentGroup.ToTransportable(), 
+                    CurrentGroup.ToTransportable(true));
             }
         }
         public void JoinGroup( string mca )
