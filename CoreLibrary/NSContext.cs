@@ -85,34 +85,14 @@ namespace CoreLibrary
             if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );
 
             created = false;
-            bool existed = false;
-
             Group g = null;
 
-            //_groups looking for a multicast address. we give it a name;
-            if (!_groups.TryGetValue( name, out g ))
+            //_groups looking for a multicast address;
+            if (!_groups.TryGetValue(multicastAddress, out g))
             {
-                while (!created)
-                {
-                    foreach (var group in _groups)
-                    {
-                        if (multicastAddress == group.Key)
-                        {
-                            existed = true;
-                        }
-                    }
-                    if (!existed)
-                    {
-                        g = new Group( this, name, tag, multicastAddress );
-                        _groups.Add( multicastAddress, g );
-                        created = true;
-                    }
-                    else
-                    {
-                        multicastAddress = SetMulticastAddress();
-                        existed = false;
-                    }
-                }
+                g = new Group( this, name, tag, multicastAddress );
+                _groups.Add( multicastAddress, g );
+                created = true;
             }
 
             return g;
