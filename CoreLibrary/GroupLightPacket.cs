@@ -12,9 +12,11 @@ namespace CoreLibrary
         public string Name;
         public string Tag;
         public string MulticastAddress;
+        readonly public string user;
 
-        public GroupLightPacket(Group group)
+        public GroupLightPacket(Group group, string userid)
         {
+            user = userid;
             Name = group.Name;
             Tag = group.Tag;
             MulticastAddress = group.MulticastAddress;

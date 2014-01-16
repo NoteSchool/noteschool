@@ -62,12 +62,12 @@ namespace CoreLibrary
 
         public GroupFullPacket ToTransportable()
         {
-            return new CoreLibrary.GroupFullPacket(this);
+            return new CoreLibrary.GroupFullPacket(this, _context.CurrentUser.Id);
         }
 
         public GroupLightPacket ToTransportable(bool full)
         {
-            return new CoreLibrary.GroupLightPacket(this);
+            return new CoreLibrary.GroupLightPacket(this, _context.CurrentUser.Id);
         }
     }
 }

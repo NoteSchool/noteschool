@@ -7,19 +7,14 @@ using System.Threading.Tasks;
 namespace CoreLibrary
 {
     [Serializable]
-    public class GroupFullPacket
+    public class GroupFullPacket : GroupLightPacket
     {
-        public string Name;
-        public string Tag;
-        public string MulticastAddress;
         public Dictionary<String, Note> Notes;
         public Dictionary<String, User> Users; 
 
-        public GroupFullPacket(Group group)
+        public GroupFullPacket(Group group, string userid)
+            :base(group, userid)
         {
-            Name = group.Name;
-            Tag = group.Tag;
-            MulticastAddress = group.MulticastAddress;
             Notes = group.Notes;
             Users = group.Users;
         }

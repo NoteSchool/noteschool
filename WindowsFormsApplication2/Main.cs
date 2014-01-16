@@ -91,27 +91,31 @@ namespace GUI2
                 Helper.dd("Full Group received");
 
                 CoreLibrary.GroupFullPacket group = (CoreLibrary.GroupFullPacket)notesReceived;
-                CoreLibrary.Group Group = c.CreateGroupFromPacket(group);
 
-                Helper.dd(group.Name);
+                if (group.user != c.CurrentUser.Id)
+                {
+                    CoreLibrary.Group Group = c.CreateGroupFromPacket(group);
 
-                if (NoteEditorControl2.WatchUserId != null && group.Notes.ContainsKey(NoteEditorControl2.WatchUserId)
-                    //&& group.Notes[NoteEditorControl2.WatchUserId].EditedAt > c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].EditedAt
-                    && group.Notes[NoteEditorControl2.WatchUserId].Text != c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].Text
-                )
-                  {
-                    NoteEditorControl2.WatchUserNote = group.Notes[NoteEditorControl2.WatchUserId].Text;
-                    
+                    Helper.dd(group.Name);
+
+                    if (NoteEditorControl2.WatchUserId != null && group.Notes.ContainsKey(NoteEditorControl2.WatchUserId)
+                        //&& group.Notes[NoteEditorControl2.WatchUserId].EditedAt > c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].EditedAt
+                        //&& group.Notes[NoteEditorControl2.WatchUserId].Text != c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].Text
+                    )
+                    {
+                        NoteEditorControl2.WatchUserNote = group.Notes[NoteEditorControl2.WatchUserId].Text;
+
+                    }
+                    Helper.dd(Group.Notes.Count.ToString());
+                    //notes count has changed
+                    if (c.CurrentGroup.Notes.Count != group.Notes.Count)
+                        NoteEditorControl2.Group = c.CurrentGroup;
+
+                    if (group.Users.Count != NoteEditorControl2.Users.Count)
+                        NoteEditorControl2.Users = Group.Users;
+
+                    //c.CurrentGroup = Group;
                 }
-                Helper.dd(Group.Notes.Count.ToString());
-                //notes count has changed
-                if( c.CurrentGroup.Notes.Count != group.Notes.Count)
-                    NoteEditorControl2.Group = c.CurrentGroup;
-
-                if (group.Users.Count != NoteEditorControl2.Users.Count)
-                    NoteEditorControl2.Users = Group.Users;
-                       
-                //c.CurrentGroup = Group;
             }
 
 
@@ -129,14 +133,17 @@ namespace GUI2
 
                 CoreLibrary.GroupLightPacket group = (CoreLibrary.GroupLightPacket)receiveData;
 
-                Helper.dd(group.Name);
-
-                if (!c.Groups.ContainsKey(group.MulticastAddress))
+                if (group.user != c.CurrentUser.Id)
                 {
-                    c.CreateGroupFromPacket(group);
-                    GroupsPageControl.CreateGroupButtons(c.Groups);
+                    Helper.dd(group.Name);
 
-                    Helper.dd("Group added");
+                    if (!c.Groups.ContainsKey(group.MulticastAddress))
+                    {
+                        c.CreateGroupFromPacket(group);
+                        GroupsPageControl.CreateGroupButtons(c.Groups);
+
+                        Helper.dd("Group added");
+                    }
                 }
             }
 
