@@ -66,7 +66,7 @@ namespace GUI2
         {
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
             _syncTimer.Elapsed += SyncTimer;
-            _syncTimer.Interval = 3000;
+            _syncTimer.Interval = 1000;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
