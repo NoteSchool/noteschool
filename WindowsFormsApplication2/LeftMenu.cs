@@ -39,31 +39,32 @@ namespace GUI2
             InitializeComponent();
         }
 
-        public menuItem createItem(string label, string icon = "register", bool disable = false, int pos = -1, string id="")
+        public menuItem createItem(string label, string id = "register", bool disable = false, int pos = -1)
         {
-            menuItem menuItem = new GUI2.menuItem();
+            menuItem menuItem = new GUI2.menuItem(id);
 
             menuItem.Cursor = System.Windows.Forms.Cursors.Hand;
             menuItem.Name = label;
             menuItem.Size = new System.Drawing.Size(150, 84);
             menuItem.IsDisabled = disable;
             menuItem.Text = label;
-            menuItem.Id = id;
             menuItem.Click += new System.EventHandler(this.MenuItem_click);
 
             if (pos != -1)
             {
                 _menuItems.Insert(pos, menuItem);
-                
+
+                Controls.Add(menuItem);
                 ReposItems();
             }
             else
             {
                 menuItem.Location = new System.Drawing.Point(0, _menuItems.Count * _itemHeight);
                 _menuItems.Add(menuItem);
+                Controls.Add(menuItem);
             }
 
-            Controls.Add(menuItem);
+            
             return menuItem;
         }
 
@@ -93,6 +94,7 @@ namespace GUI2
         {
             
             this.SuspendLayout();
+     
             int i = 0;
             foreach (Control m in Controls)
             {

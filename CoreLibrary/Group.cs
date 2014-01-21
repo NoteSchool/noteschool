@@ -17,6 +17,7 @@ namespace CoreLibrary
         string _tag;
         string _multicastAddress;
         DateTime _notesEditedAt;
+        DateTime _createdAt;
         Dictionary<String, Note> _notes;
         Dictionary<String, User> _users;
 
@@ -31,7 +32,7 @@ namespace CoreLibrary
             _tag = tag;
             _multicastAddress = multicastAddress;
             _notesEditedAt = DateTime.Now;
-
+            _createdAt = DateTime.Now;
             _notes = new Dictionary<String, Note>();
             _users = new Dictionary<String, User>();
             //default note
@@ -45,6 +46,7 @@ namespace CoreLibrary
         public string Tag { get { return _tag; } }
         public string MulticastAddress { get { return _multicastAddress; } }
         public Dictionary<string, User> Users { get { return _users; } set { _users = value; } }
+        public DateTime createdAt { get { return _createdAt; } }
 
         public void ReInialize(NSContext c)
         {

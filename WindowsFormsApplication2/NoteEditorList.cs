@@ -20,6 +20,7 @@ namespace GUI2
         private Color _itemBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
         private Size _itemSize;
         private EventHandler _itemClick;
+        private string _previousSearch = "";
 
         public NoteEditorList()
         {
@@ -30,8 +31,11 @@ namespace GUI2
 
             searchTextBox.TextChanged += (s, e) =>
                 {
-                    if (searchTextBox.Text != "Recherche..")
-                    OnSearch(s, e);
+                    if (searchTextBox.Text != "Recherche.." && _previousSearch != searchTextBox.Text)
+                    {
+                        _previousSearch = searchTextBox.Text;
+                        OnSearch(s, e);
+                    }
                 };
 
             searchTextBox.GotFocus += (s, e) =>

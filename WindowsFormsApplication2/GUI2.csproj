@@ -61,11 +61,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutPage.cs">
+  <Compile Include="NoteEditorList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AboutPage.Designer.cs">
-      <DependentUpon>AboutPage.cs</DependentUpon>
+	<Compile Include="NoteEditorList.Designer.cs">
+      <DependentUpon>NoteEditorList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HelpPage.Designer.cs">
+      <DependentUpon>HelpPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Content.cs">
       <SubType>UserControl</SubType>
@@ -90,12 +96,6 @@
     </Compile>
     <Compile Include="NoteEditor2.Designer.cs">
       <DependentUpon>NoteEditor2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NoteEditorList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="NoteEditorList.Designer.cs">
-      <DependentUpon>NoteEditorList.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -153,8 +153,8 @@
     <Compile Include="UsersPage.Designer.cs">
       <DependentUpon>UsersPage.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutPage.resx">
-      <DependentUpon>AboutPage.cs</DependentUpon>
+    <EmbeddedResource Include="HelpPage.resx">
+      <DependentUpon>HelpPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Content.resx">
       <DependentUpon>Content.cs</DependentUpon>
@@ -167,9 +167,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NoteEditor2.resx">
       <DependentUpon>NoteEditor2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NoteEditorList.resx">
-      <DependentUpon>NoteEditorList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -196,6 +193,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+	<EmbeddedResource Include="NoteEditorList.resx">
+      <DependentUpon>NoteEditorList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InputNLabel.resx">
       <DependentUpon>InputNLabel.cs</DependentUpon>
     </EmbeddedResource>
@@ -260,6 +260,24 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groups.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groupsHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\noteEditor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\noteEditorHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\helpHover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

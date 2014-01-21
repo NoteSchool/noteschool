@@ -18,6 +18,7 @@ namespace GUI2
         public EventHandler CreateGroupButtonClick;
         public EventHandler SearchTextChange;
         private string _keyword;
+        private string _previousKeyword = "";
 
         delegate void StartButtonsCreationInvoker();
         delegate void FinishButtonsCreationInvoker(List<Control> btns);
@@ -73,6 +74,7 @@ namespace GUI2
             var btnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(133)))), ((int)(((byte)(133)))));
             var btnFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             var BtnEvent = new EventHandler(GroupClick);
+            string date;
 
             foreach (var group in groups)
             {
@@ -82,16 +84,26 @@ namespace GUI2
 
                 if (match)
                 {
+                    date = string.Format("{0:m}" , group.Value.createdAt);
+                    if( string.Format("{0:d}" , group.Value.createdAt) == string.Format("{0:d}", DateTime.Now))
+                    {
+                        date = "Aujourd'hui";
+                    }
+
                     // Create a Button object
                     btn = new Button();
                     btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
                     btn.BackColor = btnBackColor;
                     btn.Font = btnFont;
+                    
                     btn.ForeColor = System.Drawing.Color.White;
                     btn.Name = group.Key;
                     btn.AutoSize = true;
-                    btn.Text = "Name :" + group.Value.Name + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
+                    //btn.Text = "Name :" + group.Value.Name + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
                     btn.Click += BtnEvent;
+                    btn.Text = ":::: "+group.Value.Name + "\r\n#" + group.Value.Tag+"\r\n"+date;
+                    btn.TextAlign = ContentAlignment.MiddleLeft;
+                    
 
                     // Add Button to the Form. 
                     btns.Add(btn);
@@ -121,7 +133,12 @@ namespace GUI2
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (searchTextBox.Text != "Recherche")
-           SearchTextChange(sender, e);
+            {
+                if(searchTextBox.Text != _previousKeyword)
+                    SearchTextChange(sender, e);
+
+                _previousKeyword = searchTextBox.Text;
+            }
         }
     }
 }

@@ -43,8 +43,6 @@ namespace GUI2
         {
             set
             {
-                //if (_users !=  null && value.Count != _users.Count)
-                //value.Remove(UserId);
                 _buildUserList(value);
 
                 _users = value;          
@@ -98,10 +96,13 @@ namespace GUI2
             noteEditorList1.OnSearch += (s, e) =>
                 {
                     var textBox = s as TextBox;
-                    Keyword = textBox.Text;
 
-                    DoSearch();
-                };
+                    //DoSearch();
+                    noteEditorList1.BuildList(
+                    _users.Where(i => i.Key != UserId)
+                    .ToDictionary(i => i.Key, i => i.Value)
+                   , textBox.Text);
+                    };
 
             noteTextBox.GotFocus += (s, e) =>
             {
@@ -145,15 +146,6 @@ namespace GUI2
             {
                 this.noteEditorList1.BuildList(users, Keyword);
             }
-        }
-
-        internal void DoSearch()
-        {
-            noteEditorList1.BuildList(
-                _users.Where(i => i.Key != UserId)
-                .ToDictionary(i => i.Key, i => i.Value)
-               , Keyword);
-            
         }
 
         internal void ViewType(int type = 1)

@@ -27,7 +27,7 @@ namespace GUI2
         private GroupsPage GroupsPageControl;
         private RegisterPage RegisterPageControl;
         private CreateGroupPage GroupCreatePageControl;
-        private AboutPage AboutPageControl;
+        private HelpPage HelpPageControl;
         private Panel NoteEditorControl;
         private NoteEditor2 NoteEditorControl2;
 
@@ -38,7 +38,7 @@ namespace GUI2
         static extern bool AllocConsole();
 
         public Main()
-        {
+        {      
             AllocConsole();
             if (File.Exists(_path))
             {
@@ -149,83 +149,6 @@ namespace GUI2
 
             if( notesReceived == null && receiveData == null)
                 Helper.dd("No data received");
-
-            /*
-            if (c != null)
-            {
-                c.Sender();
-                //liste des groupes
-                //Object receiveData = c.ReceivedData();
-
-                if (receiveData != null)
-                {                   
-                    if (receiveData is CoreLibrary.Group)
-                    {
-                        Helper.dd("Data received");
-                        CoreLibrary.Group g = (CoreLibrary.Group)receiveData;
-
-                        if (!c.Groups.ContainsKey(g.MulticastAddress))
-                        {
-                            c.Groups.Add(g.MulticastAddress, g);
-                            GroupsPageControl.CreateGroupButtons(c.Groups);
-
-                            Helper.dd(g.Name + " was added");
-                        }
-                        else if (c.CurrentGroup != null && c.CurrentGroup.Name == g.Name)
-                        {
-                            bool updateWasDone = false;
-                            foreach (var u in g.Users)
-                            {
-                                if (u.Key != c.CurrentUser.Id && !c.CurrentGroup.Users.ContainsKey(u.Key))
-                                {
-                                    c.CurrentGroup.Users.Add(u.Key, u.Value);
-                                    Helper.dd("User " + u.Value.FirstName + " added");
-                                    updateWasDone = true;
-                                }
-                            }
-
-                            foreach (var n in g.Notes)
-                            {
-                                if (n.Key != c.CurrentUser.Id)
-                                {
-                                    if (!c.CurrentGroup.Notes.ContainsKey(n.Key))
-                                    {
-                                        c.CurrentGroup.Notes.Add(n.Key, n.Value);
-                                        Helper.dd("Note of user " + n.Key + " added");
-                                        updateWasDone = true;
-                                    }
-                                    else if (n.Value.Text != c.CurrentGroup.Notes[n.Key].Text)
-                                    {
-                                        c.CurrentGroup.Notes[n.Key].Text = n.Value.Text;
-                                        Helper.dd("Note of user " + n.Key + " updated");
-                                        updateWasDone = true;
-
-                                        if (NoteEditorControl2.WatchUserId == n.Key && NoteEditorControl2.WatchUserNote != n.Value.Text)
-                                        {
-                                            NoteEditorControl2.WatchUserNote = n.Value.Text;
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (updateWasDone)
-                            {
-                                NoteEditorControl2.Group = c.CurrentGroup;
-                                Helper.dd("Group " + g.Name + " updated");
-                            }
-                            
-                        }
-                    }
-                    else
-                    {
-                        Helper.dd("Data receveived is not a group");
-                    }
-                }
-                else
-                {
-                    Helper.dd("No data received");
-                }
-            }*/
         }
         private void content1_Load(object sender, EventArgs e)
         {
@@ -249,8 +172,8 @@ namespace GUI2
         {
             leftMenu menu = sender as leftMenu;
 
-            menuItem groups = menu.createItem(label: "Groupes", id: "groups");
-            menuItem about = menu.createItem(label: "A Propos", id: "about");
+            menuItem groups = menu.createItem(label: "Accueil", id: "groups");
+            menuItem about = menu.createItem(label: "Aide", id: "help");
 
             if (!LoggedIn)
             {
@@ -271,15 +194,16 @@ namespace GUI2
                 {
                     var item = s as menuItem;
 
-                    Helper.dd(item.Text + " menu clicked");
+
+                    this.Text = item.Text;
 
                     switch (item.Id)
                     {
                         case "noteEditor":
                             NoteEditor(c.CurrentGroup);
                             break;
-                        case "about":
-                            AboutPage();
+                        case "help":
+                            HelpPage();
                             break;
                         case "groups":
                             GroupsPage();
@@ -435,7 +359,7 @@ namespace GUI2
 
                 NoteEditorControl.Controls.Add(NoteEditorControl2);
 
-                var menuItem = this.leftMenu1.createItem(label: "Note Editor", pos: 0, id: "noteEditor");
+                var menuItem = this.leftMenu1.createItem(label: "Note Editor", pos: 1, id: "noteEditor");
                 this.leftMenu1.SelectedItem = menuItem;
 
                 //No friend note is show
@@ -461,7 +385,7 @@ namespace GUI2
 
 
             this.leftMenu1.SelectedItem.Text = group.Name;
-            this.header1.textItemLabel.Text = group.Name + "   " + (group.Users.Count - 1) + " participants";
+            this.header1.textItemLabel.Text = " " + group.Name + " ::: " + string.Format("{0:m}", group.createdAt) + " ::: " + (group.Users.Count - 1) + " participants";
             this.header1.textItemLabel.Visible = true;
 
             this.Controls.Add(NoteEditorControl);
@@ -470,15 +394,15 @@ namespace GUI2
             this.PerformLayout();
         }
 
-        private void AboutPage()
+        private void HelpPage()
         {
-            if (AboutPageControl == null)
+            if (HelpPageControl == null)
             {
-                AboutPageControl = new GUI2.AboutPage();
-                AboutPageControl.BackColor = System.Drawing.Color.White;
-                AboutPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                AboutPageControl.Dock = DockStyle.Fill;
-                AboutPageControl.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " + Environment.NewLine
+                HelpPageControl = new GUI2.HelpPage();
+                HelpPageControl.BackColor = System.Drawing.Color.White;
+                HelpPageControl.Name = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                HelpPageControl.Dock = DockStyle.Fill;
+                HelpPageControl.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " + Environment.NewLine
                 + "Mauris consequat quam vel ullamcorper varius. Phasellus vulputate quam in fermentum ultricies. " + Environment.NewLine
                 + "Sed consectetur elementum quam at posuere. Nulla sem felis, lobortis vestibulum eros sit amet, dictum " + Environment.NewLine
                 + "dictum ante. Nullam facilisis euismod ligula a egestas. Donec nec diam nulla. Pellentesque pulvinar ut arcu " + Environment.NewLine
@@ -486,8 +410,8 @@ namespace GUI2
                 + "Sed venenatis euismod tortor. Pellentesque vel est ut sem tincidunt dictum vel auctor odio.";
             }
 
-            content1.Title = "Qui somme nous ?";
-            content1.NewPage(AboutPageControl);
+            content1.Title = "Tous va bien, on se calme ;)";
+            content1.NewPage(HelpPageControl);
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)

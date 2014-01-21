@@ -71,7 +71,7 @@
             // iconPictureBox
             // 
             this.iconPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.iconPictureBox.Image = global::GUI2.Properties.Resources.register;
+            //this.iconPictureBox.Image = global::GUI2.Properties.Resources.register;
             this.iconPictureBox.Location = new System.Drawing.Point(61, 15);
             this.iconPictureBox.Name = "iconPictureBox";
             this.iconPictureBox.Size = new System.Drawing.Size(32, 32);

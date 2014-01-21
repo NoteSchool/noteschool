@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Resources;
+using System.Reflection;
 
 namespace GUI2
 {
@@ -27,9 +29,12 @@ namespace GUI2
             } 
         }
 
-        public menuItem()
+        public menuItem(string id="")
         {
             InitializeComponent();
+
+            Id = id;
+            iconPictureBox.Image = getIcon();
 
             iconPictureBox.Click += Item_Click;
             titleLabel.Click += Item_Click;
@@ -44,24 +49,52 @@ namespace GUI2
         {       
             if (sel && !leftBorderLineShape.Visible)
             {
-                this.SuspendLayout();
-                iconPictureBox.Image = global::GUI2.Properties.Resources.registerHover;
+                //this.SuspendLayout();
+
+
+                iconPictureBox.Image = getIcon(true);
                 titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(229)))), ((int)(((byte)(233)))));
 
                 leftBorderLineShape.Visible = true;
                 IsActive = true;
-                this.ResumeLayout();
+                //this.ResumeLayout();
             }
             else if (!sel && leftBorderLineShape.Visible)
             {
-                this.SuspendLayout();
-                iconPictureBox.Image = global::GUI2.Properties.Resources.register;
+                //this.SuspendLayout();
+                iconPictureBox.Image = getIcon();
                 titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(158)))), ((int)(((byte)(174)))));
 
                 leftBorderLineShape.Visible = false;
                 IsActive = false;
-                this.ResumeLayout();
+                //this.ResumeLayout();
             }            
+        }
+
+        private System.Drawing.Bitmap getIcon(bool hover=false)
+        {
+            //default icon
+            System.Drawing.Bitmap icon = global::GUI2.Properties.Resources.register;
+
+             switch (Id)
+                {
+                    case "groups":
+                        icon = !hover ? global::GUI2.Properties.Resources.groups : global::GUI2.Properties.Resources.groupsHover;
+                        break;
+                    case "help":
+                        icon = !hover ? global::GUI2.Properties.Resources.help : global::GUI2.Properties.Resources.helpHover;
+                        break;
+                 case "register":
+                        icon = !hover ? global::GUI2.Properties.Resources.register : global::GUI2.Properties.Resources.registerHover;
+                        break;
+
+                 case "noteEditor":
+                        icon = !hover ? global::GUI2.Properties.Resources.noteEditor : global::GUI2.Properties.Resources.noteEditorHover;
+                        break;
+
+                }
+
+             return icon;
         }
     }
 }

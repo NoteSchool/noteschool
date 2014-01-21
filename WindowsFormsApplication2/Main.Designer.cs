@@ -33,13 +33,13 @@
             this.content1 = new GUI2.content();
             this.SuspendLayout();
             // 
-            // rightMenu1
+            // leftMenu1
             // 
             this.leftMenu1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.leftMenu1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(52)))), ((int)(((byte)(69)))));
             this.leftMenu1.Location = new System.Drawing.Point(0, 51);
-            this.leftMenu1.Name = "rightMenu1";
+            this.leftMenu1.Name = "leftMenu1";
             this.leftMenu1.Size = new System.Drawing.Size(164, 435);
             this.leftMenu1.TabIndex = 1;
             this.leftMenu1.Load += new System.EventHandler(this.rightMenu1_Load);
@@ -59,6 +59,7 @@
             this.content1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.content1.AutoSize = true;
             this.content1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
             this.content1.Location = new System.Drawing.Point(164, 52);
             this.content1.Name = "content1";
@@ -77,10 +78,11 @@
             this.MinimumSize = new System.Drawing.Size(748, 471);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "NoteSchool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
