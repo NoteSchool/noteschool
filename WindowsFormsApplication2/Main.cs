@@ -66,7 +66,7 @@ namespace GUI2
         {
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
             _syncTimer.Elapsed += SyncTimer;
-            _syncTimer.Interval = 500;
+            _syncTimer.Interval = 2000;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
@@ -116,6 +116,10 @@ namespace GUI2
 
                     //c.CurrentGroup = Group;
                 }
+                else
+                {
+                    Helper.dd(":::::LOOP:::::");
+                }
             }
 
 
@@ -144,6 +148,10 @@ namespace GUI2
 
                         Helper.dd("Group added");
                     }
+                }
+                else
+                {
+                    Helper.dd(":::::LOOP:::::");
                 }
             }
 
