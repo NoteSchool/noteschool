@@ -14,84 +14,49 @@ namespace LocalAreaNetwork
 {
     public partial class LAN : ILocalAreaNetwork
     {
-        UdpClient _sendingClient = new UdpClient();
-        /*
-        System.Timers.Timer _syncTimer;
-        IPAddress _multicastadress;
-        static IPAddress dada = IPAddress.Parse("224.0.1.0");
-        IPEndPoint waitingGroupEndPoint = new IPEndPoint(dada, _port);
-        string _multicastAddress;
-        */
-        public LAN()
-        {
-           
-        }
+        UdpClient _sendingGroupClient = new UdpClient();
+        UdpClient _sendingDefaultGroupClient;
 
-        /*
-        private void Timer()
+        public void InitializeSender(Object obj, Object obj2)
         {
-            //Create a new timer
-            _syncTimer = new System.Timers.Timer();
-            _syncTimer.Elapsed += new ElapsedEventHandler(SyncTimer);
+            //create udp sending default client if not existed
+            if (_sendingDefaultGroupClient == null)
+            {
+                _sendingDefaultGroupClient = new UdpClient();
+                _sendingDefaultGroupClient.JoinMulticastGroup(_defaultGroupAddress);
+            }
 
-            //Interval in milliseconds
-            _syncTimer.Interval = 100;
-            _syncTimer.Enabled = true;
-        }
-        */
-
-        public void InitializeSender(string sendingData)
-        {
             try
             {
+                //create an IPEndPoint which contains IP address and port
+                IPEndPoint DefaultEndPoint = new IPEndPoint( _defaultGroupAddress, _defaultport );
+                IPEndPoint EndPoint = new IPEndPoint( _groupAddress, _port );
+
                 //convert string to bytes (needed to be able to send)
-                byte[] data = Encoding.ASCII.GetBytes(sendingData);
+                byte[] data = ObjectToByteArray(obj);
+                byte[] data2 = ObjectToByteArray(obj2);
 
-                //send the data to the multicastgroup
-                _sendingClient.Send( data, data.Length, Sender() );
+                //send byte array to default client
+                _sendingDefaultGroupClient.Send(data2, data2.Length, DefaultEndPoint);
 
+                //send byte array to client
+                _sendingGroupClient.Send( data, data.Length, EndPoint);
             }
-            catch
+            catch (Exception e)
             {
+                Helper.dd("{0} Exception caught. " + e.Message);
             }
         }
-        /*
-        private void teler()
+
+        // Convert an object to a byte array
+        private byte[] ObjectToByteArray(Object obj)
         {
-          
-            string[] groupdata = { "name", "tag" , "address" }; 
-            byte[] array = BitConverter.GetBytes(groupdata);;
-
-            _sendingClient.Send();
-
-            using (MemoryStream stream = new MemoryStream())
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize( stream, objectToSerialize );
-                serializedObject = stream.ToArray();
-            }
-
-        }*/
-                /*
-                //TODO:
-                byte[] _mcaData = Encoding.ASCII.GetBytes("Name" + "tag" + _mca);
-                _sendingClient.Send(_mcaData, _mcaData.Length, waitingGroupEndPoint);
-
-                //send the group's data to the waiting group
-                //need to create an enpoint for the waiting group
-                // 
-            }
-            catch
-            {
-            }
-        }
-                 * */
-        private IPEndPoint Sender()
-        {
-            //create an IPEndPoint which contains IP address and port
-            IPEndPoint localEndPoint = new IPEndPoint( _multicastAddress, _port );
-
-            return localEndPoint;
+            if (obj == null)
+                return null;
+            BinaryFormatter formatter = new BinaryFormatter();
+            MemoryStream stream = new MemoryStream();
+            formatter.Serialize(stream, obj);
+            return stream.ToArray();
         }
     }
 }

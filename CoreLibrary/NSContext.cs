@@ -14,22 +14,29 @@ namespace CoreLibrary
         [NonSerialized]
         NSContextServices _services;
 
-        readonly Dictionary<string, Group> _groups;
+        Dictionary<string, Group> _groups;
         readonly Dictionary<string, User> _users;
         readonly Dictionary<string, Note> _notes;
 
         private User _currentUser;
+
+        [NonSerialized]
         private Group _currentGroup;
 
+        //TODO group list to add
+        private Group _listgroup;
+
         readonly Dictionary<string, List<string>> _userListPerGroup;
-        string _sendingData;
+
+        [NonSerialized]
+        private string _currentMca;
 
         public NSContext()
         {
             _groups = new Dictionary<string, Group>();
             _users = new Dictionary<string, User>();
             _notes = new Dictionary<string, Note>();
-            _userListPerGroup = new Dictionary<string,List<string>>();
+            _userListPerGroup = new Dictionary<string, List<string>>();
         }
 
         public NSContextServices Services
@@ -41,9 +48,31 @@ namespace CoreLibrary
             }
         }
 
-        public Group CurrentGroup { get { return _currentGroup; } set { _currentGroup = value; } }
+        public Group CurrentGroup 
+        { 
+            get { return _currentGroup; } 
+            set 
+            {
+                //currentGroup was set before AND currentGroup is different than that one
+                if (_currentGroup != null && _currentGroup.MulticastAddress != value.MulticastAddress)
+                {
+                    Helper.dd("group " + _currentGroup.Name + "(" + _currentGroup.MulticastAddress + ") was leave");
+                    LeaveGroup(_currentGroup.MulticastAddress);
+                }
+
+                //currentGroup no set yet OR currentGroup is not that one
+                if (_currentGroup == null || _currentGroup.MulticastAddress != value.MulticastAddress)
+                {
+                    Helper.dd("group " + value.Name + "(" + value.MulticastAddress + ") was join");
+                    JoinGroup(value.MulticastAddress);
+                }
+                _currentGroup = value; 
+            } 
+        }
         public User CurrentUser { get { return _currentUser; } set { _currentUser = value; } }
-        public Dictionary<string, Group> Groups { get { return _groups; } }
+        public Group ListGroup { get { return _listgroup; } }
+
+        public Dictionary<string, Group> Groups { get { return _groups; } set { _groups = value; } }
         public Dictionary<string, User> Users { get { return _users; } }
         public Dictionary<string, Note> Notes { get { return _notes; } }
 
@@ -53,37 +82,66 @@ namespace CoreLibrary
             _services = services;
         }
 
+        //NEED TO FIX _groups key is a multicast address
         public Group FindOrCreateGroup( string name, string tag, string multicastAddress, out bool created )
         {
             if (String.IsNullOrWhiteSpace( name )) throw new ArgumentException( "Must be a non empty string", "name" );
+
             created = false;
-            bool existed = false;
-            Group g;
-            if (!_groups.TryGetValue( name, out g ))
+            Group g = null;
+
+            //_groups looking for a multicast address;
+            if (!_groups.TryGetValue(multicastAddress, out g))
             {
-                while (!created)
+                g = new Group( this, name, tag, multicastAddress );
+                _groups.Add( multicastAddress, g );
+                created = true;
+            }
+
+            return g;
+        }
+
+        public Group CreateGroupFromPacket(GroupFullPacket group)
+        {
+            bool created;
+            var g = FindOrCreateGroup(group.Name, group.Tag, group.MulticastAddress, out created);
+
+            if (created)
+            {
+                g.Notes = group.Notes;
+                g.Users = group.Users;
+            }
+            else //merge user and notes
+            {
+                group.Users.ToList().ForEach(x => g.Users[x.Key] = x.Value);
+    
+                foreach (var v in group.Notes)
                 {
-                    foreach (var group in _groups)
+                    //update
+                    if (g.Notes.ContainsKey(v.Key))
                     {
-                        if (multicastAddress == group.Value.MulticastAddress)
+                        //different date ?
+                        if (g.Notes[v.Key].EditedAt < v.Value.EditedAt)
                         {
-                            existed = true;
+                            g.Notes[v.Key].Text = v.Value.Text;
+                            g.NoteEditedAt = DateTime.Now;
                         }
                     }
-                    if (!existed)
+                    else //add
                     {
-                        g = new Group( this, name, tag, multicastAddress );
-                        _groups.Add(multicastAddress, g);
-                        created = true;
-                    }
-                    else
-                    {
-                        multicastAddress = SetMulticastAddress();
-                        existed = false;
+                        g.Notes.Add(v.Key, v.Value);
+                        g.NoteEditedAt = DateTime.Now;
                     }
                 }
             }
+
             return g;
+        }
+
+        public Group CreateGroupFromPacket(GroupLightPacket group)
+        {
+            bool created;
+            return FindOrCreateGroup(group.Name, group.Tag, group.MulticastAddress, out created);
         }
 
         public User CreateUser( string firstName, string lastName )
@@ -91,28 +149,14 @@ namespace CoreLibrary
             if (String.IsNullOrWhiteSpace( firstName )) throw new ArgumentException( "Must be a non empty string", "firstName" );
             if (String.IsNullOrWhiteSpace( lastName )) throw new ArgumentException( "Must be a non empty string", "lastName" );
 
-            User u = new User( this, firstName, lastName);
+            User u = new User( this, firstName, lastName );
 
             _users.Add( u.Id, u );
 
             return u;
         }
-        /*
-        public Group CreateGroup(string name, bool autoNumbering = true )
-        {
-            if (String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Must be a non empty string", "name");
-            string candidateName = name;
-            int candidateSuffixNumber = 0;
-            while( _groups.ContainsKey(candidateName) )
-            {
-                candidateName = String.Format("{0} ({1})", name, ++candidateSuffixNumber);
-            }
-            var g = new Group(this, candidateName );
-            _groups.Add(candidateName, g);
-            return g;
-        }
-        */
-        public Group FindGroup( string id)
+
+        public Group FindGroup( string id )
         {
             Group g;
             _groups.TryGetValue( id, out g );
@@ -130,17 +174,39 @@ namespace CoreLibrary
             c.Initialize( services );
             return c;
         }
-        public string Receiver()
+
+        public void Receiver()
         {
-            return Services.Lan.InitializeReceiver();
+            Services.Lan.InitializeReceiver();
         }
-        public void JoinGroup(string mca = "224.0.1.0")
+        public void Sender()
         {
-            Services.Lan.JoinGroup(mca);
+            if (CurrentGroup != null)
+            {
+                Helper.dd(CurrentGroup.Name + " was send");
+                Services.Lan.InitializeSender( CurrentGroup.ToTransportable(), 
+                    CurrentGroup.ToTransportable(true));
+            }
         }
-        public void LeaveGroup( string mca = "224.0.1.0" )
+        public void JoinGroup( string mca )
+        {
+            if (_currentMca != mca)
+            {
+                _currentMca = mca;
+                Services.Lan.JoinGroup(mca);
+            }
+        }
+        public void LeaveGroup( string mca )
         {
             Services.Lan.LeaveGroup( mca );
+        }
+        public Object ReceivedData()
+        {
+            return Services.Lan.DefaultGroupData();
+        }
+        public Object GroupData()
+        {
+            return Services.Lan.GroupData();
         }
 
         /// <summary>
@@ -159,25 +225,6 @@ namespace CoreLibrary
             string _multicastAddress = _1stByte + "." + _2ndByte + "." + _3rdByte + "." + _4thByte;
 
             return _multicastAddress;
-        }
-        public void Timer(string sendingData)
-        {
-            System.Timers.Timer _syncTimer;
-
-            //Create a new timer
-            _syncTimer = new System.Timers.Timer();
-            _syncTimer.Elapsed += SyncTimer;
-
-            //Interval in milliseconds
-            _syncTimer.Interval = 100;
-            _syncTimer.Enabled = true;
-
-            _sendingData = sendingData;
-
-        }  
-        private void SyncTimer( object sender, ElapsedEventArgs e )
-        {
-            Services.Lan.InitializeSender(_sendingData);
         }
     }
 }
