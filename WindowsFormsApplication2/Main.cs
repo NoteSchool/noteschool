@@ -59,25 +59,31 @@ namespace GUI2
                 }
             };
 
-            Timer();
+            SendTimer();
+            ReceiveTimer();
         }
 
-        public void Timer()
+        public void SendTimer()
         {
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
-            _syncTimer.Elapsed += SyncTimer;
-            _syncTimer.Interval = 2000;
+            _syncTimer.Elapsed += SendSyncTimer;
+            _syncTimer.Interval = 3000;
+            _syncTimer.Enabled = true;
+            _syncTimer.Start();
+        }
+        public void ReceiveTimer()
+        {
+            System.Timers.Timer _syncTimer = new System.Timers.Timer();
+            _syncTimer.Elapsed += ReceiveSyncTimer;
+            _syncTimer.Interval = 500;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
 
-        private void SyncTimer(object sender, ElapsedEventArgs e)
+        private void ReceiveSyncTimer( object sender, ElapsedEventArgs e )
         {
-            Helper.dd("Timer firing -------------------------------------------");
+            Helper.dd( "Receive Timer firing -------------------------------------------" );
             if (c == null) return;
-
-            //send current group to others
-            c.Sender();
 
             /* +----------------------------------------+
              * |    NOTES                               |
@@ -88,17 +94,17 @@ namespace GUI2
 
             if (notesReceived != null)
             {
-                Helper.dd("Full Group received");
+                Helper.dd( "Full Group received" );
 
                 CoreLibrary.GroupFullPacket group = (CoreLibrary.GroupFullPacket)notesReceived;
 
                 if (group.user != c.CurrentUser.Id)
                 {
-                    CoreLibrary.Group Group = c.CreateGroupFromPacket(group);
+                    CoreLibrary.Group Group = c.CreateGroupFromPacket( group );
 
-                    Helper.dd(group.Name);
+                    Helper.dd( group.Name );
 
-                    if (NoteEditorControl2.WatchUserId != null && group.Notes.ContainsKey(NoteEditorControl2.WatchUserId)
+                    if (NoteEditorControl2.WatchUserId != null && group.Notes.ContainsKey( NoteEditorControl2.WatchUserId )
                         //&& group.Notes[NoteEditorControl2.WatchUserId].EditedAt > c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].EditedAt
                         //&& group.Notes[NoteEditorControl2.WatchUserId].Text != c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].Text
                     )
@@ -106,7 +112,7 @@ namespace GUI2
                         NoteEditorControl2.WatchUserNote = group.Notes[NoteEditorControl2.WatchUserId].Text;
 
                     }
-                    Helper.dd(Group.Notes.Count.ToString());
+                    Helper.dd( Group.Notes.Count.ToString() );
                     //notes count has changed
                     if (c.CurrentGroup.Notes.Count != group.Notes.Count)
                         NoteEditorControl2.Group = c.CurrentGroup;
@@ -118,11 +124,9 @@ namespace GUI2
                 }
                 else
                 {
-                    Helper.dd(":::::LOOP:::::");
+                    Helper.dd( ":::::LOOP:::::" );
                 }
             }
-
-
             /* +----------------------------------------+
              * |    GROUP                               |
              * |    group just created in the current   |
@@ -133,30 +137,39 @@ namespace GUI2
 
             if (receiveData != null)
             {
-                Helper.dd("Light Group received");
+                Helper.dd( "Light Group received" );
 
                 CoreLibrary.GroupLightPacket group = (CoreLibrary.GroupLightPacket)receiveData;
 
                 if (group.user != c.CurrentUser.Id)
                 {
-                    Helper.dd(group.Name);
+                    Helper.dd( group.Name );
 
-                    if (!c.Groups.ContainsKey(group.MulticastAddress))
+                    if (!c.Groups.ContainsKey( group.MulticastAddress ))
                     {
-                        c.CreateGroupFromPacket(group);
-                        GroupsPageControl.CreateGroupButtons(c.Groups);
+                        c.CreateGroupFromPacket( group );
+                        GroupsPageControl.CreateGroupButtons( c.Groups );
 
-                        Helper.dd("Group added");
+                        Helper.dd( "Group added" );
                     }
                 }
                 else
                 {
-                    Helper.dd(":::::LOOP:::::");
+                    Helper.dd( ":::::LOOP:::::" );
                 }
             }
 
-            if( notesReceived == null && receiveData == null)
-                Helper.dd("No data received");
+            if (notesReceived == null && receiveData == null)
+                Helper.dd( "No data received" );
+        }
+
+        private void SendSyncTimer(object sender, ElapsedEventArgs e)
+        {
+            Helper.dd("Send Timer firing -------------------------------------------");
+            if (c == null) return;
+
+            //send current group to others
+            c.Sender();
         }
         private void content1_Load(object sender, EventArgs e)
         {
