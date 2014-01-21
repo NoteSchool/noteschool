@@ -67,6 +67,9 @@ namespace LocalAreaNetwork
             {
                 try
                 {
+                    _receivingGroupClient.MulticastLoopback = false;
+                    _receivingDefaultGroupClient.MulticastLoopback = false;
+
                     IPEndPoint TemporaryEndPoint = new IPEndPoint( IPAddress.Any, _port );
                     IPEndPoint TemporaryDefaultEndPoint = new IPEndPoint( IPAddress.Any, _defaultport );
 
