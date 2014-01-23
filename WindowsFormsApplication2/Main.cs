@@ -62,7 +62,6 @@ namespace GUI2
             SendTimer();
             ReceiveTimer();
         }
-
         public void SendTimer()
         {
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
@@ -148,7 +147,7 @@ namespace GUI2
             /*if (notesReceived == null && receiveData == null)
                 Helper.dd( "No data received" );*/
         }
-
+        
         private void SendSyncTimer(object sender, ElapsedEventArgs e)
         {
             //Helper.dd("Send Timer firing -------------------------------------------");
@@ -157,6 +156,7 @@ namespace GUI2
             //send current group to others
             c.Sender();
         }
+        
         private void content1_Load(object sender, EventArgs e)
         {
             if (!LoggedIn) { RegisterPage(); }
@@ -166,7 +166,7 @@ namespace GUI2
         private void header_Load(object sender, EventArgs e)
         {
             header header = sender as header;
-            header.UsernameText = LoggedIn ? c.CurrentUser.FirstName : "Bienvenue";
+            header.UsernameText = LoggedIn ? "Bienvenue " + c.CurrentUser.FirstName : "Bienvenue";
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -251,7 +251,7 @@ namespace GUI2
 
             GroupsPageControl.CreateGroupButtons(c.Groups);
 
-            content1.Title = "Choisissez votre classe de travail";
+            content1.Title = "Choisissez votre groupe de travail";
             content1.NewPage(GroupsPageControl);
 
         }
@@ -313,23 +313,23 @@ namespace GUI2
                             c.Initialize(cs);
                             c.CurrentUser = c.CreateUser(results[0], results[1]);
                             c.Save();
-                            c.Receiver();
 
-                            header1.UsernameText = c.CurrentUser.FirstName;
+                            header1.UsernameText = "Bienvenue " + c.CurrentUser.FirstName;
                             leftMenu1.RemoveItem(leftMenu1.SelectedItem);
                             leftMenu1.SelectedItem = leftMenu1.Controls[0] as menuItem;
                             leftMenu1.SelectedItem.IsDisabled = false;
 
                             GroupsPage();
+                            c.Receiver();
                         }
                         else
                         {
-                            MessageBox.Show("Les champs doivent être remplis et avec des characteres normals");
+                            MessageBox.Show("Tous les champs doivent être remplis avec des caractères normaux");
                         }
                     };
             }
 
-            content1.Title = "Identifiez-vous pour accéder au savoir !";
+            content1.Title = "Rejoignez nous pour accéder au savoir !";
             content1.NewPage(RegisterPageControl);
         }
 
@@ -392,7 +392,7 @@ namespace GUI2
 
 
             this.leftMenu1.SelectedItem.Text = group.Name;
-            this.header1.textItemLabel.Text = " " + group.Name + " ::: " + string.Format("{0:m}", group.createdAt) + " ::: " + (group.Users.Count - 1) + " participants";
+            this.header1.textItemLabel.Text = " " + group.Name + " - " + string.Format("{0:m}", group.createdAt) + " - " + (group.Users.Count - 1) + " participant(s)";
             this.header1.textItemLabel.Visible = true;
 
             this.Controls.Add(NoteEditorControl);

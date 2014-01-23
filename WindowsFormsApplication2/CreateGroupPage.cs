@@ -38,7 +38,7 @@ namespace GUI2
         private void CreateGroupPage_Load(object sender, EventArgs e)
         {
             this.inputNLabel1.LabelText = "Titre";
-            this.inputNLabel2.LabelText = "Tag";
+            this.inputNLabel2.LabelText = "Mots clés";
         }
     }
 }

@@ -101,7 +101,7 @@ namespace GUI2
                     btn.AutoSize = true;
                     //btn.Text = "Name :" + group.Value.Name + "\r\nTag :" + group.Value.Tag + "\r\n" + group.Value.MulticastAddress;
                     btn.Click += BtnEvent;
-                    btn.Text = ":::: "+group.Value.Name + "\r\n#" + group.Value.Tag+"\r\n"+date;
+                    btn.Text = group.Value.Name + "\r\n#" + group.Value.Tag+"\r\n"+date;
                     btn.TextAlign = ContentAlignment.MiddleLeft;
                     
 

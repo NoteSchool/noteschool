@@ -42,7 +42,7 @@ namespace GUI2
 
             page.inputNLabel1.LabelText = "Prénom";
             page.inputNLabel2.LabelText = "Nom";
-            page.button1.Text = "Enregistrer";
+            page.button1.Text = "Rejoindre";
 
         }
 

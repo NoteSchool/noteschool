@@ -32,9 +32,6 @@ namespace LocalAreaNetwork
                 IPEndPoint DefaultEndPoint = new IPEndPoint( _defaultGroupAddress, _defaultport );
                 IPEndPoint EndPoint = new IPEndPoint( _groupAddress, _port );
 
-                //_sendingGroupClient.MulticastLoopback = false;
-                //_sendingDefaultGroupClient.MulticastLoopback = false;
-
                 //convert string to bytes (needed to be able to send)
                 byte[] data = ObjectToByteArray(obj);
                 byte[] data2 = ObjectToByteArray(obj2);

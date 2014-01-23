@@ -61,7 +61,7 @@
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(110, 32);
             this.saveButton.TabIndex = 2;
-            this.saveButton.Text = "Enregistrer";
+            this.saveButton.Text = "Ajouter\r\n";
             this.saveButton.UseVisualStyleBackColor = false;
             this.saveButton.Click += new System.EventHandler(this.button1_Click);
             // 

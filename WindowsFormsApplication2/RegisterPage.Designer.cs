@@ -42,7 +42,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(166, 175);
+            this.button1.Location = new System.Drawing.Point(98, 175);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 32);
             this.button1.TabIndex = 2;
@@ -92,8 +92,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.inputNLabel2);
             this.Controls.Add(this.inputNLabel1);
+            this.Controls.Add(this.inputNLabel2);
             this.Controls.Add(this.shapeContainer1);
             this.Name = "RegisterPage";
             this.Size = new System.Drawing.Size(344, 401);

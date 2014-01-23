@@ -63,21 +63,16 @@ namespace LocalAreaNetwork
 
             _receiverStatus = true;
 
-            byte[] _defaultGroupDataBytes;
             byte[] _groupDataBytes;
-            IPEndPoint TemporaryEndPoint = new IPEndPoint(IPAddress.Any, _port);
-            IPEndPoint TemporaryDefaultEndPoint = new IPEndPoint(IPAddress.Any, _defaultport);
-
-            _receivingGroupClient.MulticastLoopback = false;
-            _receivingDefaultGroupClient.MulticastLoopback = false;
+            byte[] _defaultGroupDataBytes;
 
             while (_receiverStatus)
             {
                 try
                 {
                     if (_groupAddress != null)
-                    {                      
-                        _groupDataBytes = _receivingGroupClient.Receive(ref EndPoint);                      
+                    {
+                        _groupDataBytes = _receivingGroupClient.Receive( ref EndPoint );                      
                         _groupData = ByteArrayToObject(_groupDataBytes);
                     }
 
@@ -86,7 +81,7 @@ namespace LocalAreaNetwork
                 }
                 catch (Exception e)
                 {
-                    //Console.WriteLine( "{0} Exception caught.", e );
+                    Console.WriteLine( "{0} Exception caught.", e );
                 }
             }
         }
