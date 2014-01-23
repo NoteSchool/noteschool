@@ -59,10 +59,15 @@ namespace GUI2
             //update users Dict for right menu
             //update textbox text by Note field
             set 
-            { 
-                Users = value.Users; 
+            {
+                if( Users != value.Users)
+                    Users = value.Users; 
+
                 _group = value;
-                Note = value.Notes[UserId].Text;
+
+
+                
+                //Note = value.Notes[UserId].Text;
             }
             get { return _group; }
         }
