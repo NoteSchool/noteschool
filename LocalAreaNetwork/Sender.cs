@@ -23,6 +23,7 @@ namespace LocalAreaNetwork
             if (_sendingDefaultGroupClient == null)
             {
                 _sendingDefaultGroupClient = new UdpClient();
+                //_sendingDefaultGroupClient.Client.ReceiveBufferSize = 4096*16;
                 _sendingDefaultGroupClient.JoinMulticastGroup(_defaultGroupAddress);
             }
 
@@ -56,7 +57,8 @@ namespace LocalAreaNetwork
             BinaryFormatter formatter = new BinaryFormatter();
             MemoryStream stream = new MemoryStream();
             formatter.Serialize(stream, obj);
-            return stream.ToArray();
+            return Helper.Zip(stream.ToArray());
+            //return stream.ToArray();
         }
     }
 }

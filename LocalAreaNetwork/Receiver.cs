@@ -112,8 +112,9 @@ namespace LocalAreaNetwork
         }
 
         // Convert a byte array to an Object
-        private Object ByteArrayToObject( byte[] arrBytes )
+        private Object ByteArrayToObject( byte[] arrBytesZipped )
         {
+            byte[] arrBytes = Helper.Unzip(arrBytesZipped);
             MemoryStream memStream = new MemoryStream();
             BinaryFormatter binForm = new BinaryFormatter();
             memStream.Write( arrBytes, 0, arrBytes.Length );
