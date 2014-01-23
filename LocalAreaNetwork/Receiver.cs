@@ -77,8 +77,7 @@ namespace LocalAreaNetwork
                 {
                     if (_groupAddress != null)
                     {                      
-                        _groupDataBytes = _receivingGroupClient.Receive(ref EndPoint);
-                        
+                        _groupDataBytes = _receivingGroupClient.Receive(ref EndPoint);                      
                         _groupData = ByteArrayToObject(_groupDataBytes);
                     }
 
@@ -87,7 +86,7 @@ namespace LocalAreaNetwork
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine( "{0} Exception caught.", e );
+                    //Console.WriteLine( "{0} Exception caught.", e );
                 }
             }
         }

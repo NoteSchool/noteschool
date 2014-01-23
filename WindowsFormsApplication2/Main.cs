@@ -67,7 +67,7 @@ namespace GUI2
         {
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
             _syncTimer.Elapsed += SendSyncTimer;
-            _syncTimer.Interval = 1000;
+            _syncTimer.Interval = 5000;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
@@ -75,7 +75,7 @@ namespace GUI2
         {
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
             _syncTimer.Elapsed += ReceiveSyncTimer;
-            _syncTimer.Interval = 100;
+            _syncTimer.Interval = 1000;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
@@ -98,8 +98,6 @@ namespace GUI2
 
                 CoreLibrary.GroupFullPacket group = (CoreLibrary.GroupFullPacket)notesReceived;
 
-                if (group.user != c.CurrentUser.Id)
-                {
                     CoreLibrary.Group Group = c.CreateGroupFromPacket( group );
 
                     Helper.dd( group.Name );
@@ -121,11 +119,6 @@ namespace GUI2
                         NoteEditorControl2.Users = Group.Users;
 
                     //c.CurrentGroup = Group;
-                }
-                else
-                {
-                    Helper.dd( ":::::LOOP:::::" );
-                }
             }
             /* +----------------------------------------+
              * |    GROUP                               |
@@ -141,8 +134,6 @@ namespace GUI2
 
                 CoreLibrary.GroupLightPacket group = (CoreLibrary.GroupLightPacket)receiveData;
 
-                if (group.user != c.CurrentUser.Id)
-                {
                     Helper.dd( group.Name );
 
                     if (!c.Groups.ContainsKey( group.MulticastAddress ))
@@ -152,11 +143,6 @@ namespace GUI2
 
                         Helper.dd( "Group added" );
                     }
-                }
-                else
-                {
-                    Helper.dd( ":::::LOOP:::::" );
-                }
             }
 
             /*if (notesReceived == null && receiveData == null)
