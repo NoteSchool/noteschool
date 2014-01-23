@@ -111,11 +111,14 @@ namespace GUI2
                     }
                     Helper.dd( Group.Notes.Count.ToString() );
                     //notes count has changed
-                    if (c.CurrentGroup.Notes.Count != group.Notes.Count)
+                    if (c.CurrentGroup.Notes.Count < group.Notes.Count)
+                    {
                         NoteEditorControl2.Group = c.CurrentGroup;
+                        c.CurrentGroup = Group;
+                    }
 
-                    if (group.Users.Count != NoteEditorControl2.Users.Count)
-                        NoteEditorControl2.Users = Group.Users;
+                    /*if (group.Users.Count > NoteEditorControl2.Users.Count)
+                        NoteEditorControl2.Users = Group.Users;*/
 
                     //c.CurrentGroup = Group;
             }
