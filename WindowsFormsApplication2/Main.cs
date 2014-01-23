@@ -96,25 +96,19 @@ namespace GUI2
                 Helper.dd( "Full Group received" );
 
                 CoreLibrary.GroupFullPacket group = (CoreLibrary.GroupFullPacket)notesReceived;
-
-                    CoreLibrary.Group Group = c.CreateGroupFromPacket( group );
+                    
+                    bool updated = false;
+                    CoreLibrary.Group Group = c.CreateGroupFromPacket( group, out updated );
 
                     Helper.dd( group.Name );
 
-                    if (NoteEditorControl2.WatchUserId != null && group.Notes.ContainsKey( NoteEditorControl2.WatchUserId )
-                        //&& group.Notes[NoteEditorControl2.WatchUserId].EditedAt > c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].EditedAt
-                        //&& group.Notes[NoteEditorControl2.WatchUserId].Text != c.CurrentGroup.Notes[NoteEditorControl2.WatchUserId].Text
-                    )
-                    {
-                        NoteEditorControl2.WatchUserNote = group.Notes[NoteEditorControl2.WatchUserId].Text;
 
-                    }
                     Helper.dd( Group.Notes.Count.ToString() );
                     //notes count has changed
-                    if (c.CurrentGroup.Notes.Count < group.Notes.Count)
+                    if (updated)
                     {
-                        NoteEditorControl2.Group = c.CurrentGroup;
-                        c.CurrentGroup = Group;
+                        //NoteEditorControl2.Group = c.CurrentGroup;
+                        NoteEditorControl2.UpdateMe();
                     }
 
                     /*if (group.Users.Count > NoteEditorControl2.Users.Count)
@@ -384,13 +378,14 @@ namespace GUI2
             /*if( group.Notes.Count == 1)
               DummyUsers(group);*/
 
-            group.ReInialize(c);
+            //group.ReInialize(c);
             group.CreateNote();
             c.CurrentGroup = group;
 
 
             //textbox will be setted
             //group.Users[c.CurrentUser.Id] = c.CurrentUser;
+            this.NoteEditorControl2.Reset();
             this.NoteEditorControl2.Group = group;
 
 

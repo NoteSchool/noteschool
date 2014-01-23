@@ -101,15 +101,16 @@ namespace CoreLibrary
             return g;
         }
 
-        public Group CreateGroupFromPacket(GroupFullPacket group)
+        public Group CreateGroupFromPacket(GroupFullPacket group, out bool updated)
         {
             bool created;
             var g = FindOrCreateGroup(group.Name, group.Tag, group.MulticastAddress, out created);
-
+            updated = false;
             if (created)
             {
                 g.Notes = group.Notes;
                 g.Users = group.Users;
+                updated = true;
             }
             else //merge user and notes
             {
@@ -125,12 +126,14 @@ namespace CoreLibrary
                         {
                             g.Notes[v.Key].Text = v.Value.Text;
                             g.NoteEditedAt = DateTime.Now;
+                            updated = true;
                         }
                     }
                     else //add
                     {
                         g.Notes.Add(v.Key, v.Value);
                         g.NoteEditedAt = DateTime.Now;
+                        updated = true;
                     }
                 }
             }

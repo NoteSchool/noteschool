@@ -60,7 +60,8 @@ namespace LocalAreaNetwork
             //bind the client (need to be able to receive)
             _receivingDefaultGroupClient.Client.Bind( DefaultEndPoint );
             _receivingGroupClient.Client.Bind( EndPoint );
-
+            _receivingGroupClient.MulticastLoopback = false;
+            _receivingDefaultGroupClient.MulticastLoopback = false;
             _receiverStatus = true;
 
             byte[] _groupDataBytes;
@@ -68,8 +69,8 @@ namespace LocalAreaNetwork
 
             while (_receiverStatus)
             {
-                try
-                {
+                //try
+                //{
                     if (_groupAddress != null)
                     {
                         _groupDataBytes = _receivingGroupClient.Receive( ref EndPoint );                      
@@ -78,11 +79,11 @@ namespace LocalAreaNetwork
 
                     _defaultGroupDataBytes = _receivingDefaultGroupClient.Receive( ref DefaultEndPoint );
                     _defaultGroupData = ByteArrayToObject( _defaultGroupDataBytes );
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine( "{0} Exception caught.", e );
-                }
+                //}
+                //catch (Exception e)
+                //{
+                    //Console.WriteLine( "{0} Exception caught.", e );
+                //}
             }
         }
 

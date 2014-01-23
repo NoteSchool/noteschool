@@ -57,7 +57,7 @@ namespace GUI2
 
         internal void BuildList(Dictionary<string, CoreLibrary.User> users, string keyword = "")
         {
-            if (users != null)
+            if (users != null && users.Count > 0)
             {
                 List<NoteEditorListItem> items = new List<NoteEditorListItem>();
                 bool match;
@@ -65,7 +65,7 @@ namespace GUI2
                 foreach (var u in users)
                 {
                     match = string.IsNullOrEmpty(keyword) ? true :
-                        Regex.IsMatch(u.Value.FirstName+u.Value.LastName, keyword, RegexOptions.IgnoreCase);
+                        Regex.IsMatch(u.Value.FirstName + u.Value.LastName, keyword, RegexOptions.IgnoreCase);
 
                     if (match)
                     {
@@ -74,6 +74,10 @@ namespace GUI2
                 }
 
                 InsertItems(items);
+            }
+            else
+            {
+                this.itemContainerPanel.Controls.Clear();
             }
         }
 

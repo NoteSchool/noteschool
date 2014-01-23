@@ -135,6 +135,30 @@ namespace GUI2
                 };
         }
 
+        public void Reset()
+        {
+            WatchUserNote = "";
+            WatchUserId = "";
+            Keyword = "";
+            _buildUserList(null);
+            _users = null;
+        }
+
+        public void UpdateMe()
+        {
+            if (WatchUserId != null && _group.Notes.ContainsKey(WatchUserId)
+                //&& group.Notes[WatchUserId].EditedAt > c.CurrentGroup.Notes[WatchUserId].EditedAt
+                //&& group.Notes[WatchUserId].Text != c.CurrentGroup.Notes[WatchUserId].Text
+            )
+            {
+                WatchUserNote = _group.Notes[WatchUserId].Text;
+            }
+
+            _buildUserList(_users.Where(i => i.Key != UserId)
+                    .ToDictionary(i => i.Key, i => i.Value)
+                   );
+        }
+
         void _setFriendNote(string msg)
         {
             friendNoteTextBox.Text = msg;
