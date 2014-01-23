@@ -392,7 +392,7 @@ namespace GUI2
 
 
             this.leftMenu1.SelectedItem.Text = group.Name;
-            this.header1.textItemLabel.Text = " " + group.Name + " - " + string.Format("{0:m}", group.createdAt) + " - " + (group.Users.Count - 1) + " participant(s)";
+            this.header1.textItemLabel.Text = " " + group.Name + " - " + string.Format("{0:m}", group.createdAt) + " - " + (group.Users.Count) + " participant(s)";
             this.header1.textItemLabel.Visible = true;
 
             this.Controls.Add(NoteEditorControl);
