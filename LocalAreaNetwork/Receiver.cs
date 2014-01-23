@@ -54,31 +54,35 @@ namespace LocalAreaNetwork
         private void Receiver()
         {
             //create an IPEndPoint which contains IP address and port
-            IPEndPoint EndPoint = new IPEndPoint( IPAddress.Any, _port );
+            IPEndPoint EndPoint = new IPEndPoint(IPAddress.Any, _port);
             IPEndPoint DefaultEndPoint = new IPEndPoint( IPAddress.Any, _defaultport );
-
+            
             //bind the client (need to be able to receive)
             _receivingDefaultGroupClient.Client.Bind( DefaultEndPoint );
             _receivingGroupClient.Client.Bind( EndPoint );
 
             _receiverStatus = true;
 
+            byte[] _defaultGroupDataBytes;
+            byte[] _groupDataBytes;
+            IPEndPoint TemporaryEndPoint = new IPEndPoint(IPAddress.Any, _port);
+            IPEndPoint TemporaryDefaultEndPoint = new IPEndPoint(IPAddress.Any, _defaultport);
+
+            _receivingGroupClient.MulticastLoopback = false;
+            _receivingDefaultGroupClient.MulticastLoopback = false;
+
             while (_receiverStatus)
             {
                 try
                 {
-                   // _receivingGroupClient.MulticastLoopback = false;
-                    //_receivingDefaultGroupClient.MulticastLoopback = false;
+                    if (_groupAddress != null)
+                    {                      
+                        _groupDataBytes = _receivingGroupClient.Receive(ref EndPoint);
+                        
+                        _groupData = ByteArrayToObject(_groupDataBytes);
+                    }
 
-                    IPEndPoint TemporaryEndPoint = new IPEndPoint( IPAddress.Any, _port );
-                    IPEndPoint TemporaryDefaultEndPoint = new IPEndPoint( IPAddress.Any, _defaultport );
-
-                    //receive object bytes array
-                    byte[] _groupDataBytes = _receivingGroupClient.Receive( ref EndPoint );
-                    byte[] _defaultGroupDataBytes = _receivingDefaultGroupClient.Receive( ref DefaultEndPoint );
-
-                    //Convert object bytes array to object
-                    _groupData = ByteArrayToObject( _groupDataBytes );
+                    _defaultGroupDataBytes = _receivingDefaultGroupClient.Receive( ref DefaultEndPoint );
                     _defaultGroupData = ByteArrayToObject( _defaultGroupDataBytes );
                 }
                 catch (Exception e)

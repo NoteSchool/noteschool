@@ -67,7 +67,7 @@ namespace GUI2
         {
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
             _syncTimer.Elapsed += SendSyncTimer;
-            _syncTimer.Interval = 3000;
+            _syncTimer.Interval = 1000;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
@@ -75,14 +75,14 @@ namespace GUI2
         {
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
             _syncTimer.Elapsed += ReceiveSyncTimer;
-            _syncTimer.Interval = 500;
+            _syncTimer.Interval = 100;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
 
         private void ReceiveSyncTimer( object sender, ElapsedEventArgs e )
         {
-            Helper.dd( "Receive Timer firing -------------------------------------------" );
+            //Helper.dd( "Receive Timer firing -------------------------------------------" );
             if (c == null) return;
 
             /* +----------------------------------------+
@@ -159,13 +159,13 @@ namespace GUI2
                 }
             }
 
-            if (notesReceived == null && receiveData == null)
-                Helper.dd( "No data received" );
+            /*if (notesReceived == null && receiveData == null)
+                Helper.dd( "No data received" );*/
         }
 
         private void SendSyncTimer(object sender, ElapsedEventArgs e)
         {
-            Helper.dd("Send Timer firing -------------------------------------------");
+            //Helper.dd("Send Timer firing -------------------------------------------");
             if (c == null) return;
 
             //send current group to others
