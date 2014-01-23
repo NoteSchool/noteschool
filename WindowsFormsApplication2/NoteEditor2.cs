@@ -43,7 +43,9 @@ namespace GUI2
         {
             set
             {
-                _buildUserList(value);
+                _buildUserList(value.Where(i => i.Key != UserId)
+                    .ToDictionary(i => i.Key, i => i.Value)
+                   );
 
                 _users = value;          
             }
@@ -63,10 +65,7 @@ namespace GUI2
                 if( Users != value.Users)
                     Users = value.Users; 
 
-                _group = value;
-
-
-                
+                _group = value;                
                 //Note = value.Notes[UserId].Text;
             }
             get { return _group; }
@@ -107,7 +106,7 @@ namespace GUI2
                     _users.Where(i => i.Key != UserId)
                     .ToDictionary(i => i.Key, i => i.Value)
                    , textBox.Text);
-                    };
+                 };
 
             noteTextBox.GotFocus += (s, e) =>
             {
