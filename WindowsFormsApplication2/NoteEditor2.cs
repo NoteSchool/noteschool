@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace GUI2
 {
@@ -80,6 +81,11 @@ namespace GUI2
                 {
                     TextBox textBox = s as TextBox;
 
+                    using (StreamWriter writer = new StreamWriter("note.ns", false))
+                    {
+                        writer.WriteLine(textBox.Text);
+                    }
+
                     Group.Notes[UserId].Text = textBox.Text;
                     Group.Notes[UserId].EditedAt = DateTime.Now;
                 };
@@ -101,7 +107,6 @@ namespace GUI2
                 {
                     var textBox = s as TextBox;
 
-                    //DoSearch();
                     noteEditorList1.BuildList(
                     _users.Where(i => i.Key != UserId)
                     .ToDictionary(i => i.Key, i => i.Value)
@@ -135,13 +140,24 @@ namespace GUI2
                 };
         }
 
-        public void Reset()
+        public void Reset(DateTime date)
         {
             WatchUserNote = "";
             WatchUserId = "";
             Keyword = "";
             _buildUserList(null);
             _users = null;
+            ViewType(1);
+            
+            
+            using (StreamWriter writer = new StreamWriter("note.ns", false))
+            {
+                writer.WriteLine("");
+            }
+
+            System.IO.FileInfo file1 = new System.IO.FileInfo("note.ns");
+            file1.LastWriteTime = date;
+
         }
 
         public void UpdateMe()

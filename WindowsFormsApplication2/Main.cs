@@ -84,6 +84,7 @@ namespace GUI2
             //Helper.dd( "Receive Timer firing -------------------------------------------" );
             if (c == null) return;
 
+
             /* +----------------------------------------+
              * |    NOTES                               |
              * |    List of the current group notes     |
@@ -385,7 +386,7 @@ namespace GUI2
 
             //textbox will be setted
             //group.Users[c.CurrentUser.Id] = c.CurrentUser;
-            this.NoteEditorControl2.Reset();
+            this.NoteEditorControl2.Reset(group.Notes[c.CurrentUser.Id].EditedAt);
             this.NoteEditorControl2.Group = group;
 
 

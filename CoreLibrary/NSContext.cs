@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -115,17 +116,20 @@ namespace CoreLibrary
             else //merge user and notes
             {
                 group.Users.ToList().ForEach(x => g.Users[x.Key] = x.Value);
-    
+                int compare;
+
                 foreach (var v in group.Notes)
                 {
                     //update
                     if (g.Notes.ContainsKey(v.Key))
                     {
                         //different date ?
-                        if (g.Notes[v.Key].EditedAt < v.Value.EditedAt)
+                        compare = DateTime.Compare(g.Notes[v.Key].EditedAt, v.Value.EditedAt);
+                        if ( compare < 0)
                         {
                             g.Notes[v.Key].Text = v.Value.Text;
-                            g.NoteEditedAt = DateTime.Now;
+                            //g.NoteEditedAt = DateTime.Now;
+                            g.NoteEditedAt = v.Value.EditedAt;
                             updated = true;
                         }
                     }
@@ -186,6 +190,16 @@ namespace CoreLibrary
         {
             if (CurrentGroup != null)
             {
+
+                if (File.Exists("note.ns"))
+                {
+                    System.IO.FileInfo file1 = new System.IO.FileInfo("note.ns");
+                    if (DateTime.Compare(CurrentGroup.Notes[CurrentUser.Id].EditedAt, file1.LastWriteTime) < 0)
+                    {
+                        CurrentGroup.Notes[CurrentUser.Id].Text = File.ReadAllText("note.ns");
+                    }
+                }
+
                 Helper.dd(CurrentGroup.Name + " was send");
                 Services.Lan.InitializeSender( CurrentGroup.ToTransportable(), 
                     CurrentGroup.ToTransportable(true));

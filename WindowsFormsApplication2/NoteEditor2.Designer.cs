@@ -182,7 +182,7 @@
 
         #endregion
 
-        private NoteEditorList noteEditorList1;
+        public NoteEditorList noteEditorList1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         public System.Windows.Forms.TextBox noteTextBox;
         private System.Windows.Forms.Panel friendContainerPanel;
