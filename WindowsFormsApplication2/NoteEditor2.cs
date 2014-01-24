@@ -67,7 +67,7 @@ namespace GUI2
                     Users = value.Users; 
 
                 _group = value;                
-                //Note = value.Notes[UserId].Text;
+                Note = value.Notes[UserId].Text;
             }
             get { return _group; }
         }

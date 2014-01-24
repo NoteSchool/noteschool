@@ -66,7 +66,7 @@ namespace GUI2
         {
             System.Timers.Timer _syncTimer = new System.Timers.Timer();
             _syncTimer.Elapsed += SendSyncTimer;
-            _syncTimer.Interval = 5000;
+            _syncTimer.Interval = 3000;
             _syncTimer.Enabled = true;
             _syncTimer.Start();
         }
@@ -434,36 +434,6 @@ namespace GUI2
                     e.Cancel = true;
                 }
             }
-        }
-
-        private void DummyUsers(CoreLibrary.Group group)
-        {
-            string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
-            "Sed tristique ipsum in massa viverra, sed laoreet dui dignissim. Fusce " +
-              "  vestibulum, mi a suscipit tempor, augue nisi pellentesque odio, quis " +
-           " tincidunt nulla orci vel tortor. Pellentesque at laoreet sem, at consectetur" +
-           " ligula. Vestibulum id quam id magna bibendum dignissim. Quisque sollicitudin" +
-           " lorem et dui ultrices fringilla. Curabitur aliquam dui a porttitor tristique." +
-           " Nullam in sagittis felis. Proin vestibulum iaculis nunc, at porttitor nisi dapibus" +
-           " ac. Aliquam auctor felis libero, ac consequat ligula vehicula eget. Sed sit amet bibendum justo." +
-"Cras libero lacus, pulvinar et posuere ac, congue vel eros. Vivamus laoreet orci ac dolor pretium venenatis. " +
-    "Morbi semper feugiat lectus, quis porttitor nulla aliquet eget. Nunc sit amet condimentum ante. In mattis at " +
-       " ante non imperdiet. Sed lacus odio, euismod vitae dictum eu, adipiscing eu urna. Nam dignissim leo sem, ut " +
-        "    commodo magna laoreet consequat. Quisque at ipsum nunc.";
-
-            //MessageBox.Show("test");
-
-            CoreLibrary.User user;
-            Random rnd = new Random();
-
-            for (int i = 0; i < 10; i++)
-            {
-                user = c.CreateUser("André" + i, "Paul" + i);
-                group.Users.Add(user.Id, user);
-                group.Notes.Add(user.Id, Note.GetNote(text.Substring(rnd.Next(10, text.Length))));
-            }
-
-            //Helper.dd("test");
         }
     }
 }

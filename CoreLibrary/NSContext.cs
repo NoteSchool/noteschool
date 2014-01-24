@@ -172,6 +172,21 @@ namespace CoreLibrary
 
         public void Save()
         {
+            if (CurrentGroup != null)
+            {
+                if (File.Exists("note.ns"))
+                {
+                    System.IO.FileInfo file1 = new System.IO.FileInfo("note.ns");
+                    if (DateTime.Compare(CurrentGroup.Notes[CurrentUser.Id].EditedAt, file1.LastWriteTime) > 0)
+                    {
+                        CurrentGroup.Notes[CurrentUser.Id].Text = File.ReadAllText("note.ns");
+                    }
+                }
+
+                _groups[_currentGroup.MulticastAddress] = CurrentGroup;
+            }
+
+            
             Services.Repository.Save( this );
         }
 
@@ -194,7 +209,7 @@ namespace CoreLibrary
                 if (File.Exists("note.ns"))
                 {
                     System.IO.FileInfo file1 = new System.IO.FileInfo("note.ns");
-                    if (DateTime.Compare(CurrentGroup.Notes[CurrentUser.Id].EditedAt, file1.LastWriteTime) < 0)
+                    if (DateTime.Compare(CurrentGroup.Notes[CurrentUser.Id].EditedAt, file1.LastWriteTime) > 0)
                     {
                         CurrentGroup.Notes[CurrentUser.Id].Text = File.ReadAllText("note.ns");
                     }
